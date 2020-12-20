@@ -18,6 +18,10 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
 	}
 	
+	private function getYMD(){
+		return Date('y')."-".Date('m')."-".Date('d');
+	}
+	
 	private function checkItemInCart($email,$idProduct){
 		$stmt = $this->db->prepare("SELECT Email,IdProdotto,Quantita FROM ProdottoCarrello WHERE Email = ? and IdProduct = ?");
         $stmt->bind_param("si", $email, $idProduct);
@@ -53,7 +57,7 @@ class DatabaseHelper{
 	}
 	
 	public function visualizeProduct($email,$idProduct){
-		return $this->$db->query("INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES ($idProduct,$email,".Date(‘d/m/y’).")");
+		return $this->$db->query("INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES ($idProduct,$email,".getYMD().")");
 	}
 	
 	public function updateCard($email,$cardNumber,$expDate,$cvv){
@@ -78,13 +82,18 @@ class DatabaseHelper{
 	
 	public function addOrder($email) {
 		$tmp = checkEmail($email);
-		if (tmp[0]["NumeroCarta"] != NULL && tmp[0]["DataScadenza"] != NULL && tmp[0]["CvvCarta"] != NULL && ...Noitem) {
-			$this->$db->query("INSERT INTO Ordine (Email,DataOrdine) VALUES ($email,)");
-		} else {
-			return false;
+		if (tmp[0]["NumeroCarta"] != NULL && tmp[0]["DataScadenza"] != NULL && tmp[0]["CvvCarta"] != NULL) {
+			$productList = $this->$db->query("SELECT prodottocarrello.IdProdotto,Quantita,Costo FROM ProdottoCarrello,Prodotto WHERE Email = $email AND ProdottoCarrello.IdProdotto = Prodotto.IdProdotto"));
+			if (mysqli_num_rows($productList)>0){
+				$this->$db->query("INSERT INTO Ordine (Email,DataOrdine) VALUES ($email,".getYMD().")"); //Add order
+				$idOrdine = $this->$db->query("SELECT MAX(IdOrdine) FROM Ordine WHERE Email = $email")[0]['MAX(IdOrdine)']; // find IdOrdine
+				foreach ($productList as $product) {
+					$this->$db->query("INSERT INTO ProdottoAquistato VALUES (".$product['IdProdotto'].",".$idOrdine.",".$product['Costo'].",".$product['Quantita'])];	//add ProdottoAquisto
+				}
+				$this->$db->query("DELETE FROM ProdottoCarrello WHERE Email = $email");	//Delete Carrello
+				return true;
+			}
 		}
+		return false;
 	}
-
-}
-
 ?>
