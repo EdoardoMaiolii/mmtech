@@ -1,32 +1,27 @@
-<?php 
-$host = 'localhost'; 
-$user = 'root';
-$pass = '';
-$database   = 'progettowebax';
-$db = new mysqli($host, $user, $pass, $database);
+<?php
+require_once 'bootstrap.php';
 
-if ($db->connect_error) {
-    die("Connection failed: " . $db->connect_error);
+if(isset($_POST["username"]) && isset($_POST["password"])){
+    $login_result = $dbh->checkLogin($_POST["username"], $_POST["password"]);
+    if(count($login_result)==0){
+        //Login fallito
+        $templateParams["errorelogin"] = "Errore! Controllare username o password!";
+    }
+    else{
+        registerLoggedUser($login_result[0]);
+    }
 }
 
-if (!isset($_POST["username"]) || !isset($_POST["password"])) {
-    die("Must enter both A and B parameters!");
+if(isUserLoggedIn()){
+    $templateParams["title"] = "Home - ".$_SESSION['name'];
+    $templateParams["content"] = "home.php";
+    $templateParams["header"] = "headerLogged.php";
+}
+else{
+    $templateParams["title"] = "Login";
+    $templateParams["content"] = "login-form.php";
+    $templateParams["header"] = "headerUnlogged.php";
 }
 
-$username = $_POST["username"];
-$password = $_POST["password"];
-echo($username);
-echo($password);
-$query = $db->prepare("SELECT * FROM Iscritto where username=? and password=?");
-$query->bind_param("ss",$username,$password);
-$query->execute();
-$result = $query->get_result();
-echo ($result->num_rows);
-if ($result->num_rows > 0) {
-	header("Location: HomeLogged.html");
-}
-else {
-	die("MARONNE NON E' COSI' LA PASSWARD");
-}
-$db->close();
+require 'template/base.php';
 ?>

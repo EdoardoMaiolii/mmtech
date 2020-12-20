@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="content" description="Home M&M">
+    <meta name="keywords" description="Home,M&M,shop,cpu,gpu">
+    <title>Login Page</title>
+    <!-- <link href="style.css" rel="stylesheet" type="text/css" /> -->
+</head>
+
+<body style="background-color: green">
+    <header>
+        <img id="barrette" src="img/BarretteMenu.png">
+        <a href="HomeUnlogged.html"><img id="logo" src="img/Logo.png" /></a>
+        <input type="text" id="searchbar">
+        <a href="login.html"><img id="loginBtn" src="img/loginButton.png" /></a>
+    </header>
+    <main>
+        <section>
+            <form action="login.php" method="post">
+                <h2>Login</h2>
+                <ul>
+                    <li>
+                        <label for="username">Username: </label><input type="text" id="username" name="username" />
+                    </li>
+                    <li>
+                        <label for="password">Password: </label><input type="password" id="password" name="password" />
+                    </li>
+                    <li>
+                        <input type="submit" name="submit" value="Invia" />
+                    </li>
+                </ul>
+            </form>
+            <p> Se non sei ancora iscritto puoi iscriverti <a href="register.html"> cliccando qui </a> </p>
+        </section>
+    </main>
+    <footer>
+        <table>
+            <tr>
+                <th type="row"> Sede </th>
+                <td> Via del Freijlord, 4
+                    Runeterra (RT)</td>
+            </tr>
+            <tr>
+                <th type="row"> Contattaci </th>
+                <td> assistenza@mandm.com</td>
+                <td rowspan="2"><img src="img/Logo.png" /></td>
+            </tr>
+        </table>
+    </footer>
+</body>
+
+</html>
