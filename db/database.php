@@ -31,8 +31,8 @@ class DatabaseHelper{
 	}
 	
 	public function register($email,$nome,$password,$cardNumber=NULL,$expDate=NULL,$cvv=NULL){
-		if (checkEmail($email)->num_rows==1)
-			return $this->$db->query("INSERT INTO Utente VALUES ($email,$nome,$password,$cardNumber,$expDate,$cvv)");
+		if ($this->checkEmail($email)->num_rows==1)
+			return $this->db->query("INSERT INTO Utente VALUES ($email,$nome,$password,$cardNumber,$expDate,$cvv)");
 		else
 			return false;
 	}
@@ -46,22 +46,22 @@ class DatabaseHelper{
     }
 	
 	public function addItemToCart($email,$idProduct,$quantity){
-		$tmp = checkItemInCart($email,$idProduct);
+		$tmp = $this->checkItemInCart($email,$idProduct);
 		if (empty($tmp)){
-			return $this->$db->query("INSERT INTO ProdottoCarrello VALUES ($email,$idProduct,$quantity)");
+			return $this->db->query("INSERT INTO ProdottoCarrello VALUES ($email,$idProduct,$quantity)");
 		}
 		else {
-			$newQuantity = $quantity + tmp[0]['Quantita'];
-			return $this->$db->query("UPDATE ProdottoCarrello SET Quantita = $newQuantity WHERE Email = $email, IdProdotto = $idProduct");
+			$newQuantity = $quantity + $tmp[0]['Quantita'];
+			return $this->db->query("UPDATE ProdottoCarrello SET Quantita = $newQuantity WHERE Email = $email, IdProdotto = $idProduct");
 		}
 	}
 	
 	public function visualizeProduct($email,$idProduct){
-		return $this->$db->query("INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES ($idProduct,$email,".getYMD().")");
+		return $this->db->query("INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES ($idProduct,$email,".$this->getYMD().")");
 	}
 	
 	public function updateCard($email,$cardNumber,$expDate,$cvv){
-		return $this->$db->query("UPDATE Utente SET NumeroCarta = $cardNumber, DataScadenza = $expDate, CvvCarta = $cvv WHERE Email = $email");
+		return $this->db->query("UPDATE Utente SET NumeroCarta = $cardNumber, DataScadenza = $expDate, CvvCarta = $cvv WHERE Email = $email");
 	}
 	
 	public function getProductsByCategory($nameCategory){
@@ -81,19 +81,19 @@ class DatabaseHelper{
 	}
 	
 	public function addOrder($email) {
-		$tmp = checkEmail($email);
-		if (tmp[0]["NumeroCarta"] != NULL && tmp[0]["DataScadenza"] != NULL && tmp[0]["CvvCarta"] != NULL) {
-			$productList = $this->$db->query("SELECT prodottocarrello.IdProdotto,Quantita,Costo FROM ProdottoCarrello,Prodotto WHERE Email = $email AND ProdottoCarrello.IdProdotto = Prodotto.IdProdotto"));
+		$tmp = $this->checkEmail($email);
+		if ($tmp[0]["NumeroCarta"] != NULL && $tmp[0]["DataScadenza"] != NULL && $tmp[0]["CvvCarta"] != NULL) {
+			$productList = $this->db->query("SELECT prodottocarrello.IdProdotto,Quantita,Costo FROM ProdottoCarrello,Prodotto WHERE Email = $email AND ProdottoCarrello.IdProdotto = Prodotto.IdProdotto");
 			if (mysqli_num_rows($productList)>0){
-				$this->$db->query("INSERT INTO Ordine (Email,DataOrdine) VALUES ($email,".getYMD().")"); //Add order
-				$idOrdine = $this->$db->query("SELECT MAX(IdOrdine) FROM Ordine WHERE Email = $email")[0]['MAX(IdOrdine)']; // find IdOrdine
+				$this->db->query("INSERT INTO Ordine (Email,DataOrdine) VALUES ($email,".$this->getYMD().")"); //Add order
+				$idOrdine = $this->db->query("SELECT MAX(IdOrdine) FROM Ordine WHERE Email = $email")[0]['MAX(IdOrdine)']; // find IdOrdine
 				foreach ($productList as $product) {
-					$this->$db->query("INSERT INTO ProdottoAquistato VALUES (".$product['IdProdotto'].",".$idOrdine.",".$product['Costo'].",".$product['Quantita'])];	//add ProdottoAquisto
+					$this->db->query("INSERT INTO ProdottoAquistato VALUES (".$product['IdProdotto'].",".$idOrdine.",".$product['Costo'].",".$product['Quantita']);	//add ProdottoAquisto
 				}
-				$this->$db->query("DELETE FROM ProdottoCarrello WHERE Email = $email");	//Delete Carrello
+				$this->db->query("DELETE FROM ProdottoCarrello WHERE Email = $email");	//Delete Carrello
 				return true;
 			}
 		}
 		return false;
-	}
+	}}
 ?>

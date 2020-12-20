@@ -13,5 +13,5 @@
             </li>
         </ul>
     </form>
-    <p> Se non sei ancora iscritto puoi iscriverti <a href="register-form.php"> cliccando qui </a> </p>
+    <p> Se non sei ancora iscritto puoi iscriverti <a href="register.php"> cliccando qui </a> </p>
 </section>

@@ -18,7 +18,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <header class="py-3 bg-$blue-500">
+                <header class="py-3 bg-primary">
                     <?php
                     if (isset($templateParams["header"])) {
                         require($templateParams["header"]);
@@ -36,7 +36,7 @@
         </main>
         <div class="row">
             <div class="col-12">
-                <footer class="py-3 bg-$blue-500">
+                <footer class="py-3 bg-primary">
                     <table>
                         <tr>
                             <th type="row"> Sede </th>
@@ -46,7 +46,7 @@
                         <tr>
                             <th type="row"> Contattaci </th>
                             <td> assistenza@mandm.com</td>
-                            <td rowspan="2"><img src="img/Logo.png" /></td>
+                            <td rowspan="2"><img src="<?php echo UPLOAD_DIR."Logo.png"; ?>" /></td>
                         </tr>
                     </table>
                 </footer>
