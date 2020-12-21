@@ -6,19 +6,18 @@
     <meta charset="utf-8" />
     <meta name="content" description="Home M&M" />
     <meta name="keywords" description="Home,M&M,shop,cpu,gpu" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <!-- <link href="css/style.css" rel="stylesheet" type="text/css" /> -->
     <title> <?php echo $templateParams["title"] ?> </title>
-    <!-- <link href="style.css" rel="stylesheet" type="text/css" /> -->
 </head>
 
 <body class="bg-light">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <header class="py-3 bg-primary">
+    <div class="container-fluid p-0">
+        <div class="row m-0">
+            <div class="col-12 p-0">
+                <header class="p-3 bg-primary">
                     <?php
                     if (isset($templateParams["header"])) {
                         require($templateParams["header"]);
@@ -27,16 +26,20 @@
                 </header>
             </div>
         </div>
-        <main>
-            <?php
-            if (isset($templateParams["content"])) {
-                require($templateParams["content"]);
-            }
-            ?>
-        </main>
-        <div class="row">
-            <div class="col-12">
-                <footer class="py-3 bg-primary">
+        <div class="row m-0">
+            <div class="col-12 p-0">
+                <main>
+                    <?php
+                    if (isset($templateParams["content"])) {
+                        require($templateParams["content"]);
+                    }
+                    ?>
+                </main>
+            </div>
+        </div>
+        <div class="row m-0">
+            <div class="col-12 p-0">
+                <footer class="p-3 bg-primary">
                     <table>
                         <tr>
                             <th type="row"> Sede </th>
@@ -46,7 +49,7 @@
                         <tr>
                             <th type="row"> Contattaci </th>
                             <td> assistenza@mandm.com</td>
-                            <td rowspan="2"><img src="<?php echo UPLOAD_DIR."Logo.png"; ?>" /></td>
+                            <td rowspan="2"><img src="<?php echo MOCKUP_DIR."Logo.png"; ?>" /></td>
                         </tr>
                     </table>
                 </footer>
