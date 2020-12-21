@@ -1,15 +1,15 @@
 <?php
 function registerLoggedUser($user){
-    $_SESSION["Email"] = $user["Email"];
-    $_SESSION["Password"] = $user["Password"];
-	$_SESSION["Nome"] = $user["Nome"];
-	$_SESSION["NumeroCarta"] = $user["NumeroCarta"];
-    $_SESSION["DataScadenza"] = $user["DataScadenza"];
-	$_SESSION["CvvCarta"] = $user["CvvCarta"];
+    $_SESSION["email"] = $user["email"];
+    $_SESSION["password"] = $user["password"];
+	$_SESSION["nome"] = $user["nome"];
+	$_SESSION["numerocarta"] = $user["numerocarta"];
+    $_SESSION["scadenzacarta"] = $user["scadenzacarta"];
+	$_SESSION["cvvcarta"] = $user["cvvcarta"];
 }
 
 function isUserLoggedIn(){
-    return !empty($_SESSION["Email"]);
+    return !empty($_SESSION["email"]);
 }
 
 ?>

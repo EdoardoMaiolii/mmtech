@@ -8,7 +8,7 @@ create table Utente (
      Email VARCHAR(40) PRIMARY KEY,
 	 Nome VARCHAR(40) NOT NULL,
 	 Password VARCHAR(40) NOT NULL,
-     NumeroCarta INT(16),
+     NumeroCarta VARCHAR(16),
      ScadenzaCarta VARCHAR(5),
      CvvCarta INT(3)
      );
@@ -74,14 +74,14 @@ create table Visualizzazione (
      
      
 -- Aggiunta Utente
-INSERT INTO Utente VALUES ('kevinmancini@gmail.com','Kevin','19012000',1234123412341234,"11/2022",456);
-INSERT INTO Utente VALUES ('fabrizio@gmail.com','Fabrizio','fabrizio22',1231111412341234,"05/2024",111);
-INSERT INTO Utente VALUES ('antonietta@gmail.com','Antonietta','anto123',1234123412555534,"12/2025",222);
-INSERT INTO Utente VALUES ('sofia.tronchetti@libero.it','Sofia','soficute',1999923412341234,"11/2021",333);
-INSERT INTO Utente VALUES ('giuseppe@icloud.com','Giuseppe','giusugiu',5594090408856203,"5/2024",244);
-INSERT INTO Utente VALUES ('edoardo.kufi@gmail.com','Edoardo','edo1234',5221448158293277,"2/2026",766);
-INSERT INTO Utente VALUES ('carsen@outlook.com','Carlsen','carlsenStrong',5526724699043272,"5/2022",122);
-INSERT INTO Utente VALUES ('gina@gmail.com','Gina','gina99',5357951018993149,"5/2028",786);
+INSERT INTO Utente VALUES ('kevinmancini@gmail.com','Kevin','19012000','1234123412341234',"11/2022",456);
+INSERT INTO Utente VALUES ('fabrizio@gmail.com','Fabrizio','fabrizio22','1231111412341234',"05/2024",111);
+INSERT INTO Utente VALUES ('antonietta@gmail.com','Antonietta','anto123','1234123412555534',"12/2025",222);
+INSERT INTO Utente VALUES ('sofia.tronchetti@libero.it','Sofia','soficute','1999923412341234',"11/2021",333);
+INSERT INTO Utente VALUES ('giuseppe@icloud.com','Giuseppe','giusugiu','5594090408856203',"5/2024",244);
+INSERT INTO Utente VALUES ('edoardo.kufi@gmail.com','Edoardo','edo1234','5221448158293277',"2/2026",766);
+INSERT INTO Utente VALUES ('carsen@outlook.com','Carlsen','carlsenStrong','5526724699043272',"5/2022",122);
+INSERT INTO Utente VALUES ('gina@gmail.com','Gina','gina99','5357951018993149',"5/2028",786);
 
 -- Aggiunta Categorie
 INSERT INTO Categoria VALUES ('Cpu','cpu.jpg',"Una unità centrale di elaborazione in elettronica e informatica indica  l'unità o sottosistema logico e fisico che sovraintende alle funzionalità logiche di elaborazione principali del computer; in ciò essa si contrappone a tutte le altre unità di elaborazione secondarie presenti nelle architetture hardware dei computer, ovvero le varie schede elettroniche (scheda audio, scheda video, scheda di rete, coprocessore e processore di segnale digitale). Attualmente la cpu è implementata attraverso un microprocessore digitale general purpose, basato tipicamente su un'architettura a registri generali.");

@@ -10,12 +10,12 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     } else {
         //Login riuscito
         $card = $dbh->getCard($_POST["email"]);
-        registerLoggedUser(array_merge($login_result, $card));
+        registerLoggedUser(array_merge($login_result[0], $card[0]));
     }
 }
 
 if (isUserLoggedIn()) {
-    $templateParams["title"] = "Home - " . $_SESSION['name'];
+    $templateParams["title"] = "Home - " . $_SESSION['nome'];
     $templateParams["content"] = "home.php";
     $templateParams["header"] = "headerLogged.php";
     unset($templateParams["errorelogin"]);

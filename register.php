@@ -1,27 +1,19 @@
 <?php
 require_once 'bootstrap.php';
 
-$templateParams["title"] = "Register";
-$templateParams["content"] = "register-form.php";
-$templateParams["header"] = "headerUnlogged.php";
-
-
-
 if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["nome"])) {
-        var_dump($_POST["numerocarta"]);
         $result = $dbh->register(
             $_POST["email"],
             $_POST["nome"],
             $_POST["password"],
-            isset($_POST["numerocarta"]) ? $_POST["numerocarta"] : NULL,
-            isset($_POST["datascadenza"]) ? $_POST["datascadenza"] : NULL,
-            isset($_POST["cvvcarta"]) ? $_POST["cvvcarta"] : NULL
-        );
+            ($_POST["numerocarta"]!="") ? $_POST["numerocarta"] : NULL,
+            ($_POST["datascadenza"]!="") ? $_POST["datascadenza"] : NULL,
+            ($_POST["cvvcarta"]!="") ? $_POST["cvvcarta"] : NULL);
         if ($result){
             //Register riuscito, proseguo con il login
             $login_result = $dbh->checkLogin($_POST["email"], $_POST["password"]);
             $card = $dbh->getCard($_POST["email"]);
-            registerLoggedUser(array_merge($login_result, $card));
+            registerLoggedUser(array_merge($login_result[0], $card[0]));
         } else {
             //Register fallito
             $templateParams["erroreregster"] = "Errore! Email gia\' in uso!";
@@ -29,7 +21,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["nome"])
 }
 
 if (isUserLoggedIn()) {
-    $templateParams["title"] = "Home - " . $_SESSION['name'];
+    $templateParams["title"] = "Home - " . $_SESSION['nome'];
     $templateParams["content"] = "home.php";
     $templateParams["header"] = "headerLogged.php";
     unset($templateParams["errorelogin"]);

@@ -1,6 +1,6 @@
 <section>
     <form action="register.php" method="POST">
-        <h2>Login</h2>
+        <h2>Registrati</h2>
         <ul>
             <?php
             if (isset($templateParams["erroreregister"]))
