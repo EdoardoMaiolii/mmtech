@@ -11,7 +11,7 @@ class DatabaseHelper{
     }
 	
 	private function checkEmail($email) {
-		$stmt = $this->db->prepare("SELECT * FROM utente WHERE email = ?");
+		$stmt = $this->db->prepare("SELECT email,nome,password,numerocarta,scadenzacarta,cvvcarta FROM utente WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -115,7 +115,9 @@ class DatabaseHelper{
 				$idOrdine = $result->fetch_all(MYSQLI_ASSOC)[0]['MAX(idordine)']; // find IdOrdine
 				foreach ($productList as $product) {
 					//manca questo
-					$this->db->query("INSERT INTO prodottoaquistato VALUES (".$product['idprodotto'].",".$idOrdine.",".$product['costo'].",".$product['quantita']);	//add ProdottoAquisto
+					$stmt = $this->db->prepare("INSERT INTO prodottoaquistato VALUES (?,?,?,?");
+					$stmt->bind_param("iidi", $product['idprodotto'],$idOrdine,$product['costo'],$product['quantita']);
+					$stmt->execute();
 				}
 				$stmt = $this->db->prepare("DELETE FROM prodottocarrello WHERE email = ?");
 				$stmt->bind_param("s", $email);
@@ -133,4 +135,18 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
 	}
+
+	public function orderedProducts(){
+        $stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione FROM prodotto,visualizzazione WHERE prodotto.idprodotto = visualizzazione.idprodotto GROUP BY prodotto.idprodotto ORDER BY COUNT(prodotto.idprodotto) DESC ");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    public function chronologyUser($email){
+        $stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione FROM prodotto,visualizzazione WHERE prodotto.idprodotto = visualizzazione.idprodotto AND email = ? GROUP BY prodotto.idprodotto ORDER BY MAX(Data) DESC");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
