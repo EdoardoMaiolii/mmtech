@@ -95,5 +95,13 @@ class DatabaseHelper{
 			}
 		}
 		return false;
-	}}
-?>
+	}
+	
+	public function getCard($email){
+		$stmt = $this->db->prepare("SELECT NumeroCarta,DataScadenza,CvvCarta FROM Utente WHERE Email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+	}
+}
