@@ -48,20 +48,36 @@ class DatabaseHelper{
 	public function addItemToCart($email,$idProduct,$quantity){
 		$tmp = $this->checkItemInCart($email,$idProduct);
 		if (empty($tmp)){
-			return $this->db->query("INSERT INTO prodottocarrello VALUES ($email,$idProduct,$quantity)");
+			$stmt = $this->db->prepare("INSERT INTO prodottocarrello VALUES (?,?,?)");
+			$stmt->bind_param("sii", $email,$idProduct,$quantity);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			return $result->fetch_all(MYSQLI_ASSOC);
 		}
 		else {
 			$newQuantity = $quantity + $tmp[0]['quantita'];
-			return $this->db->query("UPDATE prodottocarrello SET quantita = $newQuantity WHERE email = $email, idprodotto = $idProduct");
+			$stmt = $this->db->prepare("UPDATE prodottocarrello SET quantita = ? WHERE email = ?, idprodotto = ?");
+			$stmt->bind_param("isi", $newQuantity,$email,$idProduct);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			return $result->fetch_all(MYSQLI_ASSOC);
 		}
 	}
 	
 	public function visualizeProduct($email,$idProduct){
-		return $this->db->query("INSERT INTO visualizzazione (idprodotto,email,Data) VALUES ($idProduct,$email,".$this->getYMD().")");
+		$stmt = $this->db->prepare("INSERT INTO visualizzazione (idprodotto,email,Data) VALUES (?,?,".$this->getYMD().")");
+		$stmt->bind_param("is", $idProduct, $email);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		return $result->fetch_all(MYSQLI_ASSOC);
 	}
 	
 	public function updateCard($email,$cardNumber,$expDate,$cvv){
-		return $this->db->query("UPDATE utente SET numerocarta = $cardNumber, scadenzacarta = $expDate, cvvcarta = $cvv WHERE email = $email");
+		$stmt = $this->db->prepare("UPDATE utente SET numerocarta = ?, scadenzacarta = ?, cvvcarta = ? WHERE email = ?");
+		$stmt->bind_param("ssis", $cardNumber, $expDate, $cvv, $email);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		return $result->fetch_all(MYSQLI_ASSOC);
 	}
 	
 	public function getProductsByCategory($nameCategory){
@@ -83,14 +99,27 @@ class DatabaseHelper{
 	public function addOrder($email) {
 		$tmp = $this->checkEmail($email);
 		if ($tmp[0]["numerocarta"] != NULL && $tmp[0]["scadenzacarta"] != NULL && $tmp[0]["cvvcarta"] != NULL) {
-			$productList = $this->db->query("SELECT prodottocarrello.idprodotto,quantita,costo FROM prodottocarrello,prodotto WHERE email = $email AND prodottocarrello.idprodotto = prodotto.idprodotto");
+			$stmt = $this->db->prepare("SELECT prodottocarrello.idprodotto,quantita,costo FROM prodottocarrello,prodotto WHERE email = ? AND prodottocarrello.idprodotto = prodotto.idprodotto");
+			$stmt->bind_param("s", $email);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			$productList = $result->fetch_all(MYSQLI_ASSOC);
 			if (mysqli_num_rows($productList)>0){
-				$this->db->query("INSERT INTO ordine (email,dataordine) VALUES ($email,".$this->getYMD().")"); //Add order
-				$idOrdine = $this->db->query("SELECT MAX(idordine) FROM ordine WHERE email = $email")[0]['MAX(idordine)']; // find IdOrdine
+				$stmt = $this->db->prepare("INSERT INTO ordine (email,dataordine) VALUES (?,".$this->getYMD().")");
+				$stmt->bind_param("s", $email);
+				$stmt->execute();
+				$stmt = $this->db->prepare("SELECT MAX(idordine) FROM ordine WHERE email = ?");
+				$stmt->bind_param("s", $email);
+				$stmt->execute();
+				$result = $stmt->get_result();
+				$idOrdine = $result->fetch_all(MYSQLI_ASSOC)[0]['MAX(idordine)']; // find IdOrdine
 				foreach ($productList as $product) {
+					//manca questo
 					$this->db->query("INSERT INTO prodottoaquistato VALUES (".$product['idprodotto'].",".$idOrdine.",".$product['costo'].",".$product['quantita']);	//add ProdottoAquisto
 				}
-				$this->db->query("DELETE FROM prodottocarrello WHERE email = $email");	//Delete Carrello
+				$stmt = $this->db->prepare("DELETE FROM prodottocarrello WHERE email = ?");
+				$stmt->bind_param("s", $email);
+				$stmt->execute();
 				return true;
 			}
 		}
