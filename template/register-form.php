@@ -1,5 +1,5 @@
 <section>
-    <form action="#" method="POST">
+    <form action="login.php" method="POST">
         <h2>Login</h2>
         <ul>
             <input type="hidden" id="type" name="type" value="Register" />
