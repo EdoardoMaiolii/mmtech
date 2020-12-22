@@ -89,11 +89,17 @@ class DatabaseHelper{
 	}
 	
 	public function searchProducts($str){
-		$stmt = $this->db->prepare("SELECT idprodotto,nomecategoria,nome,costo,costospedizione,nomeimmagine FROM prodotto WHERE nome LIKE \'%?%\' OR nomecategoria LIKE \'%?%\'");
-        $stmt->bind_param("s", $str);
+		$stmt = $this->db->prepare("SELECT idprodotto,nomecategoria,nome,costo,costospedizione,nomeimmagine FROM prodotto");
         $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
+		$result = $stmt->get_result();
+		$result = $result->fetch_all(MYSQLI_ASSOC);
+		$products = array();
+		foreach($result as $product){
+			if(strpos($product["nome"], $str)){
+				array_push($products,$product);
+			}
+		}
+        return $products;
 	}
 	
 	public function addOrder($email) {
