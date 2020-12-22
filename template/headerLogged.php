@@ -2,4 +2,5 @@
 <a href="index.php"><img id="logo" src="<?php echo MOCKUP_DIR."Logo.png"; ?>" /></a>
 <input class="col-md-8" type="text" id="searchbar" />
 <a href="login.php"><img id="loginBtn" src="<?php echo MOCKUP_DIR."ProfileBtn.png"; ?>" /></a>
+<button id="hiddenButton" type="hidden"></button> 
 <a href="shop.php"><img id="cart" src="<?php echo MOCKUP_DIR."shopBtn.png"; ?>" /></a>
