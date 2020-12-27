@@ -11,7 +11,7 @@ if (isUserLoggedIn()) {
     $templateParams["chrono"] = $dbh->chronologyUser($_SESSION['email']);
 } else {
     $templateParams["title"] = "Home";
-    $templateParams["content"] = "Home.php";
+    $templateParams["content"] = "home.php";
     $templateParams["header"] = "headerUnlogged.php";
     $templateParams["mostviewed"] = $dbh->orderedProducts();
 }
