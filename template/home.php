@@ -5,7 +5,7 @@
             <h2> <?php echo $product['nome']; ?> </h2>
             <img src="<?php echo UPLOAD_DIR.$product["nomeimmagine"]; ?>" alt="" />
             <form action="addtocart.php" method="GET">
-                <input type = "hidden" id="idprodotto" name="idprodotto" value = <?php $product["idprodotto"]?> />
+                <input type = "hidden" id="idprodotto" name="idprodotto" value = <?php echo $product["idprodotto"]?> />
                 <button type ="submit">Aggiungi al Carrello</button>
             </form>
         </article> 

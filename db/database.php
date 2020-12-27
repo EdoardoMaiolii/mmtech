@@ -31,8 +31,8 @@ class DatabaseHelper{
 	}
 	
 	private function checkProductAvailability($idProduct){
-		$stmt = $this->db->prepare("SELECT quantita FROM prodotto WHERE disponibile = true and idproduct = ?");
-        $stmt->bind_param("si", $email, $idProduct);
+		$stmt = $this->db->prepare("SELECT nome FROM prodotto WHERE disponibile = true and idprodotto = ?");
+        $stmt->bind_param("i",$idProduct);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -56,21 +56,20 @@ class DatabaseHelper{
 	public function addItemToCart($email,$idProduct,$quantity){
 		$tmp1 = $this->checkItemInCart($email,$idProduct);
 		$tmp2 = $this->checkProductAvailability($idProduct);
-		if (empty($tmp1) && empty($tmp2)){
-			$stmt = $this->db->prepare("INSERT INTO prodottocarrello VALUES (?,?,?)");
-			$stmt->bind_param("sii", $email,$idProduct,$quantity);
-			$stmt->execute();
-			$result = $stmt->get_result();
-			return $result->fetch_all(MYSQLI_ASSOC);
-		}
-		else {
-			$newQuantity = $quantity + $tmp1[0]['quantita'];
-			$stmt = $this->db->prepare("UPDATE prodottocarrello SET quantita = ? WHERE email = ?, idprodotto = ?");
-			$stmt->bind_param("isi", $newQuantity,$email,$idProduct);
-			$stmt->execute();
-			$result = $stmt->get_result();
-			return $result->fetch_all(MYSQLI_ASSOC);
-		}
+		if(!empty($tmp2))
+			if (empty($tmp1)){
+				$stmt = $this->db->prepare("INSERT INTO prodottocarrello VALUES (?,?,?)");
+				$stmt->bind_param("sii", $email,$idProduct,$quantity);
+				$stmt->execute();
+				return $stmt->get_result();
+			}
+			else {
+				$newQuantity = $quantity + $tmp1[0]['quantita'];
+				$stmt = $this->db->prepare("UPDATE prodottocarrello SET quantita = ? WHERE email = ? AND idprodotto = ?");
+				$stmt->bind_param("isi", $newQuantity,$email,$idProduct);
+				$stmt->execute();
+				return $stmt->get_result();
+			}
 	}
 	
 	public function visualizeProduct($email,$idProduct){
