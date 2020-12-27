@@ -7,7 +7,7 @@
 
     <?php
     if (isset($templateParams["profile-section"])) {
-        require("profile-section" . $templateParams["profile-section"] . "php");
+        require("profile-section" . $templateParams["profile-section"] . ".php");
     }
     ?>
 </nav>

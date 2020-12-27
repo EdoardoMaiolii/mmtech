@@ -2,9 +2,8 @@
 require_once("bootstrap.php");
 
 if (isUserLoggedIn()) {
-    echo 'profile';
     $templateParams["title"] = "Profilo -" . $_SESSION['nome'];
-    $templateParams["content"] = "profilo.php";
+    $templateParams["content"] = "profile.php";
     $templateParams["header"] = "headerLogged.php";
     if (isset($_GET["profile-section"])) {
         $templateParams["profile-section"] = $_GET["profile-section"];
@@ -13,6 +12,13 @@ if (isUserLoggedIn()) {
     }
     unset($templateParams["errorelogin"]);
     unset($templateParams["erroreregster"]);
+    $templateParams["orders"] = $dbh->getOrders($_SESSION['email']);
+    $templateParams["products-orders"] = array();
+    $i = 0;
+    foreach ($templateParams["orders"] as $order) {
+        $templateParams["products-orders"][$i] = $dbh->getProductsByOrder($order['idordine']);
+        $i++;
+    }
 } else {
     $templateParams["title"] = "Home";
     $templateParams["content"] = "home.php";

@@ -12,4 +12,9 @@ function isUserLoggedIn(){
     return !empty($_SESSION["email"]);
 }
 
+function logOutUser(){
+    session_unset();
+    session_destroy();
+}
+
 ?>
