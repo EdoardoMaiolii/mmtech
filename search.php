@@ -10,7 +10,14 @@ if (isUserLoggedIn()) {
     $templateParams["title"] = "Home";
     $templateParams["header"] = "headerUnlogged.php";
 }
-$templateParams["content"] = "search-section.php";
-$templateParams["searchproducts"] = $dbh->searchProducts($_GET['searchbar']);
+$searchelem = $_GET['searchbar'];
+if(!empty($searchelem)){
+    $templateParams["content"] = "search-section.php";
+    $templateParams["searchproducts"] = $dbh->searchProducts($_GET['searchbar']);
+}
+else{
+    $templateParams["content"] = "home.php";
+    $templateParams["mostviewed"] = $dbh->orderedProducts();
+}
 require("template/base.php");
 ?>

@@ -21,7 +21,7 @@ if (isUserLoggedIn()) {
     }
 } else {
     $templateParams["title"] = "Home";
-    $templateParams["content"] = "Home.php";
+    $templateParams["content"] = "home.php";
     $templateParams["header"] = "headerUnlogged.php";
     $templateParams["mostviewed"] = $dbh->orderedProducts();
     unset($templateParams["chrono"]);
