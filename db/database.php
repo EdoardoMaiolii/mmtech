@@ -95,7 +95,7 @@ class DatabaseHelper{
 		$result = $result->fetch_all(MYSQLI_ASSOC);
 		$products = array();
 		foreach($result as $product){
-			if(strpos($product["nome"], $str)){
+			if(strpos(strtolower($product["nome"]), strtolower($str)) !== false){
 				array_push($products,$product);
 			}
 		}
@@ -154,5 +154,13 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
-    }
+	}
+		
+	public function getCartProducts($email){
+		$stmt = $this->db->prepare("SELECT prodotto.nome,email,prodottocarrello.idprodotto,quantita,nomeimmagine FROM prodottocarrello,prodotto WHERE prodottocarrello.email = ? and prodottocarrello.idprodotto = prodotto.idprodotto");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+	}
 }
