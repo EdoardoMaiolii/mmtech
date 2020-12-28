@@ -1,6 +1,6 @@
 <?php
 require_once 'bootstrap.php';
-$dbh->addItemToCart($_SESSION['email'],(int)$_GET['idprodotto'],1);
+$dbh->addItemToCart($_SESSION['email'],(int)$_GET['idprodotto'],$_GET['quantita']);
 $templateParams["title"] = "Home";
 $templateParams["content"] = "home.php";
 $templateParams["header"] = "headerLogged.php";

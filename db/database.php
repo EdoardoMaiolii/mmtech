@@ -192,4 +192,19 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
 	}
+	public function checkProduct($productid){
+		$stmt = $this->db->prepare("SELECT idprodotto FROM prodotto WHERE idprodotto = ?");
+        $stmt->bind_param("i", $productid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return !empty($result->fetch_all(MYSQLI_ASSOC));
+	}
+
+	public function getProductById($productid){
+		$stmt = $this->db->prepare("SELECT idprodotto,nomecategoria,nome,costo,costospedizione,nomeimmagine,descrizione FROM prodotto WHERE idprodotto = ?");
+        $stmt->bind_param("i", $productid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+	}
 }

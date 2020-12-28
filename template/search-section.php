@@ -8,7 +8,7 @@
         foreach ($products as $product) : ?>
         <article>
             <h2> <?php echo $product['nome']; ?> </h2>
-            <img src="<?php echo UPLOAD_DIR.$product["nomeimmagine"]; ?>" alt="" />
+            <a href="product.php?productid=<?php echo (int) UPLOAD_DIR.$product["idprodotto"]; ?>"><img src="<?php echo UPLOAD_DIR.$product["nomeimmagine"]; ?>" alt="" /></a>
         </article>
         <?php endforeach; 
     endif;?>
