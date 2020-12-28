@@ -19,7 +19,7 @@ class DatabaseHelper{
 	}
 	
 	private function getYMD(){
-		return Date('y')."-".Date('m')."-".Date('d');
+		return '20'.Date('y')."/".Date('m')."/".Date('d');
 	}
 	
 	private function checkItemInCart($email,$idProduct){
@@ -76,8 +76,7 @@ class DatabaseHelper{
 		$stmt = $this->db->prepare("INSERT INTO visualizzazione (idprodotto,email,Data) VALUES (?,?,".$this->getYMD().")");
 		$stmt->bind_param("is", $idProduct, $email);
 		$stmt->execute();
-		$result = $stmt->get_result();
-		return $result->fetch_all(MYSQLI_ASSOC);
+		return true;
 	}
 	
 	public function updateCard($email,$cardNumber,$expDate,$cvv){
@@ -216,6 +215,12 @@ class DatabaseHelper{
 			$stmt->execute();
 			return true;
 		}
-		return false
+		return false;
+	}
+
+	public function removeProductFromCart($email,$idproduct){
+		$stmt = $this->db->prepare("DELETE FROM prodottocarrello WHERE idprodotto = ? and email = ?");
+        $stmt->bind_param("is", $productid,$email);
+        return $stmt->execute();
 	}
 }
