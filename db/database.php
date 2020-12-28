@@ -192,13 +192,14 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
 	}
+
 	public function checkProduct($productid){
-		$stmt = $this->db->prepare("SELECT idprodotto FROM prodotto WHERE idprodotto = ?");
+        $stmt = $this->db->prepare("SELECT idprodotto FROM prodotto WHERE idprodotto = ?");
         $stmt->bind_param("i", $productid);
         $stmt->execute();
         $result = $stmt->get_result();
         return !empty($result->fetch_all(MYSQLI_ASSOC));
-	}
+    }
 
 	public function getProductById($productid){
 		$stmt = $this->db->prepare("SELECT idprodotto,nomecategoria,nome,costo,costospedizione,nomeimmagine,descrizione FROM prodotto WHERE idprodotto = ?");
@@ -206,5 +207,15 @@ class DatabaseHelper{
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
+	}
+
+	public function modifyUser($oldEmail,$newEmail,$name,$password,$cardNumber,$expDate,$cvv){
+		if (empty($this->checkEmail($newEmail))) {
+			$stmt = $this->db->prepare("UPDATE utente SET email=? , nome =? , password=? , numerocarta=? , scadenzacarta=? , cvvcarta=? WHERE email = ?");
+			$stmt->bind_param("sssssis", $newEmail,$nome,$password,$cardNumber,$expDate,$cvv,$oldEmail);
+			$stmt->execute();
+			return true;
+		}
+		return false
 	}
 }

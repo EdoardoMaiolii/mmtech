@@ -15,6 +15,7 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
     <script src="js/javascript.js" type="text/javascript"></script>
+    <script src="js/profile.js" type="text/javascript"></script>
     <title> <?php echo $templateParams["title"] ?> </title>
 </head>
 
