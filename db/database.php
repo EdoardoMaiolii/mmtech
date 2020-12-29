@@ -197,7 +197,7 @@ class DatabaseHelper{
         $stmt->bind_param("i", $productid);
         $stmt->execute();
         $result = $stmt->get_result();
-        return !empty($result->fetch_all(MYSQLI_ASSOC));
+        return mysqli_num_rows($result->fetch_all(MYSQLI_ASSOC))!=0;
     }
 
 	public function getProductById($productid){
@@ -208,10 +208,10 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
 	}
 
-	public function modifyUser($oldEmail,$newEmail,$name,$password,$cardNumber,$expDate,$cvv){
-		if (empty($this->checkEmail($newEmail))) {
-			$stmt = $this->db->prepare("UPDATE utente SET email=? , nome =? , password=? , numerocarta=? , scadenzacarta=? , cvvcarta=? WHERE email = ?");
-			$stmt->bind_param("sssssis", $newEmail,$nome,$password,$cardNumber,$expDate,$cvv,$oldEmail);
+	public function modifyUser($email,$nome,$password,$cardNumber,$expDate,$cvv){
+		if (count($this->checkEmail($email))==1) {
+			$stmt = $this->db->prepare("UPDATE utente SET nome =? , password=? , numerocarta=? , scadenzacarta=? , cvvcarta=? WHERE email = ?");
+			$stmt->bind_param("ssssis", $nome,$password,$cardNumber,$expDate,$cvv,$email);
 			$stmt->execute();
 			return true;
 		}

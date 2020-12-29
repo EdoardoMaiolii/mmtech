@@ -1,5 +1,5 @@
 <h1>  DATI PERSONALI</h1>
-<form action="modifyProfile.php" method="POST">
+<form action="profile.php" method="POST">
   <label for="profile-email">Email: </label>
   <input type="text" name="profile-email" id="profile-email" value=<?php echo $_SESSION["email"]; ?> disabled> </br>
   <label for="profile-nome">Nome: </label>

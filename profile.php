@@ -2,6 +2,24 @@
 require_once("bootstrap.php");
 
 if (isUserLoggedIn()) {
+    // 1) Modifying the profile
+    if (isset($_POST["profile-email"])){
+        $result = $dbh->modifyUser($_SESSION['email'],
+                                   $_POST['profile-email'],
+                                   $_POST['profile-nome'],
+                                   $_POST['profile-password'],
+                                   $_POST['profile-numerocarta'],
+                                   $_POST['profile-scadenzacarta'],
+                                   $_POST['profile-cvv']);
+        registerLoggedUser(array(
+        "email" =>$_POST['profile-email'],
+        "nome" =>$_POST['profile-nome'],
+        "password" =>$_POST['profile-password'],
+        "numerocarta" =>$_POST['profile-numerocarta'],
+        "scadenzacarta" => $_POST['profile-scadenzacarta'],
+        "cvvcarta" =>$_POST['profile-cvv']));
+    }
+    // 2) Opening profile
     $templateParams["title"] = "Profilo -" . $_SESSION['nome'];
     $templateParams["content"] = "profile.php";
     $templateParams["header"] = "headerLogged.php";
