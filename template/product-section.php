@@ -20,8 +20,11 @@
             <option value="8">8</option>
             <option value="9">9</option>
         </select>
-        <?php if(isUserLoggedIn()):?>
+        <?php if(isUserLoggedIn() && $templateParams["product"]["disponibile"]):?>
         <button type ="submit">Aggiungi al Carrello</button>
+        <?php elseif(!$templateParams["product"]["disponibile"]):?>
+        <button type ="submit" disabled>Aggiungi al Carrello</button>
+        <p>Prodotto non disponibile</p>
         <?php else:?>
         <button type ="submit" disabled>Aggiungi al Carrello</button>
         <p>Per aggiungere al carrello effettua il login</p>

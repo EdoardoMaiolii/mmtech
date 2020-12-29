@@ -201,7 +201,7 @@ class DatabaseHelper{
     }
 
 	public function getProductById($productid){
-		$stmt = $this->db->prepare("SELECT idprodotto,nomecategoria,nome,costo,costospedizione,nomeimmagine,descrizione FROM prodotto WHERE idprodotto = ?");
+		$stmt = $this->db->prepare("SELECT idprodotto,nomecategoria,nome,costo,costospedizione,nomeimmagine,descrizione,disponibile FROM prodotto WHERE idprodotto = ?");
         $stmt->bind_param("i", $productid);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -220,7 +220,14 @@ class DatabaseHelper{
 
 	public function removeProductFromCart($email,$idproduct){
 		$stmt = $this->db->prepare("DELETE FROM prodottocarrello WHERE idprodotto = ? and email = ?");
-        $stmt->bind_param("is", $productid,$email);
-        return $stmt->execute();
+        $stmt->bind_param("is", $idproduct,$email);
+		return $stmt->execute();
+	}
+	
+	public function updateQuantity($quantity,$email,$idProduct){
+		$stmt = $this->db->prepare("UPDATE prodottocarrello SET quantita = ? WHERE email = ? AND idprodotto = ?");
+		$stmt->bind_param("isi", $quantity,$email,$idProduct);
+		$stmt->execute();
+		return $stmt->get_result();
 	}
 }
