@@ -7,7 +7,6 @@ if (isUserLoggedIn()) {
         $templateParams["title"] = "Home";
         $templateParams["content"] = "Home.php";
         $templateParams["header"] = "headerUnlogged.php";
-        $templateParams["categories"] =$dbh->getCategories();
         $templateParams["mostviewed"] = $dbh->orderedProducts();
         unset($templateParams["chrono"]);
     }
@@ -17,7 +16,6 @@ if (isUserLoggedIn()) {
         $templateParams["header"] = "headerLogged.php";
         unset($templateParams["errorelogin"]);
         unset($templateParams["erroreregster"]);
-        $templateParams["categories"] =$dbh->getCategories();
         $templateParams["mostviewed"] = $dbh->orderedProducts();
         $templateParams["chrono"] = $dbh->chronologyUser($_SESSION['email']);
     }
@@ -25,7 +23,6 @@ if (isUserLoggedIn()) {
     $templateParams["title"] = "Home";
     $templateParams["content"] = "home.php";
     $templateParams["header"] = "headerUnlogged.php";
-    $templateParams["categories"] =$dbh->getCategories();
     $templateParams["mostviewed"] = $dbh->orderedProducts();
     unset($templateParams["chrono"]);
 }

@@ -22,7 +22,7 @@
         <a id="closebtn">&times;</a>
         <!-- add dynamic catecoriess -->
         <?php foreach ($templateParams["categories"] as $category) : ?>
-            <a href="#"><?php echo $category["nomecategoria"] ?></a>
+            <a href=<?php echo "search.php?categoria=".$category["nomecategoria"] ?>> <?php echo $category["nomecategoria"] ?></a>
         <?php endforeach; ?>
     </div>
 
