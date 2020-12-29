@@ -17,8 +17,11 @@ if (isUserLoggedIn()) {
         "numerocarta" =>$_POST['profile-numerocarta'],
         "scadenzacarta" => $_POST['profile-scadenzacarta'],
         "cvvcarta" =>$_POST['profile-cvv']));
+    } elseif (isset($_GET['view-ordine'])) { // Visualizzando un ordine
+        $templateParams['order-products'] = $dbh->getProductsByOrder($_GET['view-ordine']);
+        $_GET["profile-section"] = 2;
     }
-    // 2) Opening profile
+    // 2) Opening or Refreshing profile
     $templateParams["title"] = "Profilo -" . $_SESSION['nome'];
     $templateParams["content"] = "profile.php";
     $templateParams["header"] = "headerLogged.php";

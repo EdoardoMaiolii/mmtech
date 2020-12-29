@@ -1,8 +1,5 @@
-
 function switchModify(){
-    alert("HI");
-    if (document.getElementById("profile-nome").disabled==true) {
-        alert("in");
+    if (document.getElementById('profile-nome').disabled==true) {
         document.getElementById('profile-nome').disabled=false;
         document.getElementById('profile-password').disabled=false;
         document.getElementById('profile-numerocarta').disabled=false;

@@ -185,7 +185,7 @@ class DatabaseHelper{
 	}
 
 	public function getProductsByOrder($idorder){
-        $stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,nome,costospedizione,nomeimmagine,prezzoacquisto,quantita,quantitadisponibile FROM prodottoacquistato LEFT JOIN prodotto ON prodottoacquistato.idprodotto = prodotto.idprodotto WHERE idordine = ?");
+        $stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,nome,costospedizione,nomeimmagine,prezzoacquisto,quantita FROM prodottoacquistato LEFT JOIN prodotto ON prodottoacquistato.idprodotto = prodotto.idprodotto WHERE idordine = ?");
         $stmt->bind_param("i", $idorder);
         $stmt->execute();
         $result = $stmt->get_result();
