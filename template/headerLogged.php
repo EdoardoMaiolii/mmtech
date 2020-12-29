@@ -1,4 +1,3 @@
-<img id="barrette" src="<?php echo MOCKUP_DIR."BarretteMenu.png"; ?>" />
 <a href="index.php"><img id="logo" src="<?php echo MOCKUP_DIR."Logo.png"; ?>" /></a>
 <form action="search.php" method="GET">
     <input class="col-md-8" type="text" id="searchbar" name="searchbar" placeholder="Search.." />
