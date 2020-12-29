@@ -31,7 +31,7 @@ class DatabaseHelper{
 	}
 	
 	private function checkProductAvailability($idProduct){
-		$stmt = $this->db->prepare("SELECT nome FROM prodotto WHERE disponibile = true and idprodotto = ?");
+		$stmt = $this->db->prepare("SELECT nome FROM prodotto WHERE quantitadisponibile >0 and idprodotto = ?");
         $stmt->bind_param("i",$idProduct);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -39,7 +39,7 @@ class DatabaseHelper{
 	}
 
 	public function register($email,$nome,$password,$cardNumber=NULL,$expDate=NULL,$cvv=NULL){
-		$stmt = $this->db->prepare("INSERT INTO utente VALUES (?,?,?,?,?,?)");
+		$stmt = $this->db->prepare("INSERT INTO utente VALUES (?,?,?,?,?,?,false)");
         $stmt->bind_param("sssssi", $email,$nome,$password,$cardNumber,$expDate,$cvv);
         $stmt->execute();
         return true;
@@ -80,7 +80,7 @@ class DatabaseHelper{
 	}
 	
 	public function updateCard($email,$cardNumber,$expDate,$cvv){
-		$stmt = $this->db->prepare("UPDATE utente SET numerocarta = ?, scadenzacarta = ?, cvvcarta = ? WHERE email = ?");
+		$stmt = $this->db->prepare("UPDATE utente SET numerocarta = ?, scadenzacarta = ?, cvvcarta = ? WHERE email = ? AND Venditore = false");
 		$stmt->bind_param("ssis", $cardNumber, $expDate, $cvv, $email);
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -117,7 +117,7 @@ class DatabaseHelper{
 			$stmt->execute();
 			$result = $stmt->get_result();
 			$productList = $result->fetch_all(MYSQLI_ASSOC);
-			$stmt = $this->db->prepare("SELECT prodottocarrello.idprodotto,quantita,costo FROM prodottocarrello,prodotto WHERE email = ? AND prodottocarrello.idprodotto = prodotto.idprodotto AND disponibile = false");
+			$stmt = $this->db->prepare("SELECT prodottocarrello.idprodotto,quantita,costo,quantitadisponibile FROM prodottocarrello,prodotto WHERE email = ? AND prodottocarrello.idprodotto = prodotto.idprodotto");
 			$stmt->bind_param("s", $email);
 			$stmt->execute();
 			$result = $stmt->get_result();
@@ -155,13 +155,13 @@ class DatabaseHelper{
 	}
 
 	public function orderedProducts(){
-        $stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.disponibile FROM prodotto LEFT JOIN visualizzazione ON prodotto.idprodotto = visualizzazione.idprodotto GROUP BY prodotto.idprodotto ORDER BY COUNT(prodotto.idprodotto) DESC");
+        $stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile FROM prodotto LEFT JOIN visualizzazione ON prodotto.idprodotto = visualizzazione.idprodotto GROUP BY prodotto.idprodotto ORDER BY COUNT(prodotto.idprodotto) DESC");
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
     public function chronologyUser($email){
-        $stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.disponibile FROM prodotto,visualizzazione WHERE prodotto.idprodotto = visualizzazione.idprodotto AND email = ? GROUP BY prodotto.idprodotto ORDER BY MAX(Data) DESC");
+        $stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile FROM prodotto,visualizzazione WHERE prodotto.idprodotto = visualizzazione.idprodotto AND email = ? GROUP BY prodotto.idprodotto ORDER BY MAX(Data) DESC");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -169,7 +169,7 @@ class DatabaseHelper{
 	}
 		
 	public function getCartProducts($email){
-		$stmt = $this->db->prepare("SELECT prodotto.nome,prodottocarrello.idprodotto,quantita,nomeimmagine,disponibile FROM prodottocarrello,prodotto WHERE prodottocarrello.email = ? and prodottocarrello.idprodotto = prodotto.idprodotto");
+		$stmt = $this->db->prepare("SELECT prodotto.nome,prodottocarrello.idprodotto,quantita,nomeimmagine,quantitadisponibile FROM prodottocarrello,prodotto WHERE prodottocarrello.email = ? and prodottocarrello.idprodotto = prodotto.idprodotto");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -185,7 +185,7 @@ class DatabaseHelper{
 	}
 
 	public function getProductsByOrder($idorder){
-        $stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,nome,costospedizione,nomeimmagine,prezzoacquisto,quantita,disponibile FROM prodottoacquistato LEFT JOIN prodotto ON prodottoacquistato.idprodotto = prodotto.idprodotto WHERE idordine = ?");
+        $stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,nome,costospedizione,nomeimmagine,prezzoacquisto,quantita,quantitadisponibile FROM prodottoacquistato LEFT JOIN prodotto ON prodottoacquistato.idprodotto = prodotto.idprodotto WHERE idordine = ?");
         $stmt->bind_param("i", $idorder);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -197,7 +197,7 @@ class DatabaseHelper{
         $stmt->bind_param("i", $productid);
         $stmt->execute();
         $result = $stmt->get_result();
-        return mysqli_num_rows($result->fetch_all(MYSQLI_ASSOC))!=0;
+        return count($result->fetch_all(MYSQLI_ASSOC))!=0;
     }
 
 	public function getProductById($productid){
