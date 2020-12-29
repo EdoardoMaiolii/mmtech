@@ -201,7 +201,7 @@ class DatabaseHelper{
     }
 
 	public function getProductById($productid){
-		$stmt = $this->db->prepare("SELECT idprodotto,nomecategoria,nome,costo,costospedizione,nomeimmagine,descrizione,disponibile FROM prodotto WHERE idprodotto = ?");
+		$stmt = $this->db->prepare("SELECT idprodotto,nomecategoria,nome,costo,costospedizione,nomeimmagine,descrizione,quantitadisponibile FROM prodotto WHERE idprodotto = ?");
         $stmt->bind_param("i", $productid);
         $stmt->execute();
         $result = $stmt->get_result();
