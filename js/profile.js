@@ -1,7 +1,5 @@
-
 function switchModify(){
-    if (document.getElementById("profile-email").disabled==true) {
-        document.getElementById("profile-email").disabled=false;
+    if (document.getElementById('profile-nome').disabled==true) {
         document.getElementById('profile-nome').disabled=false;
         document.getElementById('profile-password').disabled=false;
         document.getElementById('profile-numerocarta').disabled=false;
@@ -9,7 +7,6 @@ function switchModify(){
         document.getElementById('profile-cvv').disabled=false;
         document.getElementById('profile-modifyProfile').disabled=false;
     } else {
-        document.getElementById("profile-email").disabled=true;
         document.getElementById('profile-nome').disabled=true;
         document.getElementById('profile-password').disabled=true;
         document.getElementById('profile-numerocarta').disabled=true;

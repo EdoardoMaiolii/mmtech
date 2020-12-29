@@ -6,7 +6,7 @@ foreach ($templateParams["orders"] as $order): ?>
 <ul>
 <li> Id ordine: <?php echo $order['idordine']?></li>
 <li> Data ordine: <?php echo $order['dataordine']?></li>
-<li> Per visualizzare le specifiche di quest' ordine <a href="viewOrder.php?view-ordine=".<?php echo $order['idordine']?>> Clicca qui' </a></li>
+<li> Per visualizzare le specifiche di quest' ordine <a href=<?php echo "profile.php?view-ordine=".$order['idordine']?>> Clicca qui' </a></li>
 </ul>
 </article>
 <?php endforeach; 
@@ -17,7 +17,7 @@ foreach ($templateParams["order-products"] as $products): ?>
     <li> Id Prodotto: <?php echo $products['idprodotto']?></li>
     <li> Nome: <?php echo $products['nome']?></li>
     <li> Categoria: <?php echo $products['nomecategoria']?></li>
-    <li> Prezzo: <?php echo $products['costo']?></li>
+    <li> Prezzo: <?php echo $products['prezzoacquisto']."$"?></li>
     <li> Quantita': <?php echo $products['quantita']?></li>
     </ul>
     </article>
