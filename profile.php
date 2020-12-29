@@ -3,16 +3,15 @@ require_once("bootstrap.php");
 
 if (isUserLoggedIn()) {
     // 1) Modifying the profile
-    if (isset($_POST["profile-email"])){
+    if (isset($_POST["profile-nome"])){
         $result = $dbh->modifyUser($_SESSION['email'],
-                                   $_POST['profile-email'],
                                    $_POST['profile-nome'],
                                    $_POST['profile-password'],
                                    $_POST['profile-numerocarta'],
                                    $_POST['profile-scadenzacarta'],
                                    $_POST['profile-cvv']);
         registerLoggedUser(array(
-        "email" =>$_POST['profile-email'],
+        "email" =>$_SESSION['email'],
         "nome" =>$_POST['profile-nome'],
         "password" =>$_POST['profile-password'],
         "numerocarta" =>$_POST['profile-numerocarta'],

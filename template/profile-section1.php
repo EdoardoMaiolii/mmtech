@@ -1,7 +1,6 @@
 <h1>  DATI PERSONALI</h1>
+<p>Email: <?php echo $_SESSION["email"]; ?></p> 
 <form action="profile.php" method="POST">
-  <label for="profile-email">Email: </label>
-  <input type="text" name="profile-email" id="profile-email" value=<?php echo $_SESSION["email"]; ?> disabled> </br>
   <label for="profile-nome">Nome: </label>
   <input type="text" name="profile-nome" id="profile-nome" value=<?php echo $_SESSION["nome"]; ?> disabled> </br>
   <label for="profile-password">Password:</label>

@@ -88,7 +88,7 @@ class DatabaseHelper{
 	}
 	
 	public function getProductsByCategory($nameCategory){
-		$stmt = $this->db->prepare("SELECT idprodotto,nome,costo,costospedizione,nomeimmagine FROM prodotto WHERE nomecategoria = ? AND disponibile = true");
+		$stmt = $this->db->prepare("SELECT idprodotto,nome,costo,costospedizione,nomeimmagine,quantitadisponibile FROM prodotto WHERE nomecategoria = ?");
         $stmt->bind_param("s", $nameCategory);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -96,7 +96,7 @@ class DatabaseHelper{
 	}
 	
 	public function searchProducts($str){
-		$stmt = $this->db->prepare("SELECT idprodotto,nomecategoria,nome,costo,costospedizione,nomeimmagine FROM prodotto WHERE disponibile = true");
+		$stmt = $this->db->prepare("SELECT idprodotto,nomecategoria,nome,costo,costospedizione,nomeimmagine,quantitadisponibile FROM prodotto ");
         $stmt->execute();
 		$result = $stmt->get_result();
 		$result = $result->fetch_all(MYSQLI_ASSOC);
