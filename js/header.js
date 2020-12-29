@@ -1,5 +1,5 @@
 const closedNav = document.getElementById("barrette"); 
-const openedNav = document.getElementById("mySidenav"); 
+const openedNav = document.getElementById("closebtn"); 
 closedNav.addEventListener("click", openNav); 
 openedNav.addEventListener("click", closeNav); 
 

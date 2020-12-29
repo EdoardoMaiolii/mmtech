@@ -19,11 +19,11 @@
 
 <body class="bg-light" onload="closeNav()">
     <div id="mySidenav" class="sidenav">
-        <a class="closebtn">&times;</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        <a id="closebtn">&times;</a>
+        <!-- add dynamic catecoriess -->
+        <?php foreach ($templateParams["categories"] as $category) : ?>
+            <a href="#"><?php echo $category["nomecategoria"] ?></a>
+        <?php endforeach; ?>
     </div>
 
     <div class="container-fluid p-0">

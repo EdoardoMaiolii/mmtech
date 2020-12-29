@@ -230,4 +230,12 @@ class DatabaseHelper{
 		$stmt->execute();
 		return $stmt->get_result();
 	}
+
+	public function getCategories(){
+		$stmt = $this->db->prepare("SELECT nomecategoria FROM categoria");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+	}
+
 }
