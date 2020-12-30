@@ -6,7 +6,7 @@
             <h2> <?php echo $product['nome']; ?> </h2>
             <a href="product.php?productid=<?php echo (int) UPLOAD_DIR.$product["idprodotto"]; ?>"><img src="<?php echo UPLOAD_DIR.$product["nomeimmagine"]; ?>" alt="" /></a>
             <select id = <?php echo 'quantita-'.$product['idprodotto'] ?> name =<?php echo 'quantita-'.$product['idprodotto']?> onchange="submitQuantityBtn();" value = <?php echo $product['quantita']; ?>>
-                <?php for($i=1;$i<10;$i++): ?>
+                <?php for($i=1;$i<($product['quantitadisponibile']>=10?10:$product['quantitadisponibile']+1);$i++): ?>
                     <option <?php if($product['quantita'] == $i) echo 'selected = selected'; echo 'value = '.$i ?> ><?php echo $i; ?></option>
                 <?php endfor; ?>
             </select>
