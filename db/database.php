@@ -269,7 +269,7 @@ class DatabaseHelper{
         return $seller[0]['venditore'];
 	}
 
-	public function updateProduct($newNomeCategoria,$newNome,$newCosto,$newCostoSpedizione,$newNomeImmagine,$newDescrizione,$newQuantitaDisponibile){
+	public function insertProduct($newNomeCategoria,$newNome,$newCosto,$newCostoSpedizione,$newNomeImmagine,$newDescrizione,$newQuantitaDisponibile){
 		$stmt = $this->db->prepare("INSERT INTO Prodotto (NomeCategoria,Nome,Costo,CostoSpedizione,NomeImmagine,Descrizione,QuantitaDisponibile) VALUES (?,?,?,?,?,?");
 		$stmt->bind_param("isi",$newNomeCategoria,$newNome,$newCosto,$newCostoSpedizione,$newNomeImmagine,$newDescrizione,$newQuantitaDisponibile);
 		return $stmt->execute();
