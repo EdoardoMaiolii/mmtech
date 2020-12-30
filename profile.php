@@ -24,6 +24,9 @@ if (isUserLoggedIn()) {
     // 2) Opening or Refreshing profile
     $templateParams["title"] = "Profilo -" . $_SESSION['nome'];
     $templateParams["content"] = "profile.php";
+    if ($dbh->isSeller($_SESSION['email']))
+    $templateParams["header"] = "headerSeller.php";
+else
     $templateParams["header"] = "headerLogged.php";
     if (isset($_GET["profile-section"])) {
         $templateParams["profile-section"] = $_GET["profile-section"];

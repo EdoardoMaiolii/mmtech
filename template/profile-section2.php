@@ -17,7 +17,7 @@ foreach ($templateParams["order-products"] as $products): ?>
     <li> Id Prodotto: <?php echo $products['idprodotto']?></li>
     <li> Nome: <?php echo $products['nome']?></li>
     <li> Categoria: <?php echo $products['nomecategoria']?></li>
-    <li> Prezzo: <?php echo $products['prezzoacquisto']."$"?></li>
+    <li> Prezzo Unitario: <?php echo $products['prezzoacquisto']."$"?></li>
     <li> Quantita': <?php echo $products['quantita']?></li>
     </ul>
     </article>

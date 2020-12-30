@@ -11,7 +11,7 @@ class DatabaseHelper{
     }
 	
 	private function checkEmail($email) {
-		$stmt = $this->db->prepare("SELECT email,nome,password,numerocarta,scadenzacarta,cvvcarta FROM utente WHERE email = ?");
+		$stmt = $this->db->prepare("SELECT email,nome,password,numerocarta,scadenzacarta,cvvcarta,venditore FROM utente WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -46,7 +46,7 @@ class DatabaseHelper{
 	}
 	
 	public function checkLogin($email, $password){
-        $stmt = $this->db->prepare("SELECT email,nome,password FROM utente WHERE email = ? AND password = ?");
+        $stmt = $this->db->prepare("SELECT email,nome,password,venditore FROM utente WHERE email = ? AND password = ?");
         $stmt->bind_param("ss", $email, $password);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -270,8 +270,15 @@ class DatabaseHelper{
 	}
 
 	public function insertProduct($newNomeCategoria,$newNome,$newCosto,$newCostoSpedizione,$newNomeImmagine,$newDescrizione,$newQuantitaDisponibile){
-		$stmt = $this->db->prepare("INSERT INTO Prodotto (NomeCategoria,Nome,Costo,CostoSpedizione,NomeImmagine,Descrizione,QuantitaDisponibile) VALUES (?,?,?,?,?,?");
-		$stmt->bind_param("isi",$newNomeCategoria,$newNome,$newCosto,$newCostoSpedizione,$newNomeImmagine,$newDescrizione,$newQuantitaDisponibile);
+		$stmt = $this->db->prepare("INSERT INTO Prodotto(nomecategoria,nome,costo,costospedizione,nomeimmagine,descrizione,quantitadisponibile) VALUES (?,?,?,?,?,?,?)");
+		$stmt->bind_param("ssddssi",$newNomeCategoria,$newNome,$newCosto,$newCostoSpedizione,$newNomeImmagine,$newDescrizione,$newQuantitaDisponibile);
+		return $stmt->execute();
+	}
+
+
+	public function updateProduct($productid,$newNomeCategoria,$newNome,$newCosto,$newCostoSpedizione,$newNomeImmagine,$newDescrizione,$newQuantitaDisponibile){
+		$stmt = $this->db->prepare("UPDATE Prodotto SET nomecategoria=?,nome=?,costo=?,costospedizione=?,nomeimmagine=?,descrizione=?,quantitadisponibile=? WHERE idprodotto = ?");
+		$stmt->bind_param("ssddssii",$newNomeCategoria,$newNome,$newCosto,$newCostoSpedizione,$newNomeImmagine,$newDescrizione,$newQuantitaDisponibile,$productid);
 		return $stmt->execute();
 	}
 }
