@@ -6,4 +6,4 @@
 </form>
 <a href="notify.php"><img id="notifyBtn" src="<?php echo MOCKUP_DIR."bell.png"; ?>" /></a>
 <a href="profile.php"><img id="loginBtn" src="<?php echo MOCKUP_DIR."ProfileBtn.png"; ?>" /></a>
-<a href="cart.php"><img id="cart" src="<?php echo MOCKUP_DIR."shopBtn.png"; ?>" /></a>
+<a href="settings.php"><img id="settingsBtn" src="<?php echo MOCKUP_DIR."settings.png"; ?>" /></a>

@@ -1,7 +1,6 @@
 <?php
 require_once 'bootstrap.php';
 
-
 if (isset($_POST["email"]) && isset($_POST["password"])) {
     $login_result = $dbh->checkLogin($_POST["email"], $_POST["password"]);
     if (count($login_result) == 0) {
@@ -13,20 +12,12 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         registerLoggedUser(array_merge($login_result[0], $card[0]));
     }
 }
-
 if (isUserLoggedIn()) {
-    $templateParams["title"] = "Home - " . $_SESSION['nome'];
-    $templateParams["content"] = "home.php";
-    $templateParams["header"] = "headerLogged.php";
-    unset($templateParams["errorelogin"]);
-    unset($templateParams["erroreregster"]);
-    $templateParams["mostviewed"] = $dbh->orderedProducts();
-    $templateParams["chrono"] = $dbh->chronologyUser($_SESSION['email']);
+    require('index.php');
 } else {
     $templateParams["title"] = "Login";
-    $templateParams["content"] = "login-form.php";
     $templateParams["header"] = "headerUnlogged.php";
-    $templateParams["mostviewed"] = $dbh->orderedProducts();
+    $templateParams["content"] = "login-form.php";
+    require 'template/base.php';
 }
-
-require 'template/base.php';
+?>

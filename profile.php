@@ -30,8 +30,6 @@ if (isUserLoggedIn()) {
     } else {
         $templateParams["profile-section"] = "1"; // Default value
     }
-    unset($templateParams["errorelogin"]);
-    unset($templateParams["erroreregster"]);
     $templateParams["orders"] = $dbh->getOrders($_SESSION['email']);
     $templateParams["products-orders"] = array();
     $i = 0;
@@ -39,10 +37,8 @@ if (isUserLoggedIn()) {
         $templateParams["products-orders"][$i] = $dbh->getProductsByOrder($order['idordine']);
         $i++;
     }
+    require("template/base.php");
 } else {
-    $templateParams["title"] = "Home";
-    $templateParams["content"] = "home.php";
-    $templateParams["header"] = "headerUnlogged.php";
-    $templateParams["mostviewed"] = $dbh->orderedProducts();
+    require('index.php');
 }
-require("template/base.php");
+?>
