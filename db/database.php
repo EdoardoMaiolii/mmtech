@@ -227,8 +227,7 @@ class DatabaseHelper{
 	public function updateQuantity($quantity,$email,$idProduct){
 		$stmt = $this->db->prepare("UPDATE prodottocarrello SET quantita = ? WHERE email = ? AND idprodotto = ?");
 		$stmt->bind_param("isi", $quantity,$email,$idProduct);
-		$stmt->execute();
-		return $stmt->get_result();
+		return $stmt->execute();
 	}
 
 	public function getCategories(){
@@ -238,4 +237,34 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
 	}
 
+
+	public function getNotifications($email){
+		$stmt = $this->db->prepare("SELECT idnotifica,data,visualizzata,messaggio FROM notifica WHERE email = ?");
+		$stmt->bind_param("s",$email);
+		$stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+	}
+
+	public function visualizeNotification($email,$idNotification){
+		$stmt = $this->db->prepare("UPDATE notifica SET visualizzata = true WHERE email = ? AND idnotifica = ?");
+		$stmt->bind_param("si",$email,$idNotification);
+		return $stmt->execute();
+	}
+
+	public function deleteNotification($email,$idNotification){
+		$stmt = $this->db->prepare("DELETE FROM notifica WHERE email = ? AND idnotifica = ?");
+		$stmt->bind_param("si",$email,$idNotification);
+		$stmt->execute();
+		return $stmt->execute();
+	}
+
+	public function isSeller($email) {
+		$stmt = $this->db->prepare("SELECT venditore FROM utente WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+		$result = $stmt->get_result();
+		$seller = $result->fetch_all(MYSQLI_ASSOC);
+        return $seller[0]['venditore'];
+	}
 }

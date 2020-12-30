@@ -1,15 +1,6 @@
 <?php
 require_once("bootstrap.php");
 
-if (isUserLoggedIn()) {
-    $templateParams["title"] = "Home -". $_SESSION['nome'];
-    $templateParams["header"] = "headerLogged.php";
-    unset($templateParams["errorelogin"]);
-    unset($templateParams["erroreregster"]);
-} else {
-    $templateParams["title"] = "Home";
-    $templateParams["header"] = "headerUnlogged.php";
-}
 if(isset($_GET['searchbar'])){
     $templateParams["content"] = "search-section.php";
     $templateParams["searchproducts"] = $dbh->searchProducts($_GET['searchbar']);
@@ -22,6 +13,14 @@ if(isset($_GET["categoria"])){
     $templateParams["content"] = "search-section.php";
     $templateParams["searchproducts"] = $dbh->getProductsByCategory($_GET['categoria']);
 }
-
-require("template/base.php");
+if (isUserLoggedIn()) {
+    if ($dbh->isSeller($_SESSION['email']))
+    $templateParams["header"] = "headerSeller.php";
+else
+    $templateParams["header"] = "headerLogged.php";
+}
+else {
+    $templateParams["header"] = "headerUnlogged.php";
+}
+require 'template/base.php';
 ?>
