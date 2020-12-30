@@ -170,7 +170,7 @@ class DatabaseHelper{
 	}
 		
 	public function getCartProducts($email){
-		$stmt = $this->db->prepare("SELECT prodotto.nome,prodottocarrello.idprodotto,quantita,nomeimmagine,quantitadisponibile FROM prodottocarrello,prodotto WHERE prodottocarrello.email = ? and prodottocarrello.idprodotto = prodotto.idprodotto");
+		$stmt = $this->db->prepare("SELECT prodotto.nome,prodottocarrello.idprodotto,quantita,nomeimmagine,quantitadisponibile,prodotto.costo,prodotto.costospedizione FROM prodottocarrello,prodotto WHERE prodottocarrello.email = ? and prodottocarrello.idprodotto = prodotto.idprodotto");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
