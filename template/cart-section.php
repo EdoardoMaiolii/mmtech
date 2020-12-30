@@ -8,7 +8,7 @@
             <input type="hidden" name="idprodotto" id="idprodotto" value=<?php echo $product['idprodotto']; ?>/>
             <select id = "quantita" name = "quantita" onchange="submitQuantityBtn();" value = <?php echo $product['quantita']; ?>>
                 <?php for($i=1;$i<10;$i++): ?>
-                    <option <?php if($product['quantita'] == $i) echo 'selected = selected'; echo 'value = '.$i ?> ><?php echo $i ?></option>
+                    <option <?php if($product['quantita'] == $i) echo 'selected = selected'; echo 'value = '.$i ?> ><?php echo $i; ?></option>
                 <?php endfor; ?>
                 <input type ="submit" id="updateQuantity" name="updateQuantity" hidden="hidden"/>
             </select>
@@ -16,8 +16,17 @@
             </form>
         </article>
     <?php endforeach; ?>
+    </br>
     <form action="updatecart.php" method ="GET">
         <input type="hidden" id="order" name="order" value ="true">
-        <button type = "submit" id ="orderBtn" name ="orderBtn">Compra</button>
+        <p>Costo totale <?php 
+        $costoTotale = 0;
+        foreach($templateParams['cartproducts'] as $p){
+            $costoTotale = $costoTotale + ($p['costo']*$p['quantita'])+ $p['costospedizione'];
+        }
+        echo $costoTotale;
+        ?> &euro;
+        </p>
+        <button type = "submit" id ="orderBtn" name ="orderBtn">Compra gli articoli nel carrello</button>
     </form>
 </section>
