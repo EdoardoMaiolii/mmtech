@@ -16,4 +16,8 @@
             </form>
         </article>
     <?php endforeach; ?>
+    <form action="updatecart.php" method ="GET">
+        <input type="hidden" id="order" name="order" value ="true">
+        <button type = "submit" id ="orderBtn" name ="orderBtn">Compra</button>
+    </form>
 </section>

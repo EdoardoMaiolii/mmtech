@@ -1,5 +1,11 @@
 <?php
-require_once("bootstrap.php");
+    require_once("bootstrap.php");
+    var_dump($_GET['order']);
+    if(isset($_GET['order'])){
+        echo 'ciao';
+        $dbh->addOrder($_SESSION['email']);
+    }
+
     if(isset($_GET['action']) && isset($_GET['idprodotto'])){
         $dbh->removeProductFromCart($_SESSION['email'],(int)$_GET['idprodotto']);
     }
@@ -12,5 +18,5 @@ require_once("bootstrap.php");
     $templateParams["cartproducts"] = $dbh->getCartProducts($_SESSION['email']);
     unset($templateParams["errorelogin"]);
     unset($templateParams["erroreregster"]);
-require 'template/base.php';
+    require 'template/base.php';
 ?>

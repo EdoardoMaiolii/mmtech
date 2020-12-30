@@ -122,7 +122,7 @@ class DatabaseHelper{
 			$stmt->execute();
 			$result = $stmt->get_result();
 			$productNotAvList = $result->fetch_all(MYSQLI_ASSOC);
-			if (mysqli_num_rows($productList)>0 && mysqli_num_rows($productNotAvList)==0){
+			if (count($productList)>0 && count($productNotAvList)==0){
 				$stmt = $this->db->prepare("INSERT INTO ordine (email,dataordine) VALUES (?,".$this->getYMD().")");
 				$stmt->bind_param("s", $email);
 				$stmt->execute();
