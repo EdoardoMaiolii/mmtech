@@ -112,17 +112,17 @@ class DatabaseHelper{
 	public function addOrder($email) {
 		$tmp = $this->checkEmail($email);
 		if ($tmp[0]["numerocarta"] != NULL && $tmp[0]["scadenzacarta"] != NULL && $tmp[0]["cvvcarta"] != NULL) {
-			$stmt = $this->db->prepare("SELECT prodottocarrello.idprodotto,quantita,costo FROM prodottocarrello,prodotto WHERE email = ? AND prodottocarrello.idprodotto = prodotto.idprodotto");
+			$stmt = $this->db->prepare("SELECT prodottocarrello.idprodotto,quantita,costo,costospedizione FROM prodottocarrello,prodotto WHERE email = ? AND prodottocarrello.idprodotto = prodotto.idprodotto");
 			$stmt->bind_param("s", $email);
 			$stmt->execute();
 			$result = $stmt->get_result();
 			$productList = $result->fetch_all(MYSQLI_ASSOC);
-			$stmt = $this->db->prepare("SELECT prodottocarrello.idprodotto,quantita,costo,quantitadisponibile FROM prodottocarrello,prodotto WHERE email = ? AND prodottocarrello.idprodotto = prodotto.idprodotto");
+			$stmt = $this->db->prepare("SELECT prodottocarrello.idprodotto,quantita,costo,quantitadisponibile FROM prodottocarrello,prodotto WHERE email = ? AND prodottocarrello.idprodotto = prodotto.idprodotto AND prodotto.quantitadisponibile > 0");
 			$stmt->bind_param("s", $email);
 			$stmt->execute();
 			$result = $stmt->get_result();
 			$productNotAvList = $result->fetch_all(MYSQLI_ASSOC);
-			if (count($productList)>0 && count($productNotAvList)==0){
+			if (count($productList)>0 && count($productNotAvList)==count($productList)){
 				$stmt = $this->db->prepare("INSERT INTO ordine (email,dataordine) VALUES (?,".$this->getYMD().")");
 				$stmt->bind_param("s", $email);
 				$stmt->execute();
@@ -133,8 +133,9 @@ class DatabaseHelper{
 				$idOrdine = $result->fetch_all(MYSQLI_ASSOC)[0]['MAX(idordine)']; // find IdOrdine
 				foreach ($productList as $product) {
 					//manca questo
-					$stmt = $this->db->prepare("INSERT INTO prodottoacquistato VALUES (?,?,?,?");
-					$stmt->bind_param("iidi", $product['idprodotto'],$idOrdine,$product['costo'],$product['quantita']);
+					$stmt = $this->db->prepare("INSERT INTO prodottoacquistato VALUES (?,?,?,?)");
+					$tmp = $product['costo']+$product['costospedizione'];
+					$stmt->bind_param("iidi", $product['idprodotto'],$idOrdine,$tmp,$product['quantita']);
 					$stmt->execute();
 				}
 				$stmt = $this->db->prepare("DELETE FROM prodottocarrello WHERE email = ?");
