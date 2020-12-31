@@ -1,6 +1,5 @@
 <?php
 require_once("bootstrap.php");
-
 if (isUserLoggedIn()) {
     if (isset($_GET["settings-section"])) {
         $templateParams["settings-section"] = $_GET["settings-section"];
@@ -9,9 +8,10 @@ if (isUserLoggedIn()) {
     }
     if ($templateParams["settings-section"] == "2") {
         $templateParams["orders"] = $dbh->getAllOrders();
-        if (isset($_GET['view-ordine'])) {
-            $templateParams['order-products'] = $dbh->getProductsByOrder($_GET['view-ordine']);
-        }
+    }
+    if (isset($_GET['view-ordine'])) {
+        $templateParams["settings-section"] = "2";
+        $templateParams['order-products'] = $dbh->getProductsByOrder($_GET['view-ordine']);
     }
     if (isset($_POST['nomeProdotto'])) {
         list($result, $msg) = uploadImage(UPLOAD_DIR, $_FILES["imgProdotto"]);

@@ -6,6 +6,7 @@ foreach ($templateParams["orders"] as $order): ?>
 <article>
 <ul>
 <li> Id ordine: <?php echo $order['idordine']?></li>
+<li> Email: <?php echo $order['email']?></li>
 <li> Data ordine: <?php echo $order['dataordine']?></li>
 <li> Per visualizzare le specifiche di quest' ordine <a href=<?php echo "settings.php?view-ordine=".$order['idordine']?>> Clicca qui' </a></li>
 </ul>

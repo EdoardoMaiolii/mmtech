@@ -9,6 +9,9 @@ if (isUserLoggedIn()) {
         $templateParams["header"] = "headerLogged.php";
     $templateParams["nofifications"] = $dbh->getNotifications($_SESSION['email']);
     require("template/base.php");
+    foreach($templateParams["nofifications"] as $not) {
+        $dbh->visualizeNotification($_SESSION['email'], $not['idnotifica']);
+    }
 } else {
     require('index.php');
 }

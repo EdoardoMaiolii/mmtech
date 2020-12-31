@@ -39,11 +39,19 @@ class DatabaseHelper
 		return $result->fetch_all(MYSQLI_ASSOC);
 	}
 
+	private function addNotification($email, $messaggio)
+	{
+		$stmt = $this->db->prepare("INSERT INTO notifica(email,data,visualizzata,messaggio) VALUES (?,NOW(),false,?)");
+		$stmt->bind_param("ss", $email, $messaggio);
+		return $stmt->execute();
+	}
+
 	public function register($email, $nome, $password, $cardNumber = NULL, $expDate = NULL, $cvv = NULL)
 	{
 		$stmt = $this->db->prepare("INSERT INTO utente VALUES (?,?,?,?,?,?,false)");
 		$stmt->bind_param("sssssi", $email, $nome, $password, $cardNumber, $expDate, $cvv);
 		$stmt->execute();
+		$this->addNotification($email,"[".$email."] ha creato con successo un account su MMtech.com, COMPLIMENTI ! ");
 		return true;
 	}
 
@@ -130,6 +138,10 @@ class DatabaseHelper
 			$stmt->execute();
 			$result = $stmt->get_result();
 			$productNotAvList = $result->fetch_all(MYSQLI_ASSOC);
+			$stmt = $this->db->prepare("SELECT email FROM utente WHERE venditore=true");
+			$stmt->execute();
+			$admin = $stmt->get_result();
+			$admin = $admin->fetch_all(MYSQLI_ASSOC);
 			// procedi all'ordine se nel carrello e' presente almeno un prodotto e se quelli presenti sono tutti disponibili
 			if (count($productList) > 0 && count($productNotAvList) == count($productList)) {
 				// aggiungo l'ordine nella tabella degli ordini
@@ -152,11 +164,15 @@ class DatabaseHelper
 					$newQuantity = $product['quantitadisponibile'] - $product['quantita'];
 					$stmt->bind_param("ii", $newQuantity, $product['idprodotto']);
 					$stmt->execute();
+					if ($newQuantity==0)
+						$this->addNotification($admin[0]['email'],"Caro [".$admin[0]['email']."] La informamo che un recente ordine ha provocato una inaspettata mancanza di fornitura dell articolo con ID [".$product['idprodotto']."]");
 				}
 				// elimino i prodotti acquistati dal carrello
 				$stmt = $this->db->prepare("DELETE FROM prodottocarrello WHERE email = ?");
 				$stmt->bind_param("s", $email);
 				$stmt->execute();
+				$this->addNotification($email,"[".$email."] ha effettuato con successo l'ordine con ID [".$idOrdine."] con il metodo di pagamento da lei inserito.");
+				$this->addNotification($admin[0]['email'],"[".$email."] ha effettuato con successo l'ordine con ID [".$idOrdine."]");
 				return true;
 			}
 		}
@@ -269,7 +285,7 @@ class DatabaseHelper
 
 	public function getNotifications($email)
 	{
-		$stmt = $this->db->prepare("SELECT idnotifica,data,visualizzata,messaggio FROM notifica WHERE email = ?");
+		$stmt = $this->db->prepare("SELECT data,visualizzata,messaggio FROM notifica WHERE email = ? ORDER BY idnotifica DESC");
 		$stmt->bind_param("s", $email);
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -280,15 +296,6 @@ class DatabaseHelper
 	{
 		$stmt = $this->db->prepare("UPDATE notifica SET visualizzata = true WHERE email = ? AND idnotifica = ?");
 		$stmt->bind_param("si", $email, $idNotification);
-		return $stmt->execute();
-	}
-
-	public function addNotification($email, $messaggio)
-	{
-		$_SESSION["fbi"]++;
-		echo $_SESSION["fbi"];
-		$stmt = $this->db->prepare("INSERT INTO notifica(email,data,visualizzata,messaggio) VALUES (?,NOW(),false,?)");
-		$stmt->bind_param("ss", $email, $messaggio);
 		return $stmt->execute();
 	}
 
@@ -321,6 +328,7 @@ class DatabaseHelper
 	{
 		$stmt = $this->db->prepare("UPDATE Prodotto SET nomecategoria=?,nome=?,costo=?,costospedizione=?,nomeimmagine=?,descrizione=?,quantitadisponibile=? WHERE idprodotto = ?");
 		$stmt->bind_param("ssddssii", $newNomeCategoria, $newNome, $newCosto, $newCostoSpedizione, $newNomeImmagine, $newDescrizione, $newQuantitaDisponibile, $productid);
+		
 		return $stmt->execute();
 	}
 
@@ -334,7 +342,7 @@ class DatabaseHelper
 	}
 
 	public function getAllOrders(){
-		$stmt = $this->db->prepare("SELECT idordine,dataordine FROM ordine ORDER BY dataordine DESC");
+		$stmt = $this->db->prepare("SELECT email,idordine,dataordine FROM ordine ORDER BY dataordine DESC");
 		$stmt->execute();
 		$result = $stmt->get_result();
 		return $result->fetch_all(MYSQLI_ASSOC);
