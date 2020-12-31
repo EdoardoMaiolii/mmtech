@@ -1,17 +1,25 @@
 <h1> GESTIONE ORDINI</h1>
-<h2> Inserisci un nuovo prodotto </h2>
-<form enctype="multipart/form-data" id="form1" action="settings.php" method="POST">
-    <label for="nomeProdotto">Nome Prodotto: </label><input type="text" id="nomeProdotto" name="nomeProdotto" /> </br>
-    <label for="imgProdotto">Immagine Articolo: </label><input type="file" name="imgProdotto" id="imgProdotto" accept="image/png, image/jpeg, image/jpg, image/gif"/> </br>
-    <label for="categoria">Categoria: </label><select id="categoria" name="categoria" ?>
-        <?php foreach ($templateParams["categories"] as $category) : ?>
-            <option <?php echo 'value = ' . $category['nomecategoria'] ?>> <?php echo $category['nomecategoria'] ?></option>
-        <?php endforeach; ?>
-    </select></br>
-    <label for="costo">Costo: </label><input type="text" id="costo" name="costo" /> </br>
-    <label for="costoSpedizione">Costo Spedizione: </label><input type="text" id="costoSpedizione" name="costoSpedizione" /> </br>
-    <label for="quantitaDisponibile">Quantita' disponibile: </label><input type="text" id="quantitaDisponibile" name="quantitaDisponibile" /> </br>
-    <label for="descrizione">Descrizione: </label><textarea name="descrizione" form="form1" placeholder="Inserisci la descrizione qui..."></textarea></br>
-    <button type="submit" id="insertProduct" name="insertProduct"> Inserisci il prodotto </button></br>
-</form>
-<p> <i>Se si vuole modificare o eliminare un prodotto e' possibile farlo cercando il medesimo con la barra di ricerca oppure con il menu' laterale </i> </p>
+<p> Segue la lista degli ordini piu' recenti </p>
+<?php 
+if (!isset($templateParams['order-products']))
+foreach ($templateParams["orders"] as $order): ?>
+<article>
+<ul>
+<li> Id ordine: <?php echo $order['idordine']?></li>
+<li> Data ordine: <?php echo $order['dataordine']?></li>
+<li> Per visualizzare le specifiche di quest' ordine <a href=<?php echo "settings.php?view-ordine=".$order['idordine']?>> Clicca qui' </a></li>
+</ul>
+</article>
+<?php endforeach; 
+if (isset($templateParams['order-products']))
+foreach ($templateParams["order-products"] as $products): ?>
+    <article>
+    <ul>
+    <li> Id Prodotto: <?php echo $products['idprodotto']?></li>
+    <li> Nome: <?php echo $products['nome']?></li>
+    <li> Categoria: <?php echo $products['nomecategoria']?></li>
+    <li> Prezzo Unitario: <?php echo $products['prezzoacquisto']."$"?></li>
+    <li> Quantita': <?php echo $products['quantita']?></li>
+    </ul>
+    </article>
+<?php endforeach; 

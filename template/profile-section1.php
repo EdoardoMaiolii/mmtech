@@ -2,15 +2,17 @@
 <p>Email: <?php echo $_SESSION["email"]; ?></p> 
 <form action="profile.php" method="POST">
   <label for="profile-nome">Nome: </label>
-  <input type="text" name="profile-nome" id="profile-nome" value=<?php echo $_SESSION["nome"]; ?> disabled> </br>
+  <input type="text" name="profile-nome" id="profile-nome" <?php echo $_SESSION["nome"]!=NULL?"value=".$_SESSION["nome"]:""; ?> disabled> </br>
   <label for="profile-password">Password:</label>
-  <input type="text" name="profile-password" id="profile-password" value=<?php echo $_SESSION["password"]; ?> disabled> </br> 
+  <input type="text" name="profile-password" id="profile-password" <?php echo $_SESSION["password"]!=NULL?"value=".$_SESSION["password"]:""; ?> disabled> </br> 
   <label for="profile-numerocarta">Numero Carta: </label>
-  <input type="text" name="profile-numerocarta" id="profile-numerocarta" value=<?php echo $_SESSION["numerocarta"]; ?> disabled> </br>
+  <input type="text" name="profile-numerocarta" id="profile-numerocarta" <?php echo $_SESSION["numerocarta"]!=NULL?"value=".$_SESSION["numerocarta"]:""; ?> disabled> </br>
   <label for="profile-scadenzacarta">Scadenza Carta: </label>
-  <input type="text" name="profile-scadenzacarta" id="profile-scadenzacarta" value=<?php echo $_SESSION["scadenzacarta"]; ?> disabled> </br>
+  <input type="text" name="profile-scadenzacarta" id="profile-scadenzacarta" <?php echo $_SESSION["scadenzacarta"]!=NULL?"value=".$_SESSION["scadenzacarta"]:""; ?> disabled> </br>
   <label for="profile-cvv">CVV: </label>
-  <input type="text" name="profile-cvv" id="profile-cvv" value=<?php echo $_SESSION["cvvcarta"]; ?> disabled> </br> </br>
+  <input type="text" name="profile-cvv" id="profile-cvv" <?php echo $_SESSION["cvvcarta"]!=NULL?"value=".$_SESSION["cvvcarta"]:""; ?> disabled> </br> </br>
+  <?php if (!$templateParams['header']=="headerSeller.php"): ?>
   <p> Se si desidera modificare i dati personali <a href="javascript:switchModify();"> Clicca qui' </a> </p>
   <input type="submit" id="profile-modifyProfile" value="Submit" disabled>
+  <?php endif; ?>
 </form>

@@ -323,4 +323,11 @@ class DatabaseHelper
 		$result = $stmt->get_result();
 		return $result->fetch_all(MYSQLI_ASSOC)[0]['quantitadisponibile'];
 	}
+
+	public function getAllOrders(){
+		$stmt = $this->db->prepare("SELECT idordine,dataordine FROM ordine ORDER BY dataordine DESC");
+		$stmt->execute();
+		$result = $stmt->get_result();
+		return $result->fetch_all(MYSQLI_ASSOC);
+	}
 }

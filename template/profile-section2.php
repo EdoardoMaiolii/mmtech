@@ -1,5 +1,6 @@
 <h1>  ORDINI EFFETTUATI</h1>
 <?php 
+if (!$templateParams['header']=="headerSeller.php")
 if (!isset($templateParams['order-products']))
 foreach ($templateParams["orders"] as $order): ?>
 <article>
@@ -10,6 +11,7 @@ foreach ($templateParams["orders"] as $order): ?>
 </ul>
 </article>
 <?php endforeach; 
+if (!$templateParams['header']=="headerSeller.php")
 if (isset($templateParams['order-products']))
 foreach ($templateParams["order-products"] as $products): ?>
     <article>
@@ -22,3 +24,6 @@ foreach ($templateParams["order-products"] as $products): ?>
     </ul>
     </article>
 <?php endforeach; 
+if ($templateParams['header']=="headerSeller.php")
+    echo "<i> Questo account non e' abilitato per effettuare ordini </i>";
+?>
