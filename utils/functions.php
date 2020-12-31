@@ -6,7 +6,6 @@ function registerLoggedUser($user){
 	$_SESSION["numerocarta"] = $user["numerocarta"];
     $_SESSION["scadenzacarta"] = $user["scadenzacarta"];
     $_SESSION["cvvcarta"] = $user["cvvcarta"];
-    $_SESSION["fbi"] = 0;
 }
 
 function isUserLoggedIn(){

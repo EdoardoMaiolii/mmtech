@@ -9,8 +9,6 @@ if (isset($_GET['action']) && isset($_GET['idprodotto'])) {
     $dbh->removeProductFromCart($_SESSION['email'], (int)$_GET['idprodotto']);
 }
 foreach($templateParams["cartproducts"] as $product){
-    $_SESSION["fbi"]++;
-    echo $_SESSION["fbi"];
     if(isset($_GET['quantita-'.$product['idprodotto']]) && $_GET['quantita-'.$product['idprodotto']] != $product['quantita'] ){
         $dbh->updateQuantity($_GET['quantita-'.$product['idprodotto']], $_SESSION['email'], $product['idprodotto']);
     }

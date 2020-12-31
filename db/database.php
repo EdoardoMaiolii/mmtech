@@ -285,9 +285,10 @@ class DatabaseHelper
 
 	public function addNotification($email, $messaggio)
 	{
+		$_SESSION["fbi"]++;
+		echo $_SESSION["fbi"];
 		$stmt = $this->db->prepare("INSERT INTO notifica(email,data,visualizzata,messaggio) VALUES (?,NOW(),false,?)");
 		$stmt->bind_param("ss", $email, $messaggio);
-		$stmt->execute();
 		return $stmt->execute();
 	}
 
