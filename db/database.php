@@ -283,6 +283,14 @@ class DatabaseHelper
 		return $stmt->execute();
 	}
 
+	public function addNotification($email, $messaggio)
+	{
+		$stmt = $this->db->prepare("INSERT INTO notifica(email,data,visualizzata,messaggio) VALUES (?,NOW(),false,?)");
+		$stmt->bind_param("ss", $email, $messaggio);
+		$stmt->execute();
+		return $stmt->execute();
+	}
+
 	public function deleteNotification($email, $idNotification)
 	{
 		$stmt = $this->db->prepare("DELETE FROM notifica WHERE email = ? AND idnotifica = ?");
@@ -323,4 +331,5 @@ class DatabaseHelper
 		$result = $stmt->get_result();
 		return $result->fetch_all(MYSQLI_ASSOC)[0]['quantitadisponibile'];
 	}
+
 }
