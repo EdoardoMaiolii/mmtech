@@ -2,6 +2,17 @@
 require_once("bootstrap.php");
 
 if (isUserLoggedIn()) {
+    if (isset($_GET["settings-section"])) {
+        $templateParams["settings-section"] = $_GET["settings-section"];
+    } else {
+        $templateParams["settings-section"] = "1"; // Default value
+    }
+    if ($templateParams["settings-section"] == "2") {
+        $templateParams["orders"] = $dbh->getAllOrders();
+        if (isset($_GET['view-ordine'])) {
+            $templateParams['order-products'] = $dbh->getProductsByOrder($_GET['view-ordine']);
+        }
+    }
     if (isset($_POST['nomeProdotto'])) {
         list($result, $msg) = uploadImage(UPLOAD_DIR, $_FILES["imgProdotto"]);
             $dbh->insertProduct($_POST['categoria'],
@@ -15,11 +26,6 @@ if (isUserLoggedIn()) {
     $templateParams["title"] = "Impostazioni -" . $_SESSION['nome'];
     $templateParams["content"] = "settings.php";
     $templateParams["header"] = "headerSeller.php";
-    if (isset($_GET["settings-section"])) {
-        $templateParams["settings-section"] = $_GET["settings-section"];
-    } else {
-        $templateParams["settings-section"] = "1"; // Default value
-    }
     require("template/base.php");
 } else {
     require('index.php');
