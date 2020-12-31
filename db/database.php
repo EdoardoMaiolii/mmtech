@@ -18,10 +18,6 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
 	}
 	
-	private function getYMD(){
-		return '20'.Date('y')."/".Date('m')."/".Date('d');
-	}
-	
 	private function checkItemInCart($email,$idProduct){
 		$stmt = $this->db->prepare("SELECT quantita FROM prodottocarrello WHERE email = ? and idprodotto = ?");
         $stmt->bind_param("si", $email, $idProduct);
@@ -73,7 +69,7 @@ class DatabaseHelper{
 	}
 	
 	public function visualizeProduct($email,$idProduct){
-		$stmt = $this->db->prepare("INSERT INTO visualizzazione (idprodotto,email,Data) VALUES (?,?,".$this->getYMD().")");
+		$stmt = $this->db->prepare("INSERT INTO visualizzazione (idprodotto,email,Data) VALUES (?,?,NOW())");
 		$stmt->bind_param("is", $idProduct, $email);
 		$stmt->execute();
 		return true;
@@ -123,7 +119,7 @@ class DatabaseHelper{
 			$result = $stmt->get_result();
 			$productNotAvList = $result->fetch_all(MYSQLI_ASSOC);
 			if (count($productList)>0 && count($productNotAvList)==count($productList)){
-				$stmt = $this->db->prepare("INSERT INTO ordine (email,dataordine) VALUES (?,".$this->getYMD().")");
+				$stmt = $this->db->prepare("INSERT INTO ordine (email,dataordine) VALUES (?,NOW())");
 				$stmt->bind_param("s", $email);
 				$stmt->execute();
 				$stmt = $this->db->prepare("SELECT MAX(idordine) FROM ordine WHERE email = ?");
