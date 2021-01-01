@@ -1,8 +1,10 @@
 <section>
-    <h1>Prodotti nel carrello</h1>
+    <h1>Carrello</h1>
     <form action="updatecart.php" method="GET">
-    <?php foreach ($templateParams['cartproducts'] as $product) : ?>
-        <article>
+    <fieldset>
+    <legend>Lista di prodotti selezionati:</legend>
+    <?php foreach ($templateParams['cartproducts'] as $product): ?>
+        <div>
             <h2> <?php echo $product['nome']; ?> </h2>
             <a href="product.php?productid=<?php echo (int) UPLOAD_DIR.$product["idprodotto"]; ?>"><img src="<?php echo UPLOAD_DIR.$product["nomeimmagine"]; ?>" alt="" /></a>
             <select id = <?php echo 'quantita-'.$product['idprodotto'] ?> name =<?php echo 'quantita-'.$product['idprodotto']?> onchange="submitQuantityBtn();" value = <?php echo $product['quantita']; ?>>
@@ -11,9 +13,10 @@
                 <?php endfor; ?>
             </select>
             <a href="updatecart.php?action=1&idprodotto=<?php echo $product["idprodotto"] ?>">Rimuovi articolo dal carrello</a>
-        </article>
+        </div>
     <?php endforeach; ?>
     <input type ="submit" id="updateQuantity" name="updateQuantity" hidden="hidden"/>
+    </fieldset>
     </form>
     </br>
     <form action="updatecart.php" method ="GET">

@@ -1,19 +1,20 @@
-<section>
+<section id="MostViewed">
     <h1>Prodotti piu' visualizzati</h1>
     <?php foreach ($templateParams["mostviewed"] as $product) : ?>
-        <article>
-            <h2> <?php echo $product['nome']; ?> </h2>
-            <a href="product.php?productid=<?php echo (int) UPLOAD_DIR.$product["idprodotto"]; ?>"> <img src="<?php echo UPLOAD_DIR.$product["nomeimmagine"]; ?>" alt="" /></a>
-        </article> 
+        <figure>
+            <a href="product.php?productid=<?php echo $product["idprodotto"]; ?>"> <img src="<?php echo UPLOAD_DIR . $product["nomeimmagine"]; ?>" alt=<?php echo $product["nome"]; ?> /></a>
+            <figcaption> <?php echo $product["nome"]; ?> </figcaption>
+        </figure>
     <?php endforeach; ?>
 </section>
-<section>
-    <?php if (isset($templateParams["chrono"])): ?>
-    <h1>Prodotti visualizati di recente</h1>
-    <?php foreach ($templateParams["chrono"] as $product) : ?>
-        <article>
-            <h2> <?php echo $product['nome']; ?> </h2>
-            <img src="<?php echo UPLOAD_DIR.$product["nomeimmagine"]; ?>" alt="" />
-        </article>
-    <?php endforeach; endif;?>
+<section id="Chronology">
+    <?php if (isset($templateParams["chrono"])) : ?>
+        <h1>Prodotti visualizati di recente</h1>
+        <?php foreach ($templateParams["chrono"] as $product) : ?>
+            <figure>
+                <a href="product.php?productid=<?php echo $product["idprodotto"]; ?>"> <img src="<?php echo UPLOAD_DIR . $product["nomeimmagine"]; ?>" alt=<?php echo $product["nome"]; ?> /></a>
+                <figcaption> <?php echo $product["nome"]; ?> </figcaption>
+            </figure>
+    <?php endforeach;
+    endif; ?>
 </section>

@@ -3,6 +3,9 @@ require_once("bootstrap.php");
 if (isUserLoggedIn()) {
     $templateParams["title"] = "Notifiche -" . $_SESSION['nome'];
     $templateParams["content"] = "notify.php";
+    if (isset($_GET['idnot'])){
+        $dbh->deleteNotification($_SESSION['email'],$_GET['idnot']);
+    }
     if ($dbh->isSeller($_SESSION['email']))
         $templateParams["header"] = "headerSeller.php";
     else

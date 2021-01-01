@@ -285,7 +285,7 @@ class DatabaseHelper
 
 	public function getNotifications($email)
 	{
-		$stmt = $this->db->prepare("SELECT data,visualizzata,messaggio FROM notifica WHERE email = ? ORDER BY idnotifica DESC");
+		$stmt = $this->db->prepare("SELECT idnotifica,data,visualizzata,messaggio FROM notifica WHERE email = ? ORDER BY idnotifica DESC");
 		$stmt->bind_param("s", $email);
 		$stmt->execute();
 		$result = $stmt->get_result();

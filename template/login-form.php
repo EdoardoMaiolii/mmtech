@@ -1,21 +1,16 @@
 <section>
+    <h1>Login</h1>
     <form action="login.php" method="POST">
-        <h2>Login</h2>
-        <ul>
+        <fieldset>
+            <legend> Compila qui' sotto per accedere </legend>
             <?php
             if (isset($templateParams["errorelogin"]))
                 echo  $templateParams["errorelogin"];
             ?>
-            <li>
-                <label for="email">Email: </label><input type="text" id="email" name="email" />
-            </li>
-            <li>
-                <label for="password">Password: </label><input type="password" id="password" name="password" />
-            </li>
-            <li>
-                <input type="submit" name="submit" value="Invia" />
-            </li>
-        </ul>
+            <label for="email">Email: </label><input type="text" id="email" name="email" />
+            <label for="password">Password: </label><input type="password" id="password" name="password" />
+            <input type="submit" name="submit" value="Invia" />
+        </fieldset>
     </form>
-    <p> Se non sei ancora iscritto puoi iscriverti <a href="register.php"> cliccando qui </a> </p>
+    <strong> Se non sei ancora iscritto puoi iscriverti <a href="register.php"> cliccando qui </a> </strong>
 </section>

@@ -1,33 +1,20 @@
 <section>
+    <h1>Registrati</h1>
+    <p> Compila il seguente form per iscriverti su MMTech </p>
+    <?php
+    if (isset($templateParams["erroreregister"]))
+        echo  $templateParams["erroreregister"];
+    ?>
     <form action="register.php" method="POST">
-        <h2>Registrati</h2>
-        <ul>
-            <?php
-            if (isset($templateParams["erroreregister"]))
-                echo  $templateParams["erroreregister"];
-            ?>
-            <li>
-                <label for="email">E-mail: </label><input type="text" id="email" name="email" />
-            </li>
-            <li>
-                <label for="nome">Nome: </label><input type="text" id="nome" name="nome" />
-            </li>
-            <li>
-                <label for="password">Password: </label><input type="password" id="password" name="password" />
-            </li>
+        <fieldset>
+            <label for="email">E-mail: </label><input type="text" id="email" name="email" />
+            <label for="nome">Nome: </label><input type="text" id="nome" name="nome" />
+            <label for="password">Password: </label><input type="password" id="password" name="password" />
             <p> Metodo di pagamento: </p>
-            <li>
-                <label for="numerocarta">Numero Carta: </label><input type="text" id="numerocarta" name="numerocarta" />
-            </li>
-            <li>
-                <label for="datascadenza">Data scadenza: </label><input type="text" id="datascadenza" name="datascadenza" />
-            </li>
-            <li>
-                <label for="cvvcarta">Cvv: </label><input type="text" id="cvvcarta" name="cvvcarta" />
-            </li>
-            <li>
-                <input type="submit" name="submit" value="Registrati" />
-            </li>
-        </ul>
+            <label for="numerocarta">Numero Carta: </label><input type="text" id="numerocarta" name="numerocarta" />
+            <label for="datascadenza">Data scadenza: </label><input type="text" id="datascadenza" name="datascadenza" />
+            <label for="cvvcarta">Cvv: </label><input type="text" id="cvvcarta" name="cvvcarta" />
+            <input type="submit" name="submit" value="Registrati" />
+        </fieldset>
     </form>
 </section>
