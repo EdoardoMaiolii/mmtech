@@ -14,22 +14,27 @@
     <title> <?php echo $templateParams["title"] ?> </title>
 </head>
 
-<body onload="closeNav()">
-    <header>
-        <div id="mySidenav" class="sidenav">
-            <a id="closebtn">&times;</a>
-            <!-- add dynamic catecoriess -->
-            <?php foreach ($templateParams["categories"] as $category) : ?>
-                <a href=<?php echo "search.php?categoria=" . $category["nomecategoria"] ?>> <?php echo $category["nomecategoria"] ?></a>
-            <?php endforeach; ?>
+<body class="bg-light" onload="closeNav()">
+    <nav class="navbar navbar-expand-md navbar-light bg-dark sticky-top">
+        <div class="container-fluid">
+            <div id="mySidenav" class="sidenav">
+                <a id="closebtn">&times;</a>
+                <a href="index.php">Home</a>
+                <br>
+                <br>
+                <!-- add dynamic catecoriess -->
+                <?php foreach ($templateParams["categories"] as $category) : ?>
+                    <a href=<?php echo "search.php?categoria=" . $category["nomecategoria"] ?>> <?php echo $category["nomecategoria"] ?></a>
+                <?php endforeach; ?>
+            </div>
+            <img id="barrette" alt="MenuLaterale" src="<?php echo MOCKUP_DIR . "BarretteMenu.png"; ?>" />
+            <?php
+            if (isset($templateParams["header"])) {
+                require($templateParams["header"]);
+            }
+            ?>
         </div>
-        <img id="barrette" alt="MenuLaterale" src="<?php echo MOCKUP_DIR . "BarretteMenu.png"; ?>" />
-        <?php
-        if (isset($templateParams["header"])) {
-            require($templateParams["header"]);
-        }
-        ?>
-    </header>
+    </nav>
     <main>
         <?php
         if (isset($templateParams["content"])) {
@@ -37,10 +42,10 @@
         }
         ?>
     </main>
-    <footer>
+    <footer class="bg-dark text-center text-light p-3">
         <p>Sede: Via del Freijlord, 4 Runeterra (RT)</p>
         <p>Contattaci: assistenza@mandm.com</p>
-        <img alt="Logo MMTech" src="<?php echo MOCKUP_DIR . "Logo.png"; ?>" />
+        <br>
     </footer>
     <script src="js/header.js"></script>
 </body>
