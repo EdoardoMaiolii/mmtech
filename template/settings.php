@@ -1,7 +1,9 @@
-<nav>
-    <ul>
-        <li><a href="settings.php?settings-section=1">Gestione Prodotti</a></li>
-        <li><a href="settings.php?settings-section=2">Gestione Ordini</a></li>
+<div id="content">
+<link rel="stylesheet" type="text/css" href="./css/profile-settings.css" />
+<nav id="sidebar" data-toggle="collapse" class="navbar navbar-expand-lg navbar-light bg-light">
+    <ul class="nav nav nav-tabs nav-fill">
+        <li class="nav-item"><a <?php echo ((!isset($templateParams["settings-section"]) || $templateParams["settings-section"] == "1") ? 'class="nav-link active"' : 'class="nav-link"') ?>  href="settings.php?settings-section=1">Gestione Prodotti</a></li>
+        <li class="nav-item"><a <?php echo (($templateParams["settings-section"] == "2") ? 'class="nav-link active"' : 'class="nav-link"') ?>href="settings.php?settings-section=2">Gestione Ordini</a></li>
     </ul>
 </nav>
 <?php
@@ -9,3 +11,4 @@
         require("settings-section" . $templateParams["settings-section"] . ".php");
     }
 ?>
+</div>

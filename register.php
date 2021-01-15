@@ -25,6 +25,7 @@ if (isUserLoggedIn()) {
     unset($templateParams["erroreregster"]);
     require('index.php');
 } else {
+    $templateParams["header"] = "headerUnlogged.php";
     $templateParams["title"] = "Register";
     $templateParams["content"] = "register-form.php";
 }

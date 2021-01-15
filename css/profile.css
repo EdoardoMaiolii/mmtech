@@ -1,0 +1,63 @@
+h1 {
+    font-family: 'Century Gothic', cursive;
+    font-size: 50px;
+    color: #270057;
+    margin-left: 0.67em;
+    padding-top: 0.67em;
+    padding-bottom: 0.67em;
+  }
+
+  h2 {
+    font-family: 'Century Gothic', cursive;
+    font-size: 35px;
+    color: #270057;
+    margin-left: 0.30em;
+    padding-top: 0.30em;
+    padding-bottom: 0.30em;
+
+  }
+
+  #blackline {
+    border-top: 6px solid black;
+    height: 10px;
+    width: 100%;
+
+  }
+
+  #row {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  #ppar {
+    font-family: 'Century Gothic', cursive;
+    font-size: 20px;
+    color: #270057;
+    margin-left: 0.30em;
+    padding-top: 0.60em;
+    padding-bottom: 0.30em;
+  }
+
+  #info {
+    font-family: 'Century Gothic', cursive;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  #btn {
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  #profile-modifyProfile {
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+  #ord {
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .50rem;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 30px;
+  }
