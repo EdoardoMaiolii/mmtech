@@ -7,6 +7,8 @@
         <input type ="submit" id="searchBtn" name="searchBtn" hidden="hidden"/>
     </form>
 </div>
-<a href="notify.php"><img alt="Notifiche" id="notifyBtn" src="<?php echo MOCKUP_DIR."bell.png"; ?>" /></a>
-<a href="profile.php"><img alt="Login" id="loginBtn" src="<?php echo MOCKUP_DIR."ProfileBtn.png"; ?>" /></a>
-<a href="cart.php"><img alt="Carrello" id="cart" src="<?php echo MOCKUP_DIR."shopBtn.png"; ?>" /></a>
+<div class="navbar-nav ml-auto">
+    <a class="navbar-collapse collapse" href="notify.php"><img alt="Notifiche" id="notifyBtn" src="<?php echo MOCKUP_DIR."bell.png"; ?>" /></a>
+    <a class="navbar-collapse collapse" href="profile.php"><img alt="Login" id="loginBtn" src="<?php echo MOCKUP_DIR."ProfileBtn.png"; ?>" /></a>
+    <a class="navbar-collapse collapse" href="cart.php"><img alt="Carrello" id="cart" src="<?php echo MOCKUP_DIR."shopBtn.png"; ?>" /></a>
+</div>

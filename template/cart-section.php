@@ -1,5 +1,6 @@
 <section>
     <h1>Carrello</h1>
+    <div id="blackline"></div>
     <form action="updatecart.php" method="GET">
     <fieldset>
     <legend>Lista di prodotti selezionati:</legend>

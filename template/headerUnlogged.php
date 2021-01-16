@@ -7,4 +7,6 @@
         <input type ="submit" id="searchBtn" name="searchBtn" hidden="hidden"/>
     </form>
 </div>
-<a href="login.php"><img alt="Login" id="loginBtn" src="<?php echo MOCKUP_DIR."loginButton.png"; ?>" /></a>
+<div class="navbar-nav ml-auto">
+    <a class="navbar-collapse collapse" href="login.php"><img alt="Login" id="loginBtn" src="<?php echo MOCKUP_DIR."loginButton.png"; ?>" /></a>
+</div>
