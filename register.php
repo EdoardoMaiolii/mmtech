@@ -16,7 +16,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["nome"])
             registerLoggedUser(array_merge($login_result[0], $card[0]));
         } else {
             //Register fallito
-            $templateParams["erroreregster"] = "Errore! Email gia\' in uso!";
+            $templateParams["erroreregster"] = "Errore! Email gia' in uso!";
     }
 }
 

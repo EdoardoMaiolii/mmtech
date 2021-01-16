@@ -24,7 +24,7 @@
             <div id="ord" >
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item list-group-item-primary"> Nome: <?php echo $products['nome'] ?></li>
-                    <li class="list-group-item list-group-item-info"> Categoria: <?php echo $products['nomecategoria'] ?></li>
+                    <li class="list-group-item list-group-item-secondary"> Categoria: <?php echo $products['nomecategoria'] ?></li>
                     <li class="list-group-item list-group-item-success"> Prezzo Unitario: <?php echo $products['prezzoacquisto'] . "$" ?></li>
                     <li class="list-group-item list-group-item-success"> Quantita': <?php echo $products['quantita'] ?></li>
                 </ul>

@@ -5,13 +5,13 @@ function switchModify(){
         document.getElementById('profile-numerocarta').disabled=false;
         document.getElementById('profile-scadenzacarta').disabled=false;
         document.getElementById('profile-cvv').disabled=false;
-        document.getElementById('profile-modifyProfile').disabled=false;
+        document.getElementById('btn').disabled=false;
     } else {
         document.getElementById('profile-nome').disabled=true;
         document.getElementById('profile-password').disabled=true;
         document.getElementById('profile-numerocarta').disabled=true;
         document.getElementById('profile-scadenzacarta').disabled=true;
         document.getElementById('profile-cvv').disabled=true;
-        document.getElementById('profile-modifyProfile').disabled=true;
+        document.getElementById('btn').disabled=true;
     }
 }

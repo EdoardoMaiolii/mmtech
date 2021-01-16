@@ -9,7 +9,7 @@ create table Utente (
 	 Nome VARCHAR(40) NOT NULL,
 	 Password VARCHAR(40) NOT NULL,
      NumeroCarta VARCHAR(16),
-     ScadenzaCarta VARCHAR(5),
+     ScadenzaCarta VARCHAR(7),
      CvvCarta INT(3),
      Venditore BOOLEAN NOT NULL
      );

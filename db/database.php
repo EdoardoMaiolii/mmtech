@@ -48,6 +48,8 @@ class DatabaseHelper
 
 	public function register($email, $nome, $password, $cardNumber = NULL, $expDate = NULL, $cvv = NULL)
 	{
+		$tmp = $this->checkEmail($email);
+		if (!empty($tmp)) return false;
 		$stmt = $this->db->prepare("INSERT INTO utente VALUES (?,?,?,?,?,?,false)");
 		$stmt->bind_param("sssssi", $email, $nome, $password, $cardNumber, $expDate, $cvv);
 		$stmt->execute();
