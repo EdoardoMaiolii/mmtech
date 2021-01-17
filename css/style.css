@@ -1,21 +1,16 @@
 figure {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: relative;
 }
-
-.portfolio-item figcaption {
-
-    order: -1;       
-
-    display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-
-        width: 280px;
-        background: rgb(52, 152, 219);
-        color: white;
-        padding: 10px 5px 10px 5px;
+figure img {
+   display: block;
+}
+figcaption {
+   background: rgba(0, 0, 0, 0.5);
+   color: #FFF;
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   right: 0;
 }
 #info {
     font-family: 'Century Gothic', cursive;
