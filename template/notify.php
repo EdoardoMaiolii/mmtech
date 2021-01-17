@@ -11,14 +11,16 @@
                     <ul class="list-group list-group-flush">
                         <?php
                         if (!$nofification['visualizzata']) {
-                            echo "<li class='list-group-item list-group-item-primary' > La seguente notifica non e' ancora stata visualizzata </li>";
+                            echo "<li class='list-group-item list-group-item-dark' > La seguente notifica non e' ancora stata visualizzata </li>";
                         }
                         ?>
-                        <li class="list-group-item list-group-item-info" id='data'>Data: <?php echo $nofification['data'] ?></li>
-                        <li class="list-group-item list-group-item-warning" id='messaggio'>Messaggio: <?php echo $nofification['messaggio'] ?></li>
-                        <a href=<?php echo "notify.php?idnot=" . $nofification['idnotifica'] ?> id="deleteNot" class="list-group-item list-group-item-action list-group-item-danger"><div style="text-align: center;"> <img alt="Elimina Notifica" src=<?php echo MOCKUP_DIR . "delete.png" ?>> Elimina notifica </div> </a>
+                        <li style="  color: white;" class="list-group-item bg-dark" id='data'>Data: <?php echo $nofification['data'] ?></li>
+                        <li class="list-group-item list-group-item-dark" id='messaggio'>Messaggio: <?php echo $nofification['messaggio'] ?></li>
                     </ul>
                     </article>
+                    <div  class="list-group-item list-group-item-secondary" id="delete">
+                    <a href=<?php echo "notify.php?idnot=" . $nofification['idnotifica'] ?> id="deleteNot"><img alt="Elimina Notifica" src=<?php echo MOCKUP_DIR . "delete.png" ?>></a>
                     </div>
-                <?php endforeach; ?>
+                    </div>
+                    <?php endforeach; ?>
 </section>

@@ -8,9 +8,9 @@
         <?php foreach ($templateParams["orders"] as $order) : ?>
             <div id="ord">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item list-group-item-primary"> Id ordine: <?php echo $order['idordine'] ?></li>
-                    <li class="list-group-item list-group-item-secondary"> Data ordine: <?php echo $order['dataordine'] ?></li>
-                    <a href=<?php echo "profile.php?view-ordine=" . $order['idordine'] ?> class="list-group-item list-group-item-action list-group-item-info"> Per visualizzare le specifiche di quest' ordine clicca qui' </a>
+                    <li style="  color: white;" class="list-group-item bg-dark"> Id ordine: <?php echo $order['idordine'] ?></li>
+                    <li class="list-group-item list-group-item-dark"> Data ordine: <?php echo $order['dataordine'] ?></li>
+                    <a style="  color: #007bff; text-align: center;" href=<?php echo "profile.php?view-ordine=" . $order['idordine'] ?> class="list-group-item list-group-item-action list-group-item-secondary"> Per visualizzare le specifiche di quest' ordine clicca qui' </a>
                 </ul>
             </div>
         <?php endforeach;
@@ -23,10 +23,10 @@
         <?php foreach ($templateParams["order-products"] as $products) : ?>
             <div id="ord" >
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item list-group-item-primary"> Nome: <?php echo $products['nome'] ?></li>
-                    <li class="list-group-item list-group-item-secondary"> Categoria: <?php echo $products['nomecategoria'] ?></li>
-                    <li class="list-group-item list-group-item-success"> Prezzo Unitario: <?php echo $products['prezzoacquisto'] . "$" ?></li>
-                    <li class="list-group-item list-group-item-success"> Quantita': <?php echo $products['quantita'] ?></li>
+                    <li style="  color: white;" class="list-group-item bg-dark"> Nome: <?php echo $products['nome'] ?></li>
+                    <li class="list-group-item list-group-item-dark"> Categoria: <?php echo $products['nomecategoria'] ?></li>
+                    <li class="list-group-item list-group-item-secondary"> Prezzo Unitario: <?php echo $products['prezzoacquisto'] . "$" ?></li>
+                    <li class="list-group-item list-group-item-light"> Quantita': <?php echo $products['quantita'] ?></li>
                 </ul>
             </div>
     <?php endforeach;
