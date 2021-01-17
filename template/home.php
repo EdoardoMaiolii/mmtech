@@ -3,7 +3,7 @@
     <div id="blackline"></div>
     <div class="row no-gutters">
         <?php foreach ($templateParams["mostviewed"] as $product) : ?>
-            <div id="box" class="product-img">
+            <div class="product">
                 <figure class="gradient-border" id="box">
                     <a href="product.php?productid=<?php echo $product["idprodotto"]; ?>"> <img class="homeImage" src="<?php echo UPLOAD_DIR . $product["nomeimmagine"]; ?>" alt=<?php echo $product["nome"]; ?> /></a>
                     <figcaption id="info"> <?php echo $product["nome"]; ?> </figcaption>
@@ -17,8 +17,8 @@
         <div id="blackline"></div>
         <div class="row no-gutters">
             <?php foreach ($templateParams["chrono"] as $product) : ?>
-                <div class="product-img">
-                    <figure>
+                <div class="product">
+                    <figure class="gradient-border" id="box">
                         <a href="product.php?productid=<?php echo $product["idprodotto"]; ?>"> <img class="homeImage" src="<?php echo UPLOAD_DIR . $product["nomeimmagine"]; ?>" alt=<?php echo $product["nome"]; ?> /></a>
                         <figcaption> <?php echo $product["nome"]; ?> </figcaption>
                     </figure>

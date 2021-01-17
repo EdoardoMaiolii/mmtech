@@ -17,7 +17,7 @@
 </head>
 
 <body class="bg-light" onload="closeNav()">
-    <nav class="navbar navbar-expand-md navbar-light bg-dark sticky-top">
+    <nav class="navbar navbar-expand-md navbar-light sticky-top bg-dark">
             <div id="mySidenav" class="sidenav">
                 <a id="closebtn">&times;</a>
                 <a href="index.php">Home</a>
@@ -61,7 +61,7 @@
         }
         ?>
     </main>
-    <footer class="bg-dark text-center text-light p-3">
+    <footer class="text-center text-light p-3 bg-dark">
         <p>Sede: Via del Freijlord, 4 Runeterra (RT)</p>
         <p>Contattaci: assistenza@mandm.com</p>
         <br>
