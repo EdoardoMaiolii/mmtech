@@ -112,14 +112,39 @@ h2 {
 footer p {
     display: inline-block !important;
     margin: 0% 1%;
-    padding: 20px 0px;
+    padding: 50px 0px;
 }
+
+footer {
+    position: relative;
+    width:100%;
+    margin-bottom:0px;
+ }
 
 .homeImage {
     width: 200px;
     height: auto;
 }
 
+#searchHeader {
+    text-align: center;
+    font-size: 175%;
+}
+
+#productImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+#descrizioneProdotto {
+
+}
+
+#datiProdotto {
+
+}
 
 /* sidenav style */
 
@@ -172,46 +197,3 @@ footer p {
     font-size: 25px;
     text-align: center;
 }
-
-
-/* body {
-    background-color: #C9CAD2;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 200%;
-}
-header > img {
-    width: 10%;
-    height: auto;
-}
-body > header {
-background-color:  #0D76A4;
-    height: 150px;
-}
-body > header > #barrette {
-    margin-left: 5%;
-    margin-right: 0%;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-body > header > #logo {
-    margin-left: 5%;
-    margin-right: 0%;
-}
-body > header > #ricerca {
-    margin-left: 5%;
-    margin-right: 0%;
-    height: 50%;
-    width: auto;
-}
-body > header > #loginBtn {
-    margin-left: 5%;
-    margin-right: 0%;
-}
-body > footer {
-    background-color:  #0D76A4;
-    height: 95 px;
-}
-ul {
-    list-style: none;
-}
-*/

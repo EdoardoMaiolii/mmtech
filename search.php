@@ -2,8 +2,11 @@
 require_once("bootstrap.php");
 
 if(isset($_GET['searchbar'])){
+    $templateParams['search'] = $_GET['searchbar'];
     $templateParams["content"] = "search-section.php";
-    $templateParams["searchproducts"] = $dbh->searchProducts($_GET['searchbar']);
+    if(!empty($_GET['searchbar'])){
+        $templateParams["searchproducts"] = $dbh->searchProducts($_GET['searchbar']);
+    }
 }
 else{
     $templateParams["content"] = "home.php";
@@ -22,5 +25,6 @@ else
 else {
     $templateParams["header"] = "headerUnlogged.php";
 }
+$templateParams["title"] = 'Ricerca';
 require 'template/base.php';
 ?>
