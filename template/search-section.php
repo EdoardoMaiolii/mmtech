@@ -1,5 +1,6 @@
 <section>
     <h1>Risultato ricerca</h1>
+    <div id="blackline"></div>
     <?php
     if (!isset($templateParams['searchproducts']) || empty($templateParams['searchproducts'])) : ?>
         <h2 id="searchHeader"> Nessun elemento trovato</h2>

@@ -20,8 +20,9 @@ if ($templateParams["header"] == "headerSeller.php") : ?>
         </form>
     </section>
 <?php else : ?>
-    <section>
+    <section id="sezioneProd">
         <h1><?php echo $templateParams["product"]["nome"]; ?></h1>
+        <div id="blackline"></div>
         <img id="productImage" src="<?php echo UPLOAD_DIR . $templateParams["product"]["nomeimmagine"]; ?>" alt="<?php echo $templateParams["product"]["nome"] ?>" />
         <p id="descrizioneProdotto">
             <?php echo $templateParams["product"]["descrizione"]; ?>
@@ -32,18 +33,18 @@ if ($templateParams["header"] == "headerSeller.php") : ?>
             <form action="addtocart.php" method="GET">
                 <input type="hidden" id="idprodotto" name="idprodotto" value=<?php echo $templateParams["product"]["idprodotto"] ?> />
                 <label for="quantita">Seleziona quantit&agrave;:</label>
-                <select id="quantita" name="quantita">
+                <select class="custom-select" id="quantita" name="quantita">
                     <?php for ($i = 1; $i < ($templateParams["product"]['quantitadisponibile'] >= 10 ? 10 : $templateParams["product"]['quantitadisponibile'] + 1); $i++) : ?>
                         <option <?php echo 'value = ' . $i ?>><?php echo $i; ?></option>
                     <?php endfor; ?>
                 </select>
                 <?php if (isUserLoggedIn() && $templateParams["product"]["quantitadisponibile"] > 0) : ?>
-                    <button type="submit">Aggiungi al Carrello</button>
+                    <button class="btn btn-primary" type="submit">Aggiungi al Carrello</button>
                 <?php elseif ($templateParams["product"]["quantitadisponibile"] == 0) : ?>
-                    <button type="submit" disabled>Aggiungi al Carrello</button>
+                    <button class="btn btn-primary" type="submit" disabled>Aggiungi al Carrello</button>
                     <p>Prodotto non disponibile</p>
                 <?php else : ?>
-                    <button type="submit" disabled>Aggiungi al Carrello</button>
+                    <button class="btn btn-primary" type="submit" disabled>Aggiungi al Carrello</button>
                     <p>Per aggiungere al carrello effettua il login</p>
                 <?php endif; ?>
             </form>
