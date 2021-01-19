@@ -1,6 +1,6 @@
-<section class="bg-light">
+<section>
     <link rel="stylesheet" type="text/css" href="./css/profile-settings.css" />
-    <h1> NOTIFICHE </h1>
+    <h1 class="bg-light"> NOTIFICHE </h1>
     <div id="blackline"></div>
     <p id="ppar"> Segue una lista delle piu' recenti notifiche <p>
             <?php
@@ -14,7 +14,7 @@
                             echo "<li class='list-group-item list-group-item-dark' > La seguente notifica non e' ancora stata visualizzata </li>";
                         }
                         ?>
-                        <li style="  color: white;" class="list-group-item bg-dark" id='data'>Data: <?php echo $nofification['data'] ?></li>
+                        <li style="color: white;" class="list-group-item bg-dark" id='data'>Data: <?php echo $nofification['data'] ?></li>
                         <li class="list-group-item list-group-item-dark" id='messaggio'>Messaggio: <?php echo $nofification['messaggio'] ?></li>
                     </ul>
                     </article>

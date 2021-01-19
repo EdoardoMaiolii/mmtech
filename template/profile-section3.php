@@ -1,5 +1,5 @@
-<section class="bg-light">
-    <h1> LOGOUT</h1>
+<section>
+    <h1 class="bg-light"> LOGOUT</h1>
     <div id="blackline"></div>
     <p id="ppar">Se si desidera uscire dall'account e' possibile cliccare sul seguente bottone </br>
     per accedere nuovamente sara' necessario inserire le credenziali dell'account.

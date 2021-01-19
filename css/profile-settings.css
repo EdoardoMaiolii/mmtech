@@ -2,9 +2,9 @@ h1 {
     font-family: 'Century Gothic', cursive;
     font-size: 40px;
     color: #270057;
-    margin-left: 0.67em;
     padding-top: 0.67em;
     padding-bottom: 0.67em;
+    margin-bottom: 0px;
     text-align: center;
   }
 
@@ -79,11 +79,12 @@ h1 {
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, .125);
   border-radius: .90rem;
-  margin-left: 25%;
-  margin-right: 25%;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 30px;
   margin-top: 30px;
-  width: auto;
+  width: 50%;
+  min-width: 250px !important;
   }
 
   #delete {

@@ -1,7 +1,7 @@
-<section class="bg-light">
-  <h1>DATI PERSONALI</h1>
+<section>
+  <h1 class="bg-light">DATI PERSONALI</h1>
   <div id="blackline"></div>
-  <div id="containerMid">
+  <div id="containerMid" class="bg-light">
     <p id="ppar"> La tua email:
     <p>
     <h2><?php echo $_SESSION["email"]; ?></h2>

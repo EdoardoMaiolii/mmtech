@@ -1,8 +1,8 @@
-<section class="bg-light">
+<section>
     <?php
     if ($templateParams['header'] != "headerSeller.php")
         if (!isset($templateParams['order-products'])) : ?>
-        <h1> ORDINI EFFETTUATI</h1>
+        <h1 class="bg-light"> ORDINI EFFETTUATI</h1>
         <div id="blackline"></div>
         <p id="ppar"> Lista degli ordini effettuati </p>
         <?php foreach ($templateParams["orders"] as $order) : ?>

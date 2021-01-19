@@ -1,5 +1,5 @@
 <section id="MostViewed">
-    <h1>Prodotti piu' visualizzati</h1>
+    <h1 class="bg-light">Prodotti piu' visualizzati</h1>
     <div id="blackline"></div>
     <div class="row no-gutters">
         <?php foreach ($templateParams["mostviewed"] as $product) : ?>
@@ -10,10 +10,11 @@
                 </figure>
             </div>
         <?php endforeach; ?>
+        <div id="blackline"></div>
 </section>
 <section id="Chronology">
     <?php if (isset($templateParams["chrono"])) : ?>
-        <h1>Prodotti visualizati di recente</h1>
+        <h1 class="bg-light">Prodotti visualizati di recente</h1>
         <div id="blackline"></div>
         <div class="row no-gutters">
             <?php foreach ($templateParams["chrono"] as $product) : ?>

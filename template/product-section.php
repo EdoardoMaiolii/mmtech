@@ -21,13 +21,13 @@ if ($templateParams["header"] == "headerSeller.php") : ?>
     </section>
 <?php else : ?>
     <section id="sezioneProd">
-        <h1><?php echo $templateParams["product"]["nome"]; ?></h1>
+        <h1 class="bg-light"><?php echo $templateParams["product"]["nome"]; ?></h1>
         <div id="blackline"></div>
         <img id="productImage" src="<?php echo UPLOAD_DIR . $templateParams["product"]["nomeimmagine"]; ?>" alt="<?php echo $templateParams["product"]["nome"] ?>" />
-        <p id="descrizioneProdotto">
+        <p id="descrizioneProdotto" class="bg-light">
             <?php echo $templateParams["product"]["descrizione"]; ?>
         </p>
-        <div id=datiProdotto>
+        <div id=datiProdotto class="bg-light">
             <p>Prezzo prodotto: <?php echo $templateParams["product"]["costo"]; ?> &euro;</p>
             <p>Costo spedizione: <?php echo $templateParams["product"]["costospedizione"]; ?> &euro;</p>
             <form action="addtocart.php" method="GET">
