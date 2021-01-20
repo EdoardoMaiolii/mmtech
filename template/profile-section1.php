@@ -11,12 +11,6 @@
           <label id="info" class="col-form-label" for="profile-nome">Nome: </label>
           <input class="form-control" type="text" name="profile-nome" id="profile-nome" <?php echo $_SESSION["nome"] != NULL ? "value=" . $_SESSION["nome"] : ""; ?> disabled />
         </div>
-        <!-- 
-        <div id="row" class="form-group">
-          <label id="info" class="col-form-label" for="profile-password">Password:</label>
-          <input class="form-control" type="text" name="profile-password" id="profile-password" <?php echo $_SESSION["password"] != NULL ? "value=" . $_SESSION["password"] : ""; ?> disabled />
-        </div>
-        -->
         <p id="ppar"> Il tuo metodo di pagamento:
         <p>
         <div id="row" class="form-group">

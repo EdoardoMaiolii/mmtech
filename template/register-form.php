@@ -13,13 +13,13 @@
             <form action="register.php" method="POST">
                 <fieldset>
                     <div id="row" class="form-group">
-                        <label id="info" class="col-form-label" for="email">E-mail: </label><input class="form-control" type="text" id="email" name="email" />
+                        <label id="info" class="col-form-label" for="email">E-mail: </label><input class="form-control" type="text" id="email" name="email" required/>
                     </div>
                     <div id="row" class="form-group">
-                        <label id="info" class="col-form-label" for="nome">Nome: </label><input class="form-control" type="text" id="nome" name="nome" />
+                        <label id="info" class="col-form-label" for="nome">Nome: </label><input class="form-control" type="text" id="nome" name="nome" required/>
                     </div>
                     <div id="row" class="form-group">
-                        <label id="info" class="col-form-label" for="password">Password: </label><input class="form-control" type="password" id="password" name="password" />
+                        <label id="info" class="col-form-label" for="password">Password: </label><input class="form-control" type="password" id="password" name="password" required/>
                     </div>
                     <p id="ppar"> Metodo di pagamento: </p>
                     <div id="row" class="form-group">
