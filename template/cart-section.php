@@ -25,14 +25,21 @@
     <div class="cartRecap bg-light">
         <form action="updatecart.php" method ="GET">
             <input type="hidden" id="order" name="order" value ="true">
-            <p>Costo totale <?php 
-            $costoTotale = 0;
-            foreach($templateParams['cartproducts'] as $p){
-                $costoTotale = $costoTotale + ($p['costo']*$p['quantita'])+ $p['costospedizione'];
-            }
-            echo $costoTotale;
-            ?> &euro;
-            </p>
+            <p><label for="address">Indirizzo di consegna: <input type="text" id="address" name="address" required></label></p>
+            <p><label for="fastShip"> Consegna rapida: </label><input type="checkbox" id="fastShip" name="fastShip"><br</p>
+
+            <p>Prezzo senza Iva: </p><p id = "noIvaPrice">
+            <?php 
+                $costoTotale = 0;
+                foreach($templateParams['cartproducts'] as $p){
+                    $costoTotale = $costoTotale + ($p['costo']*$p['quantita'])+ $p['costospedizione'];
+                }
+                echo $costoTotale;
+            ?> &euro;</p>
+            <p>Prezzo totale (Iva al 22%): </p><p id="totalPrice">
+            <?php 
+                echo round(($costoTotale * 1.22),2);
+            ?> &euro;</p>
             <button class="btn btn-primary" type = "submit" id ="orderBtn" name ="orderBtn">Compra gli articoli nel carrello</button>
         </form>
     </div>
