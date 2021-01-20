@@ -1,7 +1,6 @@
 <?php
 function registerLoggedUser($user){
     $_SESSION["email"] = $user["email"];
-    $_SESSION["password"] = $user["password"];
 	$_SESSION["nome"] = $user["nome"];
 	$_SESSION["numerocarta"] = $user["numerocarta"];
     $_SESSION["scadenzacarta"] = $user["scadenzacarta"];

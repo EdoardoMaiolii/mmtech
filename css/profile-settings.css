@@ -39,8 +39,8 @@ h1 {
   padding-bottom: 20px;
   text-align: center;
   align-content: center;
-  margin-left: 45%;
-  margin-right: 45%;
+  margin: auto;
+  width: 30%;
   min-width: 150px !important;
  }
  #mediumrow {

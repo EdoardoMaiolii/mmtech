@@ -7,7 +7,6 @@ if (isUserLoggedIn()) {
         $result = $dbh->modifyUser(
             $_SESSION['email'],
             $_POST['profile-nome'],
-            $_POST['profile-password'],
             $_POST['profile-numerocarta'],
             $_POST['profile-scadenzacarta'],
             $_POST['profile-cvv']
@@ -15,7 +14,6 @@ if (isUserLoggedIn()) {
         registerLoggedUser(array(
             "email" => $_SESSION['email'],
             "nome" => $_POST['profile-nome'],
-            "password" => $_POST['profile-password'],
             "numerocarta" => $_POST['profile-numerocarta'],
             "scadenzacarta" => $_POST['profile-scadenzacarta'],
             "cvvcarta" => $_POST['profile-cvv']

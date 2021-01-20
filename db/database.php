@@ -270,11 +270,11 @@ class DatabaseHelper
 		return $result->fetch_all(MYSQLI_ASSOC);
 	}
 
-	public function modifyUser($email, $nome, $password, $cardNumber, $expDate, $cvv)
+	public function modifyUser($email, $nome, $cardNumber, $expDate, $cvv)
 	{
 		if (count($this->checkEmail($email)) == 1) {
-			$stmt = $this->db->prepare("UPDATE utente SET nome =? , password=? , numerocarta=? , scadenzacarta=? , cvvcarta=? WHERE email = ?");
-			$stmt->bind_param("ssssis", $nome, $password, $cardNumber, $expDate, $cvv, $email);
+			$stmt = $this->db->prepare("UPDATE utente SET nome =? , numerocarta=? , scadenzacarta=? , cvvcarta=? WHERE email = ?");
+			$stmt->bind_param("sssis", $nome, $cardNumber, $expDate, $cvv, $email);
 			$stmt->execute();
 			return true;
 		}
