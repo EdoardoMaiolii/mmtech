@@ -3,7 +3,10 @@
     flex: 1;
     margin: 1% 3%;
 }
-
+#fastShip{
+    cursor: pointer;
+    margin: 0% 2%;
+}
 body{
     font-family: 'Century Gothic', cursive;
     background-image: url("../grey.jpg");

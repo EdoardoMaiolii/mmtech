@@ -61,21 +61,27 @@ class DatabaseHelper
 	{
 		$tmp = $this->checkEmail($email);
 		if (!empty($tmp)) return false;
+		$hashedPassword = password_hash($password, PASSWORD_DEFAULT); // hash memorizzato nel database
 		$stmt = $this->db->prepare("INSERT INTO utente VALUES (?,?,?,?,?,?,false)");
-		$stmt->bind_param("sssssi", $email, $nome, $password, $cardNumber, $expDate, $cvv);
+		$stmt->bind_param("sssssi", $email, $nome, $hashedPassword, $cardNumber, $expDate, $cvv);
 		$stmt->execute();
 		$this->addNotification($email, "[" . $email . "] ha creato con successo un account su MMtech.com, COMPLIMENTI ! ");
 		$this->sendMail($email, "Registrazione effettuata MMtech", "[" . $email . "] ha creato con successo un account su MMtech.com, COMPLIMENTI ! ");
 		return true;
 	}
 
-	public function checkLogin($email, $password)
+	public function checkLogin($email, $userPassword)
 	{
-		$stmt = $this->db->prepare("SELECT email,nome,password,venditore FROM utente WHERE email = ? AND password = ?");
-		$stmt->bind_param("ss", $email, $password);
+		$stmt = $this->db->prepare("SELECT email,nome,password,venditore FROM utente WHERE email = ?");
+		$stmt->bind_param("s", $email);
 		$stmt->execute();
 		$result = $stmt->get_result();
-		return $result->fetch_all(MYSQLI_ASSOC);
+		$result = $result->fetch_all(MYSQLI_ASSOC);
+		if (empty($result)) {
+			return false;
+		}
+		$hashedPassword = $result[0]['password']; // password criptata
+		return password_verify($userPassword, $hashedPassword); // controllo che la password inserita dall'utente sia corretta
 	}
 
 	public function addItemToCart($email, $idProduct, $quantity)
@@ -384,4 +390,14 @@ class DatabaseHelper
 		$result = $stmt->get_result();
 		return $result->fetch_all(MYSQLI_ASSOC);
 	}
+
+	public function getUserInfo($email)
+	{
+		$stmt = $this->db->prepare("SELECT email, nome, password, numerocarta,scadenzacarta,cvvcarta FROM utente WHERE email = ?");
+		$stmt->bind_param("s", $email);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		return $result->fetch_all(MYSQLI_ASSOC)[0];
+	}
+
 }

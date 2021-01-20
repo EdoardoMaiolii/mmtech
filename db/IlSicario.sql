@@ -7,7 +7,7 @@ use MMtech;
 create table Utente (
      Email VARCHAR(40) PRIMARY KEY,
 	 Nome VARCHAR(40) NOT NULL,
-	 Password VARCHAR(40) NOT NULL,
+	 Password VARCHAR(100) NOT NULL,
      NumeroCarta VARCHAR(16),
      ScadenzaCarta VARCHAR(7),
      CvvCarta INT(3),
@@ -85,16 +85,25 @@ create table Notifica (
 );
      
 -- Aggiunta Utente Venditore
-INSERT INTO Utente VALUES ('pccomponents@pcc.it','Antonello','PcComp',null,null,null,true);
--- Aggiunta Utente 
-INSERT INTO Utente VALUES ('kevinmancini@gmail.com','Kevin','19012000','1234123412341234',"11/2022",456,false);
-INSERT INTO Utente VALUES ('fabrizio@gmail.com','Fabrizio','fabrizio22','1231111412341234',"05/2024",111,false);
-INSERT INTO Utente VALUES ('antonietta@gmail.com','Antonietta','anto123','1234123412555534',"12/2025",222,false);
-INSERT INTO Utente VALUES ('sofia.tronchetti@libero.it','Sofia','soficute','1999923412341234',"11/2021",333,false);
-INSERT INTO Utente VALUES ('giuseppe@icloud.com','Giuseppe','giusugiu','5594090408856203',"5/2024",244,false);
-INSERT INTO Utente VALUES ('edoardo.kufi@gmail.com','Edoardo','edo1234','5221448158293277',"2/2026",766,false);
-INSERT INTO Utente VALUES ('carsen@outlook.com','Carlsen','carlsenStrong','5526724699043272',"5/2022",122,false);
-INSERT INTO Utente VALUES ('gina@gmail.com','Gina','gina99','5357951018993149',"5/2028",786,false);
+-- PcComp
+INSERT INTO Utente VALUES ('pccomponents@pcc.it','Antonello','$2y$10$OCreqS379OHlWsbxtMC2d.53zWByN5hs0fZO7/uR3fVUoaXghdcYq',null,null,null,true);
+-- Aggiunta Utente
+-- 19012000 
+INSERT INTO Utente VALUES ('kevinmancini@gmail.com','Kevin','$2y$10$KIcyY7fXRSZE06cC8V8zHu6F4mzVC3FOLvvxhhGKBSdsob77i/CEa','1234123412341234',"2022-11",456,false);
+-- fabrizio22
+INSERT INTO Utente VALUES ('fabrizio@gmail.com','Fabrizio','$2y$10$8OJK222l/mhbCXTQ8YZyPee.5JNxjoegjkEIjENui6ltdU5w4c.ii','1231111412341234',"2024-05",111,false);
+-- anto123
+INSERT INTO Utente VALUES ('antonietta@gmail.com','Antonietta','$2y$10$D7NqulqweLt5rbSccR58iOjbwuoWiTzFvG7eyp/SKLGpcR85PpxOK','1234123412555534',"2025-12",222,false);
+-- soficute
+INSERT INTO Utente VALUES ('sofia.tronchetti@libero.it','Sofia','$2y$10$3hgRsOJ4u/ekbxl.T3ts8.UMWqRVlGRPkVq.vlpEKh7Iyf19rq/ou','1999923412341234',"2021-11",333,false);
+-- giusugiu
+INSERT INTO Utente VALUES ('giuseppe@icloud.com','Giuseppe','$2y$10$.XfJO/oiQ/aRD4dtQ5t8p.Z6M3o2UgRgjs1lf25KlwycBqryt9wtC','5594090408856203',"2024-05",244,false);
+-- edo1234
+INSERT INTO Utente VALUES ('edoardo.kufi@gmail.com','Edoardo','$2y$10$V97s6AAbFBAxREDWzVp9uu0US2SdLiqEeAeUakVFfJXN6Vw68Z26C','5221448158293277',"2026-02",766,false);
+-- carlsenStrong
+INSERT INTO Utente VALUES ('carsen@outlook.com','Carlsen','$2y$10$MuNpfLEg.UW1W5OJpp3Cp.QmQWVR0HDXyHpFi/ciYXRNRfrfnfHze','5526724699043272',"2022-05",122,false);
+-- gina99
+INSERT INTO Utente VALUES ('gina@gmail.com','Gina','$2y$10$IUAUOUNwlOppGZFbVxq7cetAZ1j7CWQWzUf1NVPlqarWa8TaZtbHq','5357951018993149',"2028-05",786,false);
 
 -- Aggiunta Categorie
 INSERT INTO Categoria VALUES ('Cpu','cpu.jpg',"Una unità centrale di elaborazione in elettronica e informatica indica  l'unità o sottosistema logico e fisico che sovraintende alle funzionalità logiche di elaborazione principali del computer; in ciò essa si contrappone a tutte le altre unità di elaborazione secondarie presenti nelle architetture hardware dei computer, ovvero le varie schede elettroniche (scheda audio, scheda video, scheda di rete, coprocessore e processore di segnale digitale). Attualmente la cpu è implementata attraverso un microprocessore digitale general purpose, basato tipicamente su un'architettura a registri generali.");
