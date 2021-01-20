@@ -40,7 +40,12 @@
             <?php 
                 echo round(($costoTotale * 1.22),2);
             ?> &euro;</p>
-            <button class="btn btn-primary" type = "submit" id ="orderBtn" name ="orderBtn">Compra gli articoli nel carrello</button>
+            <?php if(!empty($_SESSION["numerocarta"]) && !empty($_SESSION["scadenzacarta"]) && !empty($_SESSION["cvvcarta"])):?>
+                <button class="btn btn-primary" type = "submit" id ="orderBtn" name ="orderBtn">Compra gli articoli nel carrello</button>
+            <?php else:?>
+                <button class="btn btn-primary" type = "submit" id ="orderBtn" name ="orderBtn" disabled>Compra gli articoli nel carrello</button>
+                <p>Per procedere all'acquisto imposta i dati della carta di credito</p>
+            <?php endif;?>
         </form>
     </div>
 </section>
