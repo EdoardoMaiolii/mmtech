@@ -2,21 +2,28 @@
 require_once 'bootstrap.php';
 
 if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["nome"])) {
-        $result = $dbh->register(
-            $_POST["email"],
-            $_POST["nome"],
-            $_POST["password"],
-            ($_POST["numerocarta"]!="") ? $_POST["numerocarta"] : NULL,
-            ($_POST["datascadenza"]!="") ? $_POST["datascadenza"] : NULL,
-            ($_POST["cvvcarta"]!="") ? $_POST["cvvcarta"] : NULL);
-        if ($result){
-            //Register riuscito, proseguo con il login
-            $login_result = $dbh->checkLogin($_POST["email"], $_POST["password"]);
+    $result = $dbh->register(
+        $_POST["email"],
+        $_POST["nome"],
+        $_POST["password"],
+        ($_POST["numerocarta"] != "") ? $_POST["numerocarta"] : NULL,
+        ($_POST["datascadenza"] != "") ? $_POST["datascadenza"] : NULL,
+        ($_POST["cvvcarta"] != "") ? $_POST["cvvcarta"] : NULL
+    );
+    if ($result) {
+        //Register riuscito, proseguo con il login
+        $login_result = $dbh->checkLogin($_POST["email"], $_POST["password"]);
+        if ($login_result) {
+            //Login riuscito
             $card = $dbh->getCard($_POST["email"]);
-            registerLoggedUser(array_merge($login_result[0], $card[0]));
+            registerLoggedUser($dbh->getUserInfo($_POST['email']));
         } else {
-            //Register fallito
-            $templateParams["erroreregster"] = "Errore! Email gia' in uso!";
+            //Login fallito
+            $templateParams["errorelogin"] = "Errore! Controllare email o password!";
+        }
+    } else {
+        //Register fallito
+        $templateParams["erroreregster"] = "Errore! Email gia' in uso!";
     }
 }
 
@@ -31,4 +38,3 @@ if (isUserLoggedIn()) {
 }
 
 require 'template/base.php';
-?>

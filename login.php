@@ -3,13 +3,13 @@ require_once 'bootstrap.php';
 
 if (isset($_POST["email"]) && isset($_POST["password"])) {
     $login_result = $dbh->checkLogin($_POST["email"], $_POST["password"]);
-    if (count($login_result) == 0) {
-        //Login fallito
-        $templateParams["errorelogin"] = "Errore! Controllare email o password!";
-    } else {
+    if ($login_result) {
         //Login riuscito
         $card = $dbh->getCard($_POST["email"]);
-        registerLoggedUser(array_merge($login_result[0], $card[0]));
+        registerLoggedUser($dbh->getUserInfo($_POST['email']));   
+    } else {
+        //Login fallito
+        $templateParams["errorelogin"] = "Errore! Controllare email o password!";
     }
 }
 if (isUserLoggedIn()) {
