@@ -23,7 +23,7 @@
                     </div>
                     <p id="ppar"> Metodo di pagamento: </p>
                     <div id="row" class="form-group">
-                        <label id="info" class="col-form-label" for="numerocarta">Numero Carta: </label><input class="form-control" type="text" id="numerocarta" name="numerocarta" />
+                        <label id="info" class="col-form-label" for="numerocarta">Numero Carta: </label><input class="form-control" type="text" id="numerocarta" name="numerocarta" maxlength="16" />
                     </div>
                     <div id="mediumrow" class="form-group">
                         <label id="info" class="col-form-label" for="datascadenza">Data scadenza: </label><input class="form-control" type="month" id="datascadenza" name="datascadenza" />

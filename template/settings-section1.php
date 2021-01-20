@@ -1,8 +1,8 @@
-<section class="bg-light">
-    <h1> GESTIONE PRODOTTI</h1>
+<section>
+    <h1 class="bg-light"> GESTIONE PRODOTTI</h1>
     <div id="blackline"></div>
     <p id="ppar"> Inserisci un nuovo prodotto </p>
-    <div id="containerMid">
+    <div class="bg-light" id="containerMid">
     <form enctype="multipart/form-data" id="form1" action="settings.php" method="POST">
         <fieldset>
             <div id="row" class="form-group">

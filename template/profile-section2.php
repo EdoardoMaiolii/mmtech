@@ -32,7 +32,7 @@
     <?php endforeach;
         endif;
     if ($templateParams['header'] == "headerSeller.php"):?>
-        <h1> ORDINI EFFETTUATI</h1>
+        <h1 class="bg-light"> ORDINI EFFETTUATI</h1>
         <div id="blackline"></div>
         <p id="ppar" ><i> Questo account non e' abilitato per effettuare ordini! </i></p>
     <?php endif; ?>

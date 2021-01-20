@@ -46,6 +46,17 @@ class DatabaseHelper
 		return $stmt->execute();
 	}
 
+	private function sendMail($email, $oggetto, $messaggio)
+	{
+		ini_set("SMTP", "localhost");
+		ini_set("smtp_port", "587");
+		ini_set("sendmail_from", "mmtechnoreply@gmail.com");
+		ini_set("sendmail_path", "C:\wamp\bin\sendmail.exe -t");
+		$header = "From: mmtechnoreply@gmail.com";
+		$msg = wordwrap($messaggio, 70);
+		mail($email, $oggetto, $msg, $header);
+	}
+
 	public function register($email, $nome, $password, $cardNumber = NULL, $expDate = NULL, $cvv = NULL)
 	{
 		$tmp = $this->checkEmail($email);
@@ -53,7 +64,8 @@ class DatabaseHelper
 		$stmt = $this->db->prepare("INSERT INTO utente VALUES (?,?,?,?,?,?,false)");
 		$stmt->bind_param("sssssi", $email, $nome, $password, $cardNumber, $expDate, $cvv);
 		$stmt->execute();
-		$this->addNotification($email,"[".$email."] ha creato con successo un account su MMtech.com, COMPLIMENTI ! ");
+		$this->addNotification($email, "[" . $email . "] ha creato con successo un account su MMtech.com, COMPLIMENTI ! ");
+		$this->sendMail($email, "Registrazione effettuata MMtech", "[" . $email . "] ha creato con successo un account su MMtech.com, COMPLIMENTI ! ");
 		return true;
 	}
 
@@ -166,15 +178,16 @@ class DatabaseHelper
 					$newQuantity = $product['quantitadisponibile'] - $product['quantita'];
 					$stmt->bind_param("ii", $newQuantity, $product['idprodotto']);
 					$stmt->execute();
-					if ($newQuantity==0)
-						$this->addNotification($admin[0]['email'],"Caro [".$admin[0]['email']."] La informamo che un recente ordine ha provocato una inaspettata mancanza di fornitura dell articolo con ID [".$product['idprodotto']."]");
+					if ($newQuantity == 0)
+						$this->addNotification($admin[0]['email'], "Caro [" . $admin[0]['email'] . "] La informamo che un recente ordine ha provocato una inaspettata mancanza di fornitura dell articolo con ID [" . $product['idprodotto'] . "]");
 				}
 				// elimino i prodotti acquistati dal carrello
 				$stmt = $this->db->prepare("DELETE FROM prodottocarrello WHERE email = ?");
 				$stmt->bind_param("s", $email);
 				$stmt->execute();
-				$this->addNotification($email,"[".$email."] ha effettuato con successo l'ordine con ID [".$idOrdine."] con il metodo di pagamento da lei inserito.");
-				$this->addNotification($admin[0]['email'],"[".$email."] ha effettuato con successo l'ordine con ID [".$idOrdine."]");
+				$this->addNotification($email, "[" . $email . "] ha effettuato con successo l'ordine con ID [" . $idOrdine . "] con il metodo di pagamento da lei inserito.");
+				$this->addNotification($admin[0]['email'], "[" . $email . "] ha effettuato con successo l'ordine con ID [" . $idOrdine . "]");
+				$this->sendMail($email, "Ordine effettuato", "[" . $email . "] ha effettuato con successo l'ordine con ID [" . $idOrdine . "] con il metodo di pagamento da lei inserito.");
 				return true;
 			}
 		}
@@ -330,7 +343,28 @@ class DatabaseHelper
 	{
 		$stmt = $this->db->prepare("UPDATE Prodotto SET nomecategoria=?,nome=?,costo=?,costospedizione=?,nomeimmagine=?,descrizione=?,quantitadisponibile=? WHERE idprodotto = ?");
 		$stmt->bind_param("ssddssii", $newNomeCategoria, $newNome, $newCosto, $newCostoSpedizione, $newNomeImmagine, $newDescrizione, $newQuantitaDisponibile, $productid);
+		$oldProd = $this->getProductById($productid)[0];
+		echo ('sono fuori dal tunnel');
+		var_dump($oldProd['costo']);
+		var_dump($newCosto);
 		
+		if ($oldProd['costo'] != $newCosto) {
+			$stmt2 = $this->db->prepare("SELECT DISTINCT u.email FROM utente u , prodottocarrello pc WHERE pc.idprodotto=? AND u.email = pc.email ");
+			$stmt2->bind_param("i", $productid);
+			$stmt2->execute();
+			$result1 = $stmt2->get_result();
+			$emails = $result1->fetch_all(MYSQLI_ASSOC);
+			echo ('sono fuori');
+			var_dump($emails);
+			if (!empty($emails)) {
+				echo ('sono dentro');
+				var_dump($emails);
+				for ($i = 0; $i < count($emails); $i++) {
+					$this->addNotification($emails[$i]['email'], "La informiamo che e' stato appena modificato il prezzo del prodotto : " . $newNome . " , il prezzo e' cambiato da " . $oldProd['costo'] . "€ a " . $newCosto . "€");
+					$this->sendMail($emails[$i]['email'], "Modifica costo", "La informiamo che e' stato appena modificato il prezzo del prodotto ID: " . $newNome. " , il prezzo e' cambiato da " . $oldProd['costo'] . "€ a " . $newCosto . "€");
+				}
+			}
+		}
 		return $stmt->execute();
 	}
 
@@ -343,11 +377,11 @@ class DatabaseHelper
 		return $result->fetch_all(MYSQLI_ASSOC)[0]['quantitadisponibile'];
 	}
 
-	public function getAllOrders(){
+	public function getAllOrders()
+	{
 		$stmt = $this->db->prepare("SELECT email,idordine,dataordine FROM ordine ORDER BY dataordine DESC");
 		$stmt->execute();
 		$result = $stmt->get_result();
 		return $result->fetch_all(MYSQLI_ASSOC);
 	}
-
 }
