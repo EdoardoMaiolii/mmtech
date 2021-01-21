@@ -1,8 +1,10 @@
 <?php
 require_once("bootstrap.php");
+$templateParams["ordineEffettuato"] = false;
 $templateParams["cartproducts"] = $dbh->getCartProducts($_SESSION['email']);
 if(isset($_GET['order'])){
     $dbh->addOrder($_SESSION['email']);
+    $templateParams["ordineEffettuato"] = true;
 }
 if (isset($_GET['action']) && isset($_GET['idprodotto'])) {
     $dbh->removeProductFromCart($_SESSION['email'], (int)$_GET['idprodotto']);

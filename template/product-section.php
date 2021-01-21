@@ -49,9 +49,9 @@ if ($templateParams["header"] == "headerSeller.php") : ?>
         <h1 class="bg-light"><?php echo $templateParams["product"]["nome"]; ?></h1>
         <div id="blackline"></div>
         <img id="productImage" src="<?php echo UPLOAD_DIR . $templateParams["product"]["nomeimmagine"]; ?>" alt="<?php echo $templateParams["product"]["nome"] ?>" />
-        <p id="descrizioneProdotto" class="bg-light">
+        <div id="descrizioneProdotto" class="bg-light">
             <?php echo $templateParams["product"]["descrizione"]; ?>
-        </p>
+        </div>
         <div id='datiProdotto' class="bg-light">
             <p>Prezzo prodotto: <?php echo $templateParams["product"]["costo"]; ?> &euro;</p>
             <p>Costo spedizione: <?php echo $templateParams["product"]["costospedizione"]; ?> &euro;</p>
