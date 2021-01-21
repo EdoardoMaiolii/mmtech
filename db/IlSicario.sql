@@ -49,6 +49,7 @@ create table Ordine (
      IdOrdine INT PRIMARY KEY AUTO_INCREMENT,
      Email VARCHAR(40) NOT NULL,
      DataOrdine DATETIME NOT NULL,
+	 StatoOrdine VARCHAR(20) NOT NULL CHECK (StatoOrdine IN ('Elaborazione','Spedito','Consegnato')),
      FOREIGN KEY (Email) REFERENCES Utente(Email)
      );
 
@@ -173,10 +174,10 @@ INSERT INTO ProdottoCarrello VALUES ('sofia.tronchetti@libero.it',12,9);
 INSERT INTO ProdottoCarrello VALUES ('sofia.tronchetti@libero.it',16,1);
 
 -- Aggiunta Ordini
-INSERT INTO Ordine (Email,DataOrdine) VALUES ("kevinmancini@gmail.com","2018/12/11 00:00:00");
-INSERT INTO Ordine (Email,DataOrdine) VALUES ("kevinmancini@gmail.com","2018/12/12 00:00:00");
-INSERT INTO Ordine (Email,DataOrdine) VALUES ('sofia.tronchetti@libero.it',"2020/01/01 00:00:00");
-INSERT INTO Ordine (Email,DataOrdine) VALUES ('giuseppe@icloud.com',"2020/02/03 00:00:00");
+INSERT INTO Ordine (Email,DataOrdine,StatoOrdine) VALUES ("kevinmancini@gmail.com","2018/12/11 00:00:00",'Elaborazione');
+INSERT INTO Ordine (Email,DataOrdine,StatoOrdine) VALUES ("kevinmancini@gmail.com","2018/12/12 00:00:00",'Spedito');
+INSERT INTO Ordine (Email,DataOrdine,StatoOrdine) VALUES ('sofia.tronchetti@libero.it',"2020/01/01 00:00:00",'Consegnato');
+INSERT INTO Ordine (Email,DataOrdine,StatoOrdine) VALUES ('giuseppe@icloud.com',"2020/02/03 00:00:00",'Elaborazione');
 
 -- Aggiunta prodottoAquistato
 INSERT INTO ProdottoAcquistato VALUES (15,1,150,3);

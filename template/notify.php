@@ -11,7 +11,7 @@
                     <ul class="list-group list-group-flush">
                         <?php
                         if (!$nofification['visualizzata']) {
-                            echo "<li class='list-group-item list-group-item-dark' > La seguente notifica non e' ancora stata visualizzata </li>";
+                            echo "<li class='list-group-item list-group-item-info' > La seguente notifica non e' ancora stata visualizzata </li>";
                         }
                         ?>
                         <li style="color: white;" class="list-group-item bg-dark" id='data'>Data: <?php echo $nofification['data'] ?></li>

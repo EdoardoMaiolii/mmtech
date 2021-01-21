@@ -15,15 +15,15 @@
         <p>
         <div id="row" class="form-group">
           <label id="info" class="col-form-label" for="profile-numerocarta">Numero Carta: </label>
-          <input class="form-control" type="text" name="profile-numerocarta" id="profile-numerocarta" <?php echo $_SESSION["numerocarta"] != NULL ? "value=" . $_SESSION["numerocarta"] : ""; ?> disabled />
+          <input class="form-control" type="text" name="profile-numerocarta" id="profile-numerocarta" <?php echo $_SESSION["numerocarta"] != NULL ? "value=" . $_SESSION["numerocarta"] : ""; ?> maxlength="16" disabled />
         </div>
         <div id="mediumrow" class="form-group">
           <label id="info" class="col-form-label" for="profile-scadenzacarta">Scadenza Carta: </label>
-          <input class="form-control" type="text" name="profile-scadenzacarta" id="profile-scadenzacarta" <?php echo $_SESSION["scadenzacarta"] != NULL ? "value=" . $_SESSION["scadenzacarta"] : ""; ?> disabled />
+          <input class="form-control" type="month" name="profile-scadenzacarta" id="profile-scadenzacarta" <?php echo $_SESSION["scadenzacarta"] != NULL ? "value=" . $_SESSION["scadenzacarta"] : ""; ?> disabled />
         </div>
         <div id="minirow" class="form-group">
           <label id="info" class="col-form-label" for="profile-cvv">CVV: </label>
-          <input class="form-control" type="text" name="profile-cvv" id="profile-cvv" <?php echo $_SESSION["cvvcarta"] != NULL ? "value=" . $_SESSION["cvvcarta"] : ""; ?> disabled />
+          <input class="form-control" type="text" name="profile-cvv" id="profile-cvv" <?php echo $_SESSION["cvvcarta"] != NULL ? "value=" . $_SESSION["cvvcarta"] : ""; ?> maxlength="3" disabled />
         </div>
         <?php if ($templateParams['header'] != "headerSeller.php") : ?>
           <p id="ppar"><strong> Se si desidera modificare i dati personali <a href="javascript:switchModify();"> Clicca qui' </a> </strong></p>

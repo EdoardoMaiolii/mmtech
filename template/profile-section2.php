@@ -10,6 +10,7 @@
                 <ul class="list-group list-group-flush">
                     <li style="  color: white;" class="list-group-item bg-dark"> Id ordine: <?php echo $order['idordine'] ?></li>
                     <li class="list-group-item list-group-item-dark"> Data ordine: <?php echo $order['dataordine'] ?></li>
+                    <li class="list-group-item list-group-item-light"> Stato ordine: <?php echo "<strong>".$order['statoordine']."</strong>" ?></li>
                     <a style="  color: #007bff; text-align: center;" href=<?php echo "profile.php?view-ordine=" . $order['idordine'] ?> class="list-group-item list-group-item-action list-group-item-secondary"> Per visualizzare le specifiche di quest' ordine clicca qui' </a>
                 </ul>
             </div>

@@ -9,6 +9,11 @@ if (isUserLoggedIn()) {
     if ($templateParams["settings-section"] == "2") {
         $templateParams["orders"] = $dbh->getAllOrders();
     }
+    if ($templateParams["settings-section"] == "update") {
+        $templateParams["settings-section"] = "2";
+        $dbh->updateOrderState($_GET['idordine']);
+        $templateParams["orders"] = $dbh->getAllOrders();
+    }
     if (isset($_GET['view-ordine'])) {
         $templateParams["settings-section"] = "2";
         $templateParams['order-products'] = $dbh->getProductsByOrder($_GET['view-ordine']);

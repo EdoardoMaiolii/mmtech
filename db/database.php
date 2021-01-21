@@ -165,7 +165,7 @@ class DatabaseHelper
 			// procedi all'ordine se nel carrello e' presente almeno un prodotto e se quelli presenti sono tutti disponibili
 			if (count($productList) > 0 && count($productNotAvList) == count($productList)) {
 				// aggiungo l'ordine nella tabella degli ordini
-				$stmt = $this->db->prepare("INSERT INTO ordine (email,dataordine) VALUES (?,NOW())");
+				$stmt = $this->db->prepare("INSERT INTO ordine (email,dataordine,statoordine) VALUES (?,NOW(),'Elaborazione')");
 				$stmt->bind_param("s", $email);
 				$stmt->execute();
 				$stmt = $this->db->prepare("SELECT MAX(idordine) FROM ordine WHERE email = ?");
@@ -236,7 +236,7 @@ class DatabaseHelper
 
 	public function getOrders($email)
 	{
-		$stmt = $this->db->prepare("SELECT idordine,dataordine FROM ordine WHERE email = ?");
+		$stmt = $this->db->prepare("SELECT idordine,dataordine,statoordine FROM ordine WHERE email = ?");
 		$stmt->bind_param("s", $email);
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -353,7 +353,7 @@ class DatabaseHelper
 		echo ('sono fuori dal tunnel');
 		var_dump($oldProd['costo']);
 		var_dump($newCosto);
-		
+
 		if ($oldProd['costo'] != $newCosto) {
 			$stmt2 = $this->db->prepare("SELECT DISTINCT u.email FROM utente u , prodottocarrello pc WHERE pc.idprodotto=? AND u.email = pc.email ");
 			$stmt2->bind_param("i", $productid);
@@ -367,7 +367,7 @@ class DatabaseHelper
 				var_dump($emails);
 				for ($i = 0; $i < count($emails); $i++) {
 					$this->addNotification($emails[$i]['email'], "La informiamo che e' stato appena modificato il prezzo del prodotto : " . $newNome . " , il prezzo e' cambiato da " . $oldProd['costo'] . "€ a " . $newCosto . "€");
-					$this->sendMail($emails[$i]['email'], "Modifica costo", "La informiamo che e' stato appena modificato il prezzo del prodotto ID: " . $newNome. " , il prezzo e' cambiato da " . $oldProd['costo'] . "€ a " . $newCosto . "€");
+					$this->sendMail($emails[$i]['email'], "Modifica costo", "La informiamo che e' stato appena modificato il prezzo del prodotto ID: " . $newNome . " , il prezzo e' cambiato da " . $oldProd['costo'] . "€ a " . $newCosto . "€");
 				}
 			}
 		}
@@ -385,7 +385,7 @@ class DatabaseHelper
 
 	public function getAllOrders()
 	{
-		$stmt = $this->db->prepare("SELECT email,idordine,dataordine FROM ordine ORDER BY dataordine DESC");
+		$stmt = $this->db->prepare("SELECT email,idordine,dataordine,statoordine FROM ordine ORDER BY dataordine DESC");
 		$stmt->execute();
 		$result = $stmt->get_result();
 		return $result->fetch_all(MYSQLI_ASSOC);
@@ -400,11 +400,48 @@ class DatabaseHelper
 		return $result->fetch_all(MYSQLI_ASSOC)[0];
 	}
 
-	public function changePass($email,$newPassword){
+	public function changePass($email, $newPassword)
+	{
 		$hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT); // hash memorizzato nel database
 		$stmt = $this->db->prepare("UPDATE utente SET password = ? WHERE email = ?");
-		$stmt->bind_param("ss",$hashedPassword, $email);
+		$stmt->bind_param("ss", $hashedPassword, $email);
 		return $stmt->execute();
+	}
+
+	public function updateOrderState($idOrder)
+	{
+		$stmt = $this->db->prepare("SELECT statoordine,email FROM ordine WHERE idordine = ?");
+		$stmt->bind_param("s", $idOrder);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$state = $result->fetch_all(MYSQLI_ASSOC);
+		$newstate = $state[0]['statoordine'] == "Elaborazione" ? "Spedito" : ($state[0]['statoordine'] == "Spedito" ? "Consegnato" : "");
+		$stmt = $this->db->prepare("UPDATE ordine SET statoordine=? WHERE idordine=?");
+		$stmt->bind_param("ss", $newstate, $idOrder);
+		$this->addNotification($state[0]['email'], "La informiamo che l'ordine di ID: " . $idOrder . " ha appena subito un cambiamento del suo stato ( da " . $state[0]['statoordine'] . " a " . $newstate . " )");
+		$this->sendMail($state[0]['email'], "Aggiornamento stato ordine", "La informiamo che l'ordine di ID: " . $idOrder . " ha appena subito un cambiamento del suo stato ( da " . $state[0]['statoordine'] . " a " . $newstate . " )");
+		return $stmt->execute();
+	}
+
+	public function bestSeller()
+	{
+		$stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile FROM prodotto, prodottoacquistato 
+		WHERE prodotto.idprodotto = prodottoacquistato.idprodotto 
+		GROUP BY prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile 
+		ORDER BY SUM(quantita) DESC LIMIT 4");
+		$stmt->execute();
+		$result = $stmt->get_result();
+		return $result->fetch_all(MYSQLI_ASSOC);
+	}
+
+	public function lessAvailable()
+	{
+		$stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile FROM prodotto 
+		WHERE prodotto.quantitadisponibile>0
+		ORDER BY prodotto.quantitadisponibile ASC LIMIT 4");
+		$stmt->execute();
+		$result = $stmt->get_result();
+		return $result->fetch_all(MYSQLI_ASSOC);
 	}
 
 }
