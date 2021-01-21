@@ -48,7 +48,7 @@ create table ProdottoCarrello (
 create table Ordine (
      IdOrdine INT PRIMARY KEY AUTO_INCREMENT,
      Email VARCHAR(40) NOT NULL,
-     DataOrdine DATE NOT NULL,
+     DataOrdine DATETIME NOT NULL,
      FOREIGN KEY (Email) REFERENCES Utente(Email)
      );
 
@@ -69,7 +69,7 @@ create table Visualizzazione (
      IdVisualizzazione INT PRIMARY KEY AUTO_INCREMENT,
 	IdProdotto INT NOT NULL,
      Email VARCHAR(40) NOT NULL,
-     Data DATE NOT NULL,
+     Data DATETIME NOT NULL,
      FOREIGN KEY (IdProdotto) REFERENCES Prodotto(IdProdotto),
      FOREIGN KEY (Email) REFERENCES Utente(Email)
      );
@@ -78,7 +78,7 @@ create table Visualizzazione (
 create table Notifica (
      IdNotifica INT PRIMARY KEY AUTO_INCREMENT,
      Email VARCHAR(40) NOT NULL,
-     Data DATE NOT NULL,
+     Data DATETIME NOT NULL,
      Visualizzata BOOLEAN NOT NULL,
      Messaggio VARCHAR(2000),
      FOREIGN KEY (Email) REFERENCES Utente(Email)
@@ -173,10 +173,10 @@ INSERT INTO ProdottoCarrello VALUES ('sofia.tronchetti@libero.it',12,9);
 INSERT INTO ProdottoCarrello VALUES ('sofia.tronchetti@libero.it',16,1);
 
 -- Aggiunta Ordini
-INSERT INTO Ordine (Email,DataOrdine) VALUES ("kevinmancini@gmail.com","2018/12/11");
-INSERT INTO Ordine (Email,DataOrdine) VALUES ("kevinmancini@gmail.com","2018/12/12");
-INSERT INTO Ordine (Email,DataOrdine) VALUES ('sofia.tronchetti@libero.it',"2020/01/01");
-INSERT INTO Ordine (Email,DataOrdine) VALUES ('giuseppe@icloud.com',"2020/02/03");
+INSERT INTO Ordine (Email,DataOrdine) VALUES ("kevinmancini@gmail.com","2018/12/11 00:00:00");
+INSERT INTO Ordine (Email,DataOrdine) VALUES ("kevinmancini@gmail.com","2018/12/12 00:00:00");
+INSERT INTO Ordine (Email,DataOrdine) VALUES ('sofia.tronchetti@libero.it',"2020/01/01 00:00:00");
+INSERT INTO Ordine (Email,DataOrdine) VALUES ('giuseppe@icloud.com',"2020/02/03 00:00:00");
 
 -- Aggiunta prodottoAquistato
 INSERT INTO ProdottoAcquistato VALUES (15,1,150,3);
@@ -197,41 +197,41 @@ INSERT INTO ProdottoAcquistato VALUES (19,4,100,3);
 INSERT INTO ProdottoAcquistato VALUES (14,4,55,2);
 
 -- Aggiunta Visualizzazioni
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (2,'antonietta@gmail.com','2020/01/01');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (6,'kevinmancini@gmail.com','2020/01/10');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (14,'kevinmancini@gmail.com','2020/01/12');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (16,'sofia.tronchetti@libero.it','2020/01/20');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (8,'antonietta@gmail.com','2020/02/06');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (7,'kevinmancini@gmail.com','2020/02/16');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (13,'sofia.tronchetti@libero.it','2020/02/22');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (13,'sofia.tronchetti@libero.it','2020/02/29');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (13,'antonietta@gmail.com','2020/04/06');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (8,'sofia.tronchetti@libero.it','2020/04/07');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (9,'sofia.tronchetti@libero.it','2020/04/07');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (10,'antonietta@gmail.com','2020/04/07');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (11,'kevinmancini@gmail.com','2020/04/21');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (11,'fabrizio@gmail.com','2020/05/03');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (2,'sofia.tronchetti@libero.it','2020/05/04');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (2,'antonietta@gmail.com','2020/05/05');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'giuseppe@icloud.com','2020/05/06');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'giuseppe@icloud.com','2020/05/06');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'fabrizio@gmail.com','2020/05/06');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'antonietta@gmail.com','2020/05/20');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (6,'giuseppe@icloud.com','2020/06/03');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (7,'edoardo.kufi@gmail.com','2020/07/01');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (8,'fabrizio@gmail.com','2020/07/02');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'kevinmancini@gmail.com','2020/07/10');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'kevinmancini@gmail.com','2020/08/10');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'kevinmancini@gmail.com','2020/10/06');
-INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'kevinmancini@gmail.com','2020/10/07');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (2,'antonietta@gmail.com','2020/01/01 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (6,'kevinmancini@gmail.com','2020/01/10 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (14,'kevinmancini@gmail.com','2020/01/12 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (16,'sofia.tronchetti@libero.it','2020/01/20 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (8,'antonietta@gmail.com','2020/02/06 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (7,'kevinmancini@gmail.com','2020/02/16 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (13,'sofia.tronchetti@libero.it','2020/02/22 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (13,'sofia.tronchetti@libero.it','2020/02/29 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (13,'antonietta@gmail.com','2020/04/06 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (8,'sofia.tronchetti@libero.it','2020/04/07 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (9,'sofia.tronchetti@libero.it','2020/04/07 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (10,'antonietta@gmail.com','2020/04/07 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (11,'kevinmancini@gmail.com','2020/04/21 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (11,'fabrizio@gmail.com','2020/05/03 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (2,'sofia.tronchetti@libero.it','2020/05/04 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (2,'antonietta@gmail.com','2020/05/05 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'giuseppe@icloud.com','2020/05/06 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'giuseppe@icloud.com','2020/05/06 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'fabrizio@gmail.com','2020/05/06 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'antonietta@gmail.com','2020/05/20 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (6,'giuseppe@icloud.com','2020/06/03 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (7,'edoardo.kufi@gmail.com','2020/07/01 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (8,'fabrizio@gmail.com','2020/07/02 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'kevinmancini@gmail.com','2020/07/10 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'kevinmancini@gmail.com','2020/08/10 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'kevinmancini@gmail.com','2020/10/06 00:00:00');
+INSERT INTO Visualizzazione (IdProdotto,Email,Data) VALUES (1,'kevinmancini@gmail.com','2020/10/07 00:00:00');
 
 -- Aggiunta Notifica
-INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('kevinmancini@gmail.com','2020/1/1',false,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('kevinmancini@gmail.com','2020/2/1',false,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('kevinmancini@gmail.com','2020/3/1',true,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('sofia.tronchetti@libero.it','2020/2/10',false,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('sofia.tronchetti@libero.it','2020/3/10',true,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('pccomponents@pcc.it','2020/1/10',true,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('pccomponents@pcc.it','2020/4/5',false,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('pccomponents@pcc.it','2020/7/8',false,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('pccomponents@pcc.it','2020/9/10',false,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('kevinmancini@gmail.com','2020/1/1 00:00:00',false,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('kevinmancini@gmail.com','2020/2/1 00:00:00',false,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('kevinmancini@gmail.com','2020/3/1 00:00:00',true,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('sofia.tronchetti@libero.it','2020/2/10 00:00:00',false,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('sofia.tronchetti@libero.it','2020/3/10 00:00:00',true,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('pccomponents@pcc.it','2020/1/10 00:00:00',true,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('pccomponents@pcc.it','2020/4/5 00:00:00',false,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('pccomponents@pcc.it','2020/7/8 00:00:00',false,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+INSERT INTO Notifica (Email,Data,Visualizzata,Messaggio) VALUES ('pccomponents@pcc.it','2020/9/10 00:00:00',false,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");

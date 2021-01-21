@@ -25,7 +25,7 @@
                     <div id="row" class="form-group">
                         <label id="info" class="col-form-label" for="numerocarta">Numero Carta: </label><input class="form-control" type="text" id="numerocarta" name="numerocarta" maxlength="16" />
                     </div>
-                    <div id="mediumrow" class="form-group">
+                    <div id="minirow" class="form-group">
                         <label id="info" class="col-form-label" for="datascadenza">Data scadenza: </label><input class="form-control" type="month" id="datascadenza" name="datascadenza" />
                     </div>
                     <div id="minirow" class="form-group">

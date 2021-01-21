@@ -12,7 +12,7 @@ class DatabaseHelper
 		}
 	}
 
-	private function checkEmail($email)
+	public function checkEmail($email)
 	{
 		$stmt = $this->db->prepare("SELECT email,nome,password,numerocarta,scadenzacarta,cvvcarta,venditore FROM utente WHERE email = ?");
 		$stmt->bind_param("s", $email);
@@ -46,7 +46,7 @@ class DatabaseHelper
 		return $stmt->execute();
 	}
 
-	private function sendMail($email, $oggetto, $messaggio)
+	public function sendMail($email, $oggetto, $messaggio)
 	{
 		ini_set("SMTP", "localhost");
 		ini_set("smtp_port", "587");
@@ -211,14 +211,14 @@ class DatabaseHelper
 
 	public function orderedProducts()
 	{
-		$stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile FROM prodotto LEFT JOIN visualizzazione ON prodotto.idprodotto = visualizzazione.idprodotto GROUP BY prodotto.idprodotto ORDER BY COUNT(prodotto.idprodotto) DESC");
+		$stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile FROM prodotto LEFT JOIN visualizzazione ON prodotto.idprodotto = visualizzazione.idprodotto GROUP BY prodotto.idprodotto ORDER BY COUNT(prodotto.idprodotto) DESC LIMIT 12");
 		$stmt->execute();
 		$result = $stmt->get_result();
 		return $result->fetch_all(MYSQLI_ASSOC);
 	}
 	public function chronologyUser($email)
 	{
-		$stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile FROM prodotto,visualizzazione WHERE prodotto.idprodotto = visualizzazione.idprodotto AND email = ? GROUP BY prodotto.idprodotto ORDER BY MAX(Data) DESC");
+		$stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile FROM prodotto,visualizzazione WHERE prodotto.idprodotto = visualizzazione.idprodotto AND email = ? GROUP BY prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile ORDER BY MAX(Data) DESC");
 		$stmt->bind_param("s", $email);
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -398,6 +398,13 @@ class DatabaseHelper
 		$stmt->execute();
 		$result = $stmt->get_result();
 		return $result->fetch_all(MYSQLI_ASSOC)[0];
+	}
+
+	public function changePass($email,$newPassword){
+		$hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT); // hash memorizzato nel database
+		$stmt = $this->db->prepare("UPDATE utente SET password = ? WHERE email = ?");
+		$stmt->bind_param("ss",$hashedPassword, $email);
+		return $stmt->execute();
 	}
 
 }

@@ -44,7 +44,7 @@
                 <button class="btn btn-primary" type = "submit" id ="orderBtn" name ="orderBtn">Compra gli articoli nel carrello</button>
             <?php else:?>
                 <button class="btn btn-primary" type = "submit" id ="orderBtn" name ="orderBtn" disabled>Compra gli articoli nel carrello</button>
-                <p>Per procedere all'acquisto imposta i dati della carta di credito</p>
+                <p id="error"><strong>Inserire carta di credito</strong></p>
             <?php endif;?>
         </form>
     </div>

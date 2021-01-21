@@ -17,6 +17,7 @@
     <script src="js/cart.js"></script>
     <script src="js/footer.js"></script>
     <title> <?php echo $templateParams["title"] ?> </title>
+    <link rel="shortcut icon" type="image/x-icon" href="logoMMtech.ico" />
 </head>
 
 <body class="bg-light" onload="closeNav()">
