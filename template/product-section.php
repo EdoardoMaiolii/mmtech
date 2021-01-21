@@ -45,34 +45,41 @@ if ($templateParams["header"] == "headerSeller.php") : ?>
         </div>
     </section>
 <?php else : ?>
-    <section id="sezioneProd">
-        <h1 class="bg-light"><?php echo $templateParams["product"]["nome"]; ?></h1>
-        <div id="blackline"></div>
-        <img id="productImage" src="<?php echo UPLOAD_DIR . $templateParams["product"]["nomeimmagine"]; ?>" alt="<?php echo $templateParams["product"]["nome"] ?>" />
-        <div id="descrizioneProdotto" class="bg-light">
-            <?php echo $templateParams["product"]["descrizione"]; ?>
+        <div class="row no-gutters">
+            <h1 class="bg-light w-100"><?php echo $templateParams["product"]["nome"]; ?></h1>
+            <div id="blackline"></div>
+            <div class = 'col-md-6'>
+                <img id="productImage" src="<?php echo UPLOAD_DIR . $templateParams["product"]["nomeimmagine"]; ?>" alt="<?php echo $templateParams["product"]["nome"] ?>" />
+            </div>
+            <div class="col-md-6 mt-4">
+                <div id="descrizioneProdotto" class="bg-light">
+                <h3>Categoria</h3>
+                    <?php echo $templateParams["product"]["nomecategoria"]; ?>
+                <h3>Descrizione</h3>
+                    <?php echo $templateParams["product"]["descrizione"]; ?>
+                </div>
+                <div id='datiProdotto' class="bg-light">
+                    <p>Prezzo prodotto: <?php echo $templateParams["product"]["costo"]; ?> &euro;</p>
+                    <p>Costo spedizione: <?php echo $templateParams["product"]["costospedizione"]; ?> &euro;</p>
+                    <form action="addtocart.php" method="GET">
+                        <input type="hidden" id="idprodotto" name="idprodotto" value=<?php echo $templateParams["product"]["idprodotto"] ?> />
+                        <label for="quantita">Seleziona quantit&agrave;:</label>
+                        <select class="custom-select" id="quantita" name="quantita">
+                            <?php for ($i = 1; $i < ($templateParams["product"]['quantitadisponibile'] >= 10 ? 10 : $templateParams["product"]['quantitadisponibile'] + 1); $i++) : ?>
+                                <option <?php echo 'value = ' . $i ?>><?php echo $i; ?></option>
+                            <?php endfor; ?>
+                        </select>
+                        <?php if (isUserLoggedIn() && $templateParams["product"]["quantitadisponibile"] > 0) : ?>
+                            <button class="btn btn-primary" type="submit">Aggiungi al Carrello</button>
+                        <?php elseif ($templateParams["product"]["quantitadisponibile"] == 0) : ?>
+                            <button class="btn btn-primary" type="submit" disabled>Aggiungi al Carrello</button>
+                            <p>Prodotto non disponibile</p>
+                        <?php else : ?>
+                            <button class="btn btn-primary" type="submit" disabled>Aggiungi al Carrello</button>
+                            <p>Per aggiungere al carrello effettua il login</p>
+                        <?php endif; ?>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div id='datiProdotto' class="bg-light">
-            <p>Prezzo prodotto: <?php echo $templateParams["product"]["costo"]; ?> &euro;</p>
-            <p>Costo spedizione: <?php echo $templateParams["product"]["costospedizione"]; ?> &euro;</p>
-            <form action="addtocart.php" method="GET">
-                <input type="hidden" id="idprodotto" name="idprodotto" value=<?php echo $templateParams["product"]["idprodotto"] ?> />
-                <label for="quantita">Seleziona quantit&agrave;:</label>
-                <select class="custom-select" id="quantita" name="quantita">
-                    <?php for ($i = 1; $i < ($templateParams["product"]['quantitadisponibile'] >= 10 ? 10 : $templateParams["product"]['quantitadisponibile'] + 1); $i++) : ?>
-                        <option <?php echo 'value = ' . $i ?>><?php echo $i; ?></option>
-                    <?php endfor; ?>
-                </select>
-                <?php if (isUserLoggedIn() && $templateParams["product"]["quantitadisponibile"] > 0) : ?>
-                    <button class="btn btn-primary" type="submit">Aggiungi al Carrello</button>
-                <?php elseif ($templateParams["product"]["quantitadisponibile"] == 0) : ?>
-                    <button class="btn btn-primary" type="submit" disabled>Aggiungi al Carrello</button>
-                    <p>Prodotto non disponibile</p>
-                <?php else : ?>
-                    <button class="btn btn-primary" type="submit" disabled>Aggiungi al Carrello</button>
-                    <p>Per aggiungere al carrello effettua il login</p>
-                <?php endif; ?>
-            </form>
-        </div>
-    </section>
 <?php endif; ?>
