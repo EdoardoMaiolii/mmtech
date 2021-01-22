@@ -218,7 +218,7 @@ class DatabaseHelper
 	}
 	public function chronologyUser($email)
 	{
-		$stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile FROM prodotto,visualizzazione WHERE prodotto.idprodotto = visualizzazione.idprodotto AND email = ? GROUP BY prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile ORDER BY MAX(Data) DESC");
+		$stmt = $this->db->prepare("SELECT prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile FROM prodotto,visualizzazione WHERE prodotto.idprodotto = visualizzazione.idprodotto AND email = ? GROUP BY prodotto.idprodotto,prodotto.nomecategoria,prodotto.nome,prodotto.costo,prodotto.costospedizione,prodotto.nomeimmagine,prodotto.descrizione,prodotto.quantitadisponibile ORDER BY MAX(Data) DESC LIMIT 8");
 		$stmt->bind_param("s", $email);
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -444,4 +444,11 @@ class DatabaseHelper
 		return $result->fetch_all(MYSQLI_ASSOC);
 	}
 
+	public function getTotalPrice($email) {
+		$stmt = $this->db->prepare("SELECT SUM((costo*quantita)+costospedizione) AS totalprice FROM prodottocarrello,prodotto WHERE email=? AND prodottocarrello.IdProdotto = prodotto.IdProdotto");
+		$stmt->bind_param("s", $email);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		return $result->fetch_all(MYSQLI_ASSOC);
+	}
 }

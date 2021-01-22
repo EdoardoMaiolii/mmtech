@@ -15,6 +15,7 @@ else{
 if(isset($_GET["categoria"])){
     $templateParams["content"] = "search-section.php";
     $templateParams["searchproducts"] = $dbh->getProductsByCategory($_GET['categoria']);
+    $templateParams["categoria"] = $_GET["categoria"];
 }
 if (isUserLoggedIn()) {
     if ($dbh->isSeller($_SESSION['email']))

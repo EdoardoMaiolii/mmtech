@@ -1,6 +1,5 @@
 <section>
-  <h1 class="bg-light">DATI PERSONALI</h1>
-  <div id="blackline"></div>
+<p class="maxima bg-light"></p>
   <div id="containerMid" class="bg-light">
     <p id="ppar"> La tua email:
     <p>

@@ -3,8 +3,8 @@
 </div>
 <div class="navbar-brand mx-auto w-75">
     <form id="searchBar-form" action="search.php" method="GET">
-        <input class="w-75" type="text" id="searchbar" name="searchbar" placeholder="Search.." />
-        <input type ="submit" id="searchBtn" name="searchBtn" hidden="hidden"/>
+        <input class="w-75" type="text" id="searchbar" name="searchbar" placeholder="Search.."<?php echo isset($templateParams['search']) && !empty($templateParams['search']) ? "value=".$templateParams['search']." " : " " ?> />
+        <input type ="submit" id="searchBtn" hidden="hidden"/>
     </form>
 </div>
 <div class="navbar-nav ml-auto">

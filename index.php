@@ -1,6 +1,10 @@
 <?php
 require_once("bootstrap.php");
-
+if (isset($_POST['quantita'])) {
+    if ($_POST['quantita'] <= $dbh->getProductQuantity((int)$_POST['idprodotto'])) {
+        $dbh->addItemToCart($_SESSION['email'], (int)$_POST['idprodotto'], $_POST['quantita']);
+    }
+}
 if (isUserLoggedIn()) {
     $templateParams["title"] = "Home -" . $_SESSION['nome'];
     $templateParams["content"] = "home.php";

@@ -1,5 +1,5 @@
 <section>
-    <h1>Risultato ricerca</h1>
+    <h1 class="bg-light"><?php echo isset($templateParams["categoria"])?$templateParams["categoria"]:"Risultato ricerca" ?></h1>
     <div id="blackline"></div>
     <?php
     if (!isset($templateParams['searchproducts']) || empty($templateParams['searchproducts'])) : ?>
