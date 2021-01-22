@@ -1,6 +1,6 @@
 <section>
     <link rel="stylesheet" type="text/css" href="./css/profile-settings.css" />
-    <h1 class="bg-light">Login</h1>
+    <h1 class="bg-light">LOGIN</h1>
     <div id="blackline"></div>
     <?php
     if (isset($templateParams['newPass']) && !$templateParams['newPass']) :
