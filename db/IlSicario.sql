@@ -25,7 +25,7 @@ create table Categoria (
 create table Prodotto (
      IdProdotto INT PRIMARY KEY AUTO_INCREMENT,
      NomeCategoria VARCHAR(50) NOT NULL,
-     Nome VARCHAR(40) NOT NULL,
+     Nome VARCHAR(60) NOT NULL,
      Costo DOUBLE NOT NULL CHECK (Costo>=0),
      CostoSpedizione DOUBLE NOT NULL CHECK (CostoSpedizione>=0),
      NomeImmagine VARCHAR(30),
