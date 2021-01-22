@@ -6,7 +6,7 @@ if (isset($_POST['quantita'])) {
     }
 }
 if (isUserLoggedIn()) {
-    $templateParams["title"] = "Home -" . $_SESSION['nome'];
+    $templateParams["title"] = "Home - " . $_SESSION['nome'];
     $templateParams["content"] = "home.php";
     if ($dbh->isSeller($_SESSION['email']))
         $templateParams["header"] = "headerSeller.php";

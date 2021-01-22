@@ -13,3 +13,7 @@ function switchModify(){
         document.getElementById('btn').disabled=true;
     }
 }
+
+function newPassPage(){
+    document.getElementById('newPassBtn').click();
+}

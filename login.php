@@ -1,6 +1,6 @@
 <?php
 require_once 'bootstrap.php';
-if (isset($_GET['newPass'])) {
+if (isset($_POST['newPass'])) {
     $templateParams["newPass"] = false;
 }
 if (isset($_POST['newemail'])) {
@@ -17,12 +17,8 @@ if (isset($_POST['newemail'])) {
     }
 }
 if (isset($_POST['newpassword'])){
-    var_dump($_POST['codice']);
-    var_dump($_SESSION['NewPassCode']);
     if ($_POST['codice']==$_SESSION['NewPassCode']){
-        var_dump($_POST['email']);
-        var_dump($_POST['newpassword']);
-        var_dump($dbh->changePass($_POST['email'],$_POST['newpassword']));    
+        $dbh->changePass($_POST['email'],$_POST['newpassword']);    
         $_POST["password"]=$_POST['newpassword'];
     }else {
         $templateParams["errorelogin"] = "Errore! Codice Errato!";

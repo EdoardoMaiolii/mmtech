@@ -23,18 +23,18 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["nome"])
         }
     } else {
         //Register fallito
-        $templateParams["erroreregster"] = "Errore! Email gia' in uso!";
+        $templateParams["erroreregster"] = "Errore! Email gi&agrave; in uso!";
     }
 }
 
 if (isUserLoggedIn()) {
     unset($templateParams["errorelogin"]);
     unset($templateParams["erroreregster"]);
-    require('index.php');
+    require_once('index.php');
 } else {
     $templateParams["header"] = "headerUnlogged.php";
     $templateParams["title"] = "Register";
     $templateParams["content"] = "register-form.php";
+    require 'template/base.php';
 }
 
-require 'template/base.php';

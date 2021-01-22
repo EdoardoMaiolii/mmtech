@@ -8,7 +8,7 @@
       <fieldset>
         <div id="row" class="form-group">
           <label id="info" class="col-form-label" for="profile-nome">Nome: </label>
-          <input class="form-control" type="text" name="profile-nome" id="profile-nome" <?php echo $_SESSION["nome"] != NULL ? "value=" . $_SESSION["nome"] : ""; ?> disabled />
+          <input class="form-control" type="text" name="profile-nome" id="profile-nome" <?php echo $_SESSION["nome"] != NULL ? "value=" . $_SESSION["nome"] : ""; ?> disabled required/>
         </div>
         <p id="ppar"> Il tuo metodo di pagamento:
         <p>

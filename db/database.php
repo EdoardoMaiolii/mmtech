@@ -65,8 +65,8 @@ class DatabaseHelper
 		$stmt = $this->db->prepare("INSERT INTO utente VALUES (?,?,?,?,?,?,false)");
 		$stmt->bind_param("sssssi", $email, $nome, $hashedPassword, $cardNumber, $expDate, $cvv);
 		$stmt->execute();
-		$this->addNotification($email, "[" . $email . "] ha creato con successo un account su MMtech.com, COMPLIMENTI ! ");
-		$this->sendMail($email, "Registrazione effettuata MMtech", "[" . $email . "] ha creato con successo un account su MMtech.com, COMPLIMENTI ! ");
+		$this->addNotification($email, "Ciao ".$nome.", hai creato con successo un account su MMtech.com, COMPLIMENTI ! ");
+		$this->sendMail($email, "Registrazione effettuata MMtech", "Ciao ".$nome.", hai creato con successo un account su MMtech.com, COMPLIMENTI ! ");
 		return true;
 	}
 
@@ -191,9 +191,9 @@ class DatabaseHelper
 				$stmt = $this->db->prepare("DELETE FROM prodottocarrello WHERE email = ?");
 				$stmt->bind_param("s", $email);
 				$stmt->execute();
-				$this->addNotification($email, "[" . $email . "] ha effettuato con successo l'ordine con ID [" . $idOrdine . "] con il metodo di pagamento da lei inserito.");
-				$this->addNotification($admin[0]['email'], "[" . $email . "] ha effettuato con successo l'ordine con ID [" . $idOrdine . "]");
-				$this->sendMail($email, "Ordine effettuato", "[" . $email . "] ha effettuato con successo l'ordine con ID [" . $idOrdine . "] con il metodo di pagamento da lei inserito.");
+				$this->addNotification($email, "Hai effettuato con successo l'ordine con ID [" . $idOrdine . "] con il metodo di pagamento da lei inserito.");
+				$this->addNotification($admin[0]['email'], "Hai effettuato con successo l'ordine con ID [" . $idOrdine . "]");
+				$this->sendMail($email, "Ordine effettuato", "Hai effettuato con successo l'ordine con ID [" . $idOrdine . "] con il metodo di pagamento da lei inserito.");
 				return true;
 			}
 		}

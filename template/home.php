@@ -1,7 +1,7 @@
 <section id="MostViewed">
     <h1 class="bg-light">HOME</h1>
     <div id="blackline"></div>
-    <h1 class="classifica">Prodotti piu' visualizzati</h1>
+    <h1 class="classifica">Prodotti pi&ugrave; visualizzati</h1>
     <div class="row no-gutters">
         <?php foreach ($templateParams["mostviewed"] as $product) : ?>
             <div class="product">
@@ -16,6 +16,7 @@
     <?php if (isset($templateParams["chrono"])) : ?>
         <h1 class="classifica">Prodotti visualizati di recente</h1>
         <div class="row no-gutters">
+        <?php echo empty($templateParams["chrono"])?"<p style='text-align: center; width: 100%;' id='ppar'>Non &egrave; stato ancora visualizzato alcun prodotto</p>":" " ?>
             <?php foreach ($templateParams["chrono"] as $product) : ?>
                 <div class="product">
                     <figure class="gradient-border" id="box">
@@ -29,7 +30,7 @@
 </section>
 <section id="BestSeller">
     <?php if (isset($templateParams["bestseller"])) : ?>
-        <h1 class="classifica">Prodotti piu' venduti</h1>
+        <h1 class="classifica">Prodotti pi&ugrave; venduti</h1>
         <div class="row no-gutters">
             <?php foreach ($templateParams["bestseller"] as $product) : ?>
                 <div class="product">
@@ -44,7 +45,7 @@
 </section>
 <section id="lessAvailable">
     <?php if (isset($templateParams["lessavailable"])) : ?>
-        <h1 class="classifica">Prodotti con scarsa disponibilita'</h1>
+        <h1 class="classifica">Prodotti con scarsa disponibilit&agrave;</h1>
         <div class="row no-gutters">
             <?php foreach ($templateParams["lessavailable"] as $product) : ?>
                 <div class="product">
