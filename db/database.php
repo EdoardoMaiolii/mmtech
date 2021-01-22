@@ -350,21 +350,13 @@ class DatabaseHelper
 		$stmt = $this->db->prepare("UPDATE Prodotto SET nomecategoria=?,nome=?,costo=?,costospedizione=?,nomeimmagine=?,descrizione=?,quantitadisponibile=? WHERE idprodotto = ?");
 		$stmt->bind_param("ssddssii", $newNomeCategoria, $newNome, $newCosto, $newCostoSpedizione, $newNomeImmagine, $newDescrizione, $newQuantitaDisponibile, $productid);
 		$oldProd = $this->getProductById($productid)[0];
-		echo ('sono fuori dal tunnel');
-		var_dump($oldProd['costo']);
-		var_dump($newCosto);
-
 		if ($oldProd['costo'] != $newCosto) {
 			$stmt2 = $this->db->prepare("SELECT DISTINCT u.email FROM utente u , prodottocarrello pc WHERE pc.idprodotto=? AND u.email = pc.email ");
 			$stmt2->bind_param("i", $productid);
 			$stmt2->execute();
 			$result1 = $stmt2->get_result();
 			$emails = $result1->fetch_all(MYSQLI_ASSOC);
-			echo ('sono fuori');
-			var_dump($emails);
 			if (!empty($emails)) {
-				echo ('sono dentro');
-				var_dump($emails);
 				for ($i = 0; $i < count($emails); $i++) {
 					$this->addNotification($emails[$i]['email'], "La informiamo che e' stato appena modificato il prezzo del prodotto : " . $newNome . " , il prezzo e' cambiato da " . $oldProd['costo'] . "€ a " . $newCosto . "€");
 					$this->sendMail($emails[$i]['email'], "Modifica costo", "La informiamo che e' stato appena modificato il prezzo del prodotto ID: " . $newNome . " , il prezzo e' cambiato da " . $oldProd['costo'] . "€ a " . $newCosto . "€");
