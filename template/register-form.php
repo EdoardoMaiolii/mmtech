@@ -23,13 +23,13 @@
                     </div>
                     <p id="ppar"> Metodo di pagamento: </p>
                     <div id="row" class="form-group">
-                        <label id="info" class="col-form-label" for="numerocarta">Numero Carta: </label><input class="form-control" type="text" id="numerocarta" name="numerocarta" maxlength="16" />
+                        <label id="info" class="col-form-label" for="numerocarta">Numero Carta: </label><input class="form-control" type="text" pattern="\d*" id="numerocarta" name="numerocarta" minlength="16" maxlength="16" />
                     </div>
                     <div id="minirow" class="form-group">
-                        <label id="info" class="col-form-label" for="datascadenza">Data scadenza: </label><input class="form-control" type="month" id="datascadenza" name="datascadenza" />
+                        <label id="info" class="col-form-label" for="datascadenza">Data scadenza: </label><input class="form-control" type="month" id="datascadenza" name="datascadenza" min="2021-01" />
                     </div>
                     <div id="minirow" class="form-group">
-                        <label id="info" class="col-form-label" for="cvvcarta">Cvv: </label><input class="form-control" type="text" id="cvvcarta" name="cvvcarta" maxlength="3" />
+                        <label id="info" class="col-form-label" for="cvvcarta">Cvv: </label><input class="form-control" type="text" id="cvvcarta" name="cvvcarta" pattern="\d*" minlength="3" maxlength="3" />
                     </div>
                     <div id="row" class="form-group">
                         <input class="btn btn-primary" type="submit" name="submit" value="Registrati" />
