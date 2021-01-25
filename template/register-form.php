@@ -1,9 +1,9 @@
-<section class="bg-light">
+<section>
     <link rel="stylesheet" type="text/css" href="./css/profile-settings.css" />
-    <h1>Registrati</h1>
+    <h1 class="bg-light">Registrati</h1>
     <div id="blackline"></div>
     <p id="ppar"> Compila il seguente form per iscriverti su MMTech </p>
-    <div id="containerMid">
+    <div id="containerMid" class="bg-light">
         <?php
         if (isset($templateParams["erroreregster"])) : ?>
             <p id="error"><strong>

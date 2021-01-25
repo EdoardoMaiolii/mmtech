@@ -185,14 +185,14 @@ class DatabaseHelper
 					$stmt->bind_param("ii", $newQuantity, $product['idprodotto']);
 					$stmt->execute();
 					if ($newQuantity == 0)
-						$this->addNotification($admin[0]['email'], "Caro [" . $admin[0]['email'] . "] La informamo che un recente ordine ha provocato una inaspettata mancanza di fornitura dell articolo con ID [" . $product['idprodotto'] . "]");
+						$this->addNotification($admin[0]['email'], "La informamo che un recente ordine ha provocato una inaspettata mancanza di fornitura dell articolo con ID [" . $product['idprodotto'] . "]");
 				}
 				// elimino i prodotti acquistati dal carrello
 				$stmt = $this->db->prepare("DELETE FROM prodottocarrello WHERE email = ?");
 				$stmt->bind_param("s", $email);
 				$stmt->execute();
-				$this->addNotification($email, "Hai effettuato con successo l'ordine con ID [" . $idOrdine . "] con il metodo di pagamento da lei inserito.");
-				$this->addNotification($admin[0]['email'], "Hai effettuato con successo l'ordine con ID [" . $idOrdine . "]");
+				$this->addNotification($email,"Hai effettuato con successo l'ordine con ID [" . $idOrdine . "] con il metodo di pagamento da lei inserito.");
+				$this->addNotification($admin[0]['email'], "[".$email."] Hai effettuato con successo l'ordine con ID [" . $idOrdine . "]");
 				$this->sendMail($email, "Ordine effettuato", "Hai effettuato con successo l'ordine con ID [" . $idOrdine . "] con il metodo di pagamento da lei inserito.");
 				return true;
 			}
