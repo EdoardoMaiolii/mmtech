@@ -2,8 +2,9 @@
 require_once("bootstrap.php");
 if ($dbh->isSeller($_SESSION['email'])){
     $oldProduct = $dbh->getProductById($_POST['idprodotto'])[0];
-    if ($_FILES["imgProdotto"]['size']>0)
+    if ($_FILES["imgProdotto"]['size']>0) {
         list($result, $msg) = uploadImage(UPLOAD_DIR, $_FILES["imgProdotto"]);
+    }
     else
         $msg = $oldProduct['nomeimmagine'];
             $dbh->updateProduct($_POST['idprodotto'],
