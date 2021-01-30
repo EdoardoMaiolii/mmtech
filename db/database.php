@@ -192,7 +192,7 @@ class DatabaseHelper
 				$stmt->bind_param("s", $email);
 				$stmt->execute();
 				$this->addNotification($email,"Hai effettuato con successo l'ordine con ID [" . $idOrdine . "] con il metodo di pagamento da lei inserito.");
-				$this->addNotification($admin[0]['email'], "[".$email."] Hai effettuato con successo l'ordine con ID [" . $idOrdine . "]");
+				$this->addNotification($admin[0]['email'], "[".$email."] Ha effettuato con successo l'ordine con ID [" . $idOrdine . "]");
 				$this->sendMail($email, "Ordine effettuato", "Hai effettuato con successo l'ordine con ID [" . $idOrdine . "] con il metodo di pagamento da lei inserito.");
 				return true;
 			}
